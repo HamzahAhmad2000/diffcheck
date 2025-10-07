@@ -1,0 +1,567 @@
+{% extends "layout.html" %}
+{% block title %}Account - {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account.css') }}">
+<link rel="stylesheet" href="https://cdn.tutorialjinni.com/intl-tel-input/17.0.19/css/intlTelInput.css"/>
+<script src="https://cdn.tutorialjinni.com/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.1/js/countrySelect.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/country-select-js/2.0.1/css/countrySelect.min.css" />
+
+<!-- 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" /> -->
+
+<!-- <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token() }}"> -->
+
+<div class="loading_container">
+    <div class="loading_loader"></div>
+</div>
+
+<div class="main_container container_width">
+    <div class="extra_info">
+        <img src="{{ url_for('static', filename='assets/account_bg.png') }}" alt="">
+        <div class="extra_info_content">
+            <div class="extra_info_one">
+                <img src="{{ url_for('static', filename='assets/navlogo.png') }}" alt="eclipseer logo">
+                <h3 class="primaryfont">Welcome Back</h3>
+                <p>Eclipseer bridges the gap between businesses seeking actionable insights and participants looking to earn rewards. With cutting-edge AI, we make the process seamless, impactful, and <span class="highlighted">rewarding for all parties.</span></p>
+            </div>
+            <div class="extra_info_two">
+                <img src="{{ url_for('static', filename='assets/navlogo.png') }}" alt="eclipseer logo">
+                <h3 class="primaryfont">Why Us?</h3>
+                <!-- Button Container -->
+                <div class="eclipseer_unique_button_container">
+                    <button class="primaryfont eclipseer_unique_tab_button eclipseer_active" onclick="eclipseerShowContent(1)">1</button>
+                    <button class="primaryfont eclipseer_unique_tab_button" onclick="eclipseerShowContent(2)">2</button>
+                    <button class="primaryfont eclipseer_unique_tab_button" onclick="eclipseerShowContent(3)">3</button>
+                </div>
+
+                <!-- Content Sections -->
+                <div class="eclipseer_unique_content_section">
+                    <div id="eclipseer_content_1" class="eclipseer_unique_content_item eclipseer_active">
+                        Eclipseer bridges the gap between businesses seeking actionable insights and participants looking to earn rewards.
+                    </div>
+                    <div id="eclipseer_content_2" class="eclipseer_unique_content_item">
+                        With cutting-edge AI, we make the process seamless and impactful.
+                    </div>
+                    <div id="eclipseer_content_3" class="eclipseer_unique_content_item">
+                        Rewarding for all parties involved with meaningful participation.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form_container">
+        <h2 class="form_heading primaryfont">Login</h2>
+        <!-- <p class="form_subheading">Please enter your details</p> -->
+        
+        <div id="login_message"></div>
+        <form id="loginForm">
+            <div class="input_container">
+                <!-- <span>Email</span> -->
+                <input class="primaryfont" type="email" id="loginEmail" name="email" placeholder="Email Address*" autocomplete="email" required>
+            </div>
+
+            <div class="password_container">
+                <!-- <span>Password</span> -->
+                <div>
+                    <input class="primaryfont" type="password" id="loginPassword" name="password" placeholder="Password*" autocomplete="current-password" required>
+                    <button type="button" id="toggleLoginPassword"><i class="ri-eye-fill ri-xl"></i></button>
+                </div>
+            </div>
+
+            <div class="multi_option_container">
+                <div class="remember_me_contanier">
+                    <input type="checkbox" id="loginRememberMe" name="remember_me">
+                    <span>Remember Me</span>
+                </div>
+                <div class="form_button_type_1">
+                    <button type="button" id="forgot_password_btn">Forgot Password?</button>
+                </div>
+            </div>
+
+            
+            <button type="submit" class="form_button_type_2 primaryfont">Login</button>
+            
+            <p class="question_line">Don't have an account? <span id="register_form_shower">Sign Up</span></p>
+
+            <div class="divider">
+                <hr>
+                <p class="primaryfont">OR</p>
+                <hr>
+            </div>
+            
+            <button type="button" class="googleAuthBtn">
+                <img src="{{ url_for('static', filename='assets/google_icon.png') }}" alt="google_icon">
+                <p class="primaryfont">Login with Google</p>
+            </button>
+        </form>
+
+        <div id="restore_account_message"></div>
+        <form id="restoreAccountForm">
+            <div class="restore_back_button_container">
+                <button type="button"><i class="ri-arrow-left-s-line ri-xl"></i></button>
+            </div>
+            <button type="button" id="restore_account_button" class="form_button_type_2">Restore Account</button>
+            <button type="button" id="confirm_deletion_button" class="form_button_type_3">
+                <span>Confirm Deletion</span>
+            </button>
+        </form>
+        
+        <div id="two_factor_auth_message"></div>
+        <form id="twoFactorAuthForm">
+            <div class="two_factor_auth_back_button_container">
+                <button type="button"><i class="ri-arrow-left-s-line ri-xl"></i></button>
+            </div>
+            <div class="input_container">
+                <!-- <span>Enter your code</span> -->
+                <input type="text" id="twoFactorAuthCode" name="two_factor_auth_code" placeholder="Enter 2 Factor Authentication Code*" class="primaryfont" required>
+            </div>
+            <button type="submit" class="form_button_type_2 primaryfont">Verify</button>
+        </form>
+
+        <div id="register_message"></div>
+        <form id="registerForm">
+            <div class="input_container">
+                <!-- <span>Name</span> -->
+                <input class="primaryfont" type="text" id="registerName" name="name" placeholder="Name*" required>
+            </div>
+
+            <div class="input_container">
+                <!-- <span>Email</span> -->
+                <input class="primaryfont" type="email" id="registerEmail" name="email" placeholder="Email*" autocomplete="username" required>
+            </div>
+
+            <div class="password_container">
+                <!-- <span>Password</span> -->
+                <div>
+                    <input class="primaryfont" type="password" id="registerPassword" name="password" placeholder="Password*" autocomplete="new-password" required>
+                    <button type="button" id="toggleRegisterPassword"><i class="ri-eye-fill ri-xl"></i></button>
+                </div>
+            </div>
+
+            <div class="password_container">
+                <!-- <span>Confirm Password</span> -->
+                <div>
+                    <input class="primaryfont" type="password" id="registerConfirmPassword" name="confirm_password" placeholder="Confirm Password*" autocomplete="new-password" required>
+                    <button type="button" id="toggleRegisterConfirmPassword"><i class="ri-eye-fill ri-xl"></i></button>
+                </div>
+            </div>
+
+            <div class="multi_option_container">
+                <div class="register_terms_and_condition_container">
+                    <input type="checkbox" id="register_terms_and_condition" name="terms_and_conditions">
+                    <span class="primaryfont">Term & Conditions</span>
+                </div>
+            </div>
+
+            <div id="customUploadButton" class="custom-file-upload">
+                <div class="custom-file-upload-text">
+                    <span>Drag file here to upload.</span>
+                    <p>Alternately you can select file by</p>
+                    <p>Clicking here</p>
+                </div>
+                <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" style="display: none;">
+            </div>
+            <div class="file_info">
+                <span id="selectedFileName"></span>
+                <button id="file_remove"><i class="ri-delete-bin-5-line ri-xl"></i></button>
+            </div>
+
+            <input type="file" id="registerProfilePicture" name="profile_picture" style="display: none;">
+            
+            <button type="submit" class="form_button_type_2 primaryfont">Register</button>
+
+            <p class="question_line">Already have an account? <span id="login_form_shower">Login</span></p>
+
+            <div class="divider">
+                <hr>
+                <p class="primaryfont">OR</p>
+                <hr>
+            </div>
+
+            <button type="button" class="googleAuthBtn">
+                <img src="{{ url_for('static', filename='assets/google_icon.png') }}" alt="google_icon">
+                <p class="primaryfont">Register with Google</p>
+            </button>
+        </form>
+
+        <div id="otp_message"></div>
+        <form id="otpForm">
+            <div class="otp_back_button_container">
+                <button type="button"><i class="ri-arrow-left-line"></i></button>
+            </div>
+            <div class="otp_container">
+                <div id="all_otp_inputs">
+                    <input type="text" id="otpCode1" class="otp_code primaryfont" name="otp" maxlength="1" required>
+                    <input type="text" id="otpCode2" class="otp_code primaryfont" name="otp" maxlength="1" required>
+                    <input type="text" id="otpCode3" class="otp_code primaryfont" name="otp" maxlength="1" required>
+                    <input type="text" id="otpCode4" class="otp_code primaryfont" name="otp" maxlength="1" required>
+                    <input type="text" id="otpCode5" class="otp_code primaryfont" name="otp" maxlength="1" required>
+                    <input type="text" id="otpCode6" class="otp_code primaryfont" name="otp" maxlength="1" required>
+                </div>
+            </div>
+            <button type="submit" class="form_button_type_2 primaryfont">Verify OTP</button>
+            <button type="button" class="form_button_type_2 primaryfont" id="resend-otp">Resend OTP</button>
+        </form>
+
+        <div id="complete_registration_message"></div>
+        <form id="completeRegistrationForm">
+            <div class="input_container">
+                <div class="date-container">
+                    <div class="custom-date primaryfont" id="customDate">Date of Birth*</div>
+                    <input type="date" id="dateInput" required>
+                </div>
+            </div>
+
+            <!-- Country Dropdown HTML -->
+            <div class="input_container">
+                <div class="custom-dropdown-country">
+                <div class="dropdown-selected-country" id="countrySelect">
+                    <p class="primaryfont">Select a Country*</p>
+                    <i class="ri-arrow-down-s-line" id="countryDropdownArrow"></i>
+                </div>
+                <div class="dropdown-options-country" id="countryDropdownOptions">
+                    <!-- Africa -->
+                    <div class="dropdown-group primaryfont">Africa</div>
+                    <div class="dropdown-option-country primaryfont" data-value="DZ">Algeria</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AO">Angola</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BJ">Benin</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BW">Botswana</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BF">Burkina Faso</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BI">Burundi</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CM">Cameroon</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CV">Cape Verde</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CF">Central African Republic</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TD">Chad</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KM">Comoros</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CG">Congo - Brazzaville</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CD">Congo - Kinshasa</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CI">Côte d’Ivoire</div>
+                    <div class="dropdown-option-country primaryfont" data-value="DJ">Djibouti</div>
+                    <div class="dropdown-option-country primaryfont" data-value="EG">Egypt</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GQ">Equatorial Guinea</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ER">Eritrea</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ET">Ethiopia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GA">Gabon</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GM">Gambia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GH">Ghana</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GN">Guinea</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GW">Guinea-Bissau</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KE">Kenya</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LS">Lesotho</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LR">Liberia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LY">Libya</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MG">Madagascar</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MW">Malawi</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ML">Mali</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MR">Mauritania</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MU">Mauritius</div>
+                    <div class="dropdown-option-country primaryfont" data-value="YT">Mayotte</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MA">Morocco</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MZ">Mozambique</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NA">Namibia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NE">Niger</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NG">Nigeria</div>
+                    <div class="dropdown-option-country primaryfont" data-value="RW">Rwanda</div>
+                    <div class="dropdown-option-country primaryfont" data-value="RE">Réunion</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SH">Saint Helena</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SN">Senegal</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SC">Seychelles</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SL">Sierra Leone</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SO">Somalia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ZA">South Africa</div>
+                    <!-- Added missing country -->
+                    <div class="dropdown-option-country primaryfont" data-value="SS">South Sudan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SD">Sudan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SZ">Swaziland</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ST">São Tomé and Príncipe</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TZ">Tanzania</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TG">Togo</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TN">Tunisia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="UG">Uganda</div>
+                    <div class="dropdown-option-country primaryfont" data-value="EH">Western Sahara</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ZM">Zambia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ZW">Zimbabwe</div>
+
+                    <!-- Americas -->
+                    <div class="dropdown-group primaryfont">Americas</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AI">Anguilla</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AG">Antigua and Barbuda</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AR">Argentina</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AW">Aruba</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BS">Bahamas</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BB">Barbados</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BZ">Belize</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BM">Bermuda</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BO">Bolivia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BR">Brazil</div>
+                    <div class="dropdown-option-country primaryfont" data-value="VG">British Virgin Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CA">Canada</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KY">Cayman Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CL">Chile</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CO">Colombia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CR">Costa Rica</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CU">Cuba</div>
+                    <div class="dropdown-option-country primaryfont" data-value="DM">Dominica</div>
+                    <div class="dropdown-option-country primaryfont" data-value="DO">Dominican Republic</div>
+                    <div class="dropdown-option-country primaryfont" data-value="EC">Ecuador</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SV">El Salvador</div>
+                    <div class="dropdown-option-country primaryfont" data-value="FK">Falkland Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GF">French Guiana</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GL">Greenland</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GD">Grenada</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GP">Guadeloupe</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GT">Guatemala</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GY">Guyana</div>
+                    <div class="dropdown-option-country primaryfont" data-value="HT">Haiti</div>
+                    <div class="dropdown-option-country primaryfont" data-value="HN">Honduras</div>
+                    <div class="dropdown-option-country primaryfont" data-value="JM">Jamaica</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MQ">Martinique</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MX">Mexico</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MS">Montserrat</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AN">Netherlands Antilles</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NI">Nicaragua</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PA">Panama</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PY">Paraguay</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PE">Peru</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PR">Puerto Rico</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BL">Saint Barthélemy</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KN">Saint Kitts and Nevis</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LC">Saint Lucia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MF">Saint Martin</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PM">Saint Pierre and Miquelon</div>
+                    <div class="dropdown-option-country primaryfont" data-value="VC">Saint Vincent and the Grenadines</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SR">Suriname</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TT">Trinidad and Tobago</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TC">Turks and Caicos Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="VI">U.S. Virgin Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="US">United States</div>
+                    <div class="dropdown-option-country primaryfont" data-value="UY">Uruguay</div>
+                    <div class="dropdown-option-country primaryfont" data-value="VE">Venezuela</div>
+
+                    <!-- Asia -->
+                    <div class="dropdown-group primaryfont">Asia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AF">Afghanistan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AM">Armenia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AZ">Azerbaijan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BH">Bahrain</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BD">Bangladesh</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BT">Bhutan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BN">Brunei</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KH">Cambodia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CN">China</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GE">Georgia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="HK">Hong Kong SAR China</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IN">India</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ID">Indonesia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IR">Iran</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IQ">Iraq</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IL">Israel</div>
+                    <div class="dropdown-option-country primaryfont" data-value="JP">Japan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="JO">Jordan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KZ">Kazakhstan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KW">Kuwait</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KG">Kyrgyzstan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LA">Laos</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LB">Lebanon</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MO">Macau SAR China</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MY">Malaysia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MV">Maldives</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MN">Mongolia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MM">Myanmar [Burma]</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NP">Nepal</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NT">Neutral Zone</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KP">North Korea</div>
+                    <div class="dropdown-option-country primaryfont" data-value="OM">Oman</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PK">Pakistan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PS">Palestinian Territories</div>
+                    <div class="dropdown-option-country primaryfont" data-value="YD">People's Democratic Republic of Yemen</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PH">Philippines</div>
+                    <div class="dropdown-option-country primaryfont" data-value="QA">Qatar</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SA">Saudi Arabia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SG">Singapore</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KR">South Korea</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LK">Sri Lanka</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SY">Syria</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TW">Taiwan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TJ">Tajikistan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TH">Thailand</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TL">Timor-Leste</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TR">Turkey</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TM">Turkmenistan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AE">United Arab Emirates</div>
+                    <div class="dropdown-option-country primaryfont" data-value="UZ">Uzbekistan</div>
+                    <div class="dropdown-option-country primaryfont" data-value="VN">Vietnam</div>
+                    <div class="dropdown-option-country primaryfont" data-value="YE">Yemen</div>
+
+                    <!-- Europe -->
+                    <div class="dropdown-group primaryfont">Europe</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AL">Albania</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AD">Andorra</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AT">Austria</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BY">Belarus</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BE">Belgium</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BA">Bosnia and Herzegovina</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BG">Bulgaria</div>
+                    <div class="dropdown-option-country primaryfont" data-value="HR">Croatia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CY">Cyprus</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CZ">Czech Republic</div>
+                    <div class="dropdown-option-country primaryfont" data-value="DK">Denmark</div>
+                    <div class="dropdown-option-country primaryfont" data-value="DD">East Germany</div>
+                    <div class="dropdown-option-country primaryfont" data-value="EE">Estonia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="FO">Faroe Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="FI">Finland</div>
+                    <div class="dropdown-option-country primaryfont" data-value="FR">France</div>
+                    <div class="dropdown-option-country primaryfont" data-value="DE">Germany</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GI">Gibraltar</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GR">Greece</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GG">Guernsey</div>
+                    <div class="dropdown-option-country primaryfont" data-value="HU">Hungary</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IS">Iceland</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IE">Ireland</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IM">Isle of Man</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IT">Italy</div>
+                    <div class="dropdown-option-country primaryfont" data-value="JE">Jersey</div>
+                    <!-- Added missing Kosovo -->
+                    <div class="dropdown-option-country primaryfont" data-value="XK">Kosovo</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LV">Latvia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LI">Liechtenstein</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LT">Lithuania</div>
+                    <div class="dropdown-option-country primaryfont" data-value="LU">Luxembourg</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MK">Macedonia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MT">Malta</div>
+                    <div class="dropdown-option-country primaryfont" data-value="FX">Metropolitan France</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MD">Moldova</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MC">Monaco</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ME">Montenegro</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NL">Netherlands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NO">Norway</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PL">Poland</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PT">Portugal</div>
+                    <div class="dropdown-option-country primaryfont" data-value="RO">Romania</div>
+                    <div class="dropdown-option-country primaryfont" data-value="RU">Russia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SM">San Marino</div>
+                    <div class="dropdown-option-country primaryfont" data-value="RS">Serbia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CS">Serbia and Montenegro</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SK">Slovakia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SI">Slovenia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="ES">Spain</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SJ">Svalbard and Jan Mayen</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SE">Sweden</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CH">Switzerland</div>
+                    <div class="dropdown-option-country primaryfont" data-value="UA">Ukraine</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SU">Union of Soviet Socialist Republics</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GB">United Kingdom</div>
+                    <div class="dropdown-option-country primaryfont" data-value="VA">Vatican City</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AX">Åland Islands</div>
+
+                    <!-- Oceania -->
+                    <div class="dropdown-group primaryfont">Oceania</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AS">American Samoa</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AQ">Antarctica</div>
+                    <div class="dropdown-option-country primaryfont" data-value="AU">Australia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="BV">Bouvet Island</div>
+                    <div class="dropdown-option-country primaryfont" data-value="IO">British Indian Ocean Territory</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CX">Christmas Island</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CC">Cocos [Keeling] Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="CK">Cook Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="FJ">Fiji</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PF">French Polynesia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TF">French Southern Territories</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GU">Guam</div>
+                    <div class="dropdown-option-country primaryfont" data-value="HM">Heard Island and McDonald Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="KI">Kiribati</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MH">Marshall Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="FM">Micronesia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NR">Nauru</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NC">New Caledonia</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NZ">New Zealand</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NU">Niue</div>
+                    <div class="dropdown-option-country primaryfont" data-value="NF">Norfolk Island</div>
+                    <div class="dropdown-option-country primaryfont" data-value="MP">Northern Mariana Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PW">Palau</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PG">Papua New Guinea</div>
+                    <div class="dropdown-option-country primaryfont" data-value="PN">Pitcairn Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="WS">Samoa</div>
+                    <div class="dropdown-option-country primaryfont" data-value="SB">Solomon Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="GS">South Georgia and the South Sandwich Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TK">Tokelau</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TO">Tonga</div>
+                    <div class="dropdown-option-country primaryfont" data-value="TV">Tuvalu</div>
+                    <div class="dropdown-option-country primaryfont" data-value="UM">U.S. Minor Outlying Islands</div>
+                    <div class="dropdown-option-country primaryfont" data-value="VU">Vanuatu</div>
+                    <div class="dropdown-option-country primaryfont" data-value="WF">Wallis and Futuna</div>
+
+                </div>
+                </div>
+            </div>
+            <!-- Hidden input to store the selected country value -->
+            <input type="hidden" id="selectedCountryInput" name="selected_country" required>
+
+            <div class="input_container">
+                <h5 id="interests_heading">Interests</h5>
+                <div class="pill-container">
+                    <div class="pill-option primaryfont" data-value="option1">Option 1</div>
+                    <div class="pill-option primaryfont" data-value="option2">Option 2</div>
+                    <div class="pill-option primaryfont" data-value="option3">Option 3</div>
+                    <div class="pill-option primaryfont" data-value="option4">Option 4</div>
+                    <div class="pill-option primaryfont" data-value="option5">Option 5</div>
+                  </div>
+            </div>
+
+            <div class="input_container">
+                <!-- <span>Security Question</span> -->
+                <div class="custom-dropdown">
+                    <div class="dropdown-selected" id="selectedQuestion">
+                        <p class="primaryfont">Select a security question*</p>
+                        <i class="ri-arrow-down-s-line" id="dropdownArrow"></i>
+                    </div>
+                    <div class="dropdown-options" id="dropdownOptions">
+                        <div class="dropdown-option primaryfont" data-value="What is your mother's maiden name?">What is your mother's maiden name?</div>
+                        <div class="dropdown-option primaryfont" data-value="What was the name of your first pet?">What was the name of your first pet?</div>
+                        <div class="dropdown-option primaryfont" data-value="What was the name of your elementary school?">What was the name of your elementary school?</div>
+                        <div class="dropdown-option primaryfont" data-value="In what city were you born?">In what city were you born?</div>
+                        <div class="dropdown-option primaryfont" data-value="What is your favorite book?">What is your favorite book?</div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="securityQuestion" name="security_question" required>
+            
+            <div class="input_container">
+                <!-- <span>Security Answer</span> -->
+                <input type="text" id="securityAnswer" name="security_answer" placeholder="Answer*" required>
+            </div>
+
+
+            <div class="auth_input_container">
+                <input type="checkbox" id="twoFactorAuth" name="two_factor_auth">
+                <span>Enable 2 Factor Authentication</span>
+            </div>
+
+            <button type="submit" class="form_button_type_2">Register</button>
+        </form>
+
+        <div id="forgot_password_message"></div>
+        <form id="forgotPasswordForm">
+            <div class="forgot_password_button_container">
+                <button type="button"><i class="ri-arrow-left-line"></i></button>
+            </div>
+            <div class="input_container">
+                <!-- <span>Recovery email</span> -->
+                <input type="email" id="forgotPasswordEmail" name="email" placeholder="Email Address*" required>
+            </div>
+            <button type="submit" class="form_button_type_2 primaryfont">Reset Password</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/account.js') }}"></script>
+{% endblock %}

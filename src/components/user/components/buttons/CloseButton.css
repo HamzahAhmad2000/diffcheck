@@ -1,0 +1,238 @@
+/* CloseButton Component Styles */
+/* Extracted from modal and overlay close button styling */
+
+.close-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* Size variants */
+.close-button--small {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+
+.close-button--small i {
+  font-size: 0.8rem;
+}
+
+.close-button--medium {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+}
+
+.close-button--medium i {
+  font-size: 1rem;
+}
+
+.close-button--large {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+}
+
+.close-button--large i {
+  font-size: 1.2rem;
+}
+
+/* Primary variant (default) */
+.close-button--primary {
+  background: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+.close-button--primary:hover:not(.close-button--disabled) {
+  background: rgba(139, 92, 246, 0.2);
+  color: #a78bfa;
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: scale(1.05);
+}
+
+/* Secondary variant */
+.close-button--secondary {
+  background: rgba(107, 114, 128, 0.1);
+  color: #9ca3af;
+  border: 1px solid rgba(107, 114, 128, 0.2);
+}
+
+.close-button--secondary:hover:not(.close-button--disabled) {
+  background: rgba(107, 114, 128, 0.2);
+  color: #d1d5db;
+  border-color: rgba(107, 114, 128, 0.4);
+  transform: scale(1.05);
+}
+
+/* Ghost variant */
+.close-button--ghost {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  border: none;
+}
+
+.close-button--ghost:hover:not(.close-button--disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+/* Danger variant */
+.close-button--danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.close-button--danger:hover:not(.close-button--disabled) {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.4);
+  transform: scale(1.05);
+}
+
+/* Disabled state */
+.close-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Active state */
+.close-button:active:not(.close-button--disabled) {
+  transform: scale(0.95);
+}
+
+/* Focus state */
+.close-button:focus:not(.close-button--disabled) {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+}
+
+/* Icon styling */
+.close-button i {
+  transition: transform 0.2s ease;
+}
+
+.close-button:hover:not(.close-button--disabled) i {
+  transform: rotate(90deg);
+}
+
+/* Light theme variant */
+.close-button--light {
+  background: rgba(0, 0, 0, 0.05);
+  color: #374151;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.close-button--light:hover:not(.close-button--disabled) {
+  background: rgba(0, 0, 0, 0.1);
+  color: #111827;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+/* Dark theme variant */
+.close-button--dark {
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.close-button--dark:hover:not(.close-button--disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f9fafb;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Special positioning for modals */
+.close-button--modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.close-button--modal-header {
+  position: relative;
+  top: auto;
+  right: auto;
+  margin-left: auto;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .close-button--small {
+    width: 20px;
+    height: 20px;
+  }
+
+  .close-button--small i {
+    font-size: 0.7rem;
+  }
+
+  .close-button--medium {
+    width: 28px;
+    height: 28px;
+  }
+
+  .close-button--medium i {
+    font-size: 0.9rem;
+  }
+
+  .close-button--large {
+    width: 36px;
+    height: 36px;
+  }
+
+  .close-button--large i {
+    font-size: 1.1rem;
+  }
+
+  .close-button--modal {
+    top: 0.75rem;
+    right: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .close-button--small {
+    width: 18px;
+    height: 18px;
+  }
+
+  .close-button--small i {
+    font-size: 0.6rem;
+  }
+
+  .close-button--medium {
+    width: 24px;
+    height: 24px;
+  }
+
+  .close-button--medium i {
+    font-size: 0.8rem;
+  }
+
+  .close-button--large {
+    width: 32px;
+    height: 32px;
+  }
+
+  .close-button--large i {
+    font-size: 1rem;
+  }
+
+  .close-button--modal {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+}

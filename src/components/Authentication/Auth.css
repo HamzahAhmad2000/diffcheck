@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+/* You'll need to add Clash Display font to your project */
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Login container styles */
+.login-container {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+  gap: 2rem;
+}
+@media (max-width: 1250px) {
+  .login-container {
+    width: 100%;
+    padding: 2rem;
+  }
+  
+  .welcome-panel, .login-form-container {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+/* Welcome panel styles */
+.welcome-panel {
+    width: 600px;
+    height: 819px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: radial-gradient(circle at 50% 100%,  
+        black 40%,       /* Bottom (Deep Black) */
+        #aa2eff 82%,    /* Middle (Primary Color) */
+        #c28bff 100%    /* Top (Lighter Purple) */
+    );
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+
+.welcome-content {
+  text-align: center;
+  max-width: 450px;
+}
+
+.welcome-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+  
+.logo-icon {
+    width: 133px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.welcome-panel h1 {
+  margin-bottom: 1rem;
+  color: #FFF;
+
+font-family: "Clash Display", sans-serif;
+font-size: 40px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+
+.welcome-panel p {
+  width: 415px;
+  color: #FFF;
+
+text-align: center;
+font-family: Poppins;
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+
+.highlight {
+    color: #AA2EFF;
+}
+
+/* Login form styles */
+.login-form-container {
+  width: 549px;
+}
+
+.login-form-container h2 {
+  font-family: 'Clash Display', sans-serif;
+  margin-bottom: 1.5rem;
+  color: white;
+    height: 36px;
+    flex-shrink: 0;
+
+    color: #FFF;
+
+    font-family: "Clash Display";
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 1.2rem;
+  width: 100%;
+}
+
+.form-row .form-group {
+  width: calc(50% - 7.5px); /* Half width minus half the gap */
+  margin-bottom: 0;
+}
+
+.form-group:not(.form-row .form-group) {
+  color: #eaeaea !important;
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #FFF;
+  font-family: "Clash Display";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.form-group input::placeholder {
+  color: #FFF;
+  font-family: "Clash Display";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.form-select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #FFF;
+  font-family: "Clash Display";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+}
+
+.form-select option {
+  background-color: #000000;
+  color: #FFF;
+}
+
+.form-select:focus {
+  border-color: #aa2eff;
+  outline: none;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #aaa;
+}
+
+.forgot-password {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+  color: #aa2eff;
+}
+
+.login-button-form {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #aa2eff;
+    color: white;
+    border: none;
+    border-radius: 5px;  /* Slightly smoother corners */
+    cursor: pointer;
+    font-family: "Clash Display", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* 🔥 Smooth hover effect with passing light reflection */
+  .login-button-form::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -100%;
+    width: 200%;
+    height: 200%;
+    transform: skewX(-20deg);
+    transition: left 0.5s ease-in-out;
+  }
+  
+  .login-button-form:hover::before {
+    left: 100%;
+  }
+  
+  .login-button-form:hover {
+    background-color: #9a1aff;
+    transform: scale(1.02);
+  }
+  
+  /* Disabled state */
+  .login-button-form:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+
+.error-message {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff6b6b;
+  padding: 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+}
+
+.login-footer {
+  text-align: center;
+  color: #aaa;
+  font-size: 0.85rem;
+}
+
+.signup-link {
+  color: #aa2eff;
+  text-decoration: none;
+}
+
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #333;
+}
+
+.divider span {
+  padding: 0 10px;
+  color: #777;
+  font-size: 0.8rem;
+}
+
+.google-login-button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: transparent;
+  color: white;
+  border: 1px solid #333;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Clash Display', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 20px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+cursor: pointer;
+transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.google-login-button:hover {
+background-color: rgba(255, 255, 255, 0.1);
+box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.google-icon {
+  font-size: 1.2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .login-container {
+    flex-direction: column;
+  }
+  
+  .welcome-panel, .login-form-container {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .welcome-panel {
+    height: auto;
+    padding: 3rem 1.5rem;
+  }
+}
+
+/* Add these additional styles for signup form */
+.field-error {
+  color: #ff6b6b;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+input.error {
+  border-color: #ff6b6b;
+}

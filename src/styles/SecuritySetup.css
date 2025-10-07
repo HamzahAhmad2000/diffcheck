@@ -1,0 +1,149 @@
+.security-setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.security-section {
+  padding: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.security-section h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+.mfa-setup-details {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px dashed #ccc;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center QR code and input */
+  gap: 1rem;
+}
+
+.mfa-setup-details p {
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.mfa-setup-details input[type="text"] {
+  width: 150px; /* Adjust as needed */
+  text-align: center;
+}
+
+.security-question-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.passkeys-display {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.passkeys-display ul {
+  list-style-type: none;
+  padding-left: 0;
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
+}
+
+.passkeys-display li {
+  font-family: monospace;
+  background-color: #f0f0f0;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.5rem;
+  border-radius: 3px;
+  display: inline-block; /* For column layout */
+  width: calc(50% - 10px); /* Adjust for gap */
+  margin-right: 10px;
+}
+
+.passkeys-display label {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+/* Switch toggle for MFA */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px; /* Adjusted width */
+  height: 28px; /* Adjusted height */
+}
+
+.switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px; /* Adjusted size */
+  width: 20px;  /* Adjusted size */
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(22px); /* Adjusted translation */
+  -ms-transform: translateX(22px);
+  transform: translateX(22px);
+}
+
+.slider.round {
+  border-radius: 28px; /* Adjusted for height */
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} 

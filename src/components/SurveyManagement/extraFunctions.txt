@@ -1,0 +1,243 @@
+            <div className="question-editor__field">
+              <label className="question-editor__label">
+                Add text, a question or media
+              </label>
+              {/* --- Removed inline style: width --- */}
+              <input
+                type="text"
+                value={questionData.text}
+                onChange={(e) => handleFieldChange("text", e.target.value)}
+                placeholder=""
+                className={`question-editor__input ${
+                  isBranched ? "question-editor__input--branched" : "" // Use modifier for branched state
+                }`}
+                required
+              />
+            </div>
+
+
+
+
+
+            <div className="question-text-container">
+            <p className="questionText">
+              {currentQuestion.question_text}
+              {currentQuestion.required && (
+                <span className="required-indicator">*</span>
+              )}
+            </p>
+          </div>
+
+
+          case "numerical-input":
+          case "nps":
+          case "star-rating":
+            const isNumerical = questionData.type === 'numerical-input';
+            const isNps = questionData.type === 'nps';
+            const isStar = questionData.type === 'star-rating';
+            const valueType = isNps ? 'NPS Score' : isStar ? 'Star Rating' : 'Value';
+          
+            return (
+              <div className="question-editor__type-specific-fields">
+                {/* Min/Max for numerical-input only */}
+                {isNumerical && (
+                  <div className="question-editor__numerical-controls">
+                    <div className="question-editor__numerical-control">
+                      <label className="question-editor__label">Minimum Value (Optional)</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={questionData.min_value || ""}
+                        onChange={(e) =>
+                          handleFieldChange("min_value", parseFloat(e.target.value) || null)
+                        }
+                        placeholder="0"
+                        className="question-editor__input"
+                      />
+                    </div>
+                    <div className="question-editor__numerical-control">
+                      <label className="question-editor__label">Maximum Value (Optional)</label>
+                      <input
+                        type="number"
+                        min="0"
+                        value={questionData.max_value || ""}
+                        onChange={(e) =>
+                          handleFieldChange("max_value", parseFloat(e.target.value) || null)
+                        }
+                        placeholder="e.g., 100"
+                        className="question-editor__input"
+                      />
+                    </div>
+                  </div>
+                )}
+          
+                {/* Force Positive toggle for numerical-input only */}
+                {isNumerical && (
+                  <div className="question-editor_field question-editorfield--toggle question-editor_field--extra">
+                    <label className="question-editor__toggle-label">Force Positive Number</label>
+                    <div
+                      className={`question-editor__toggle ${
+                        questionData.force_positive ? "question-editor__toggle--active" : ""
+                      }`}
+                      onClick={() =>
+                        handleFieldChange("force_positive", !questionData.force_positive)
+                      }
+                    >
+                      <div className="question-editor__toggle-handle" />
+                    </div>
+                  </div>
+                )}
+          
+                {/* Star Rating - grid preview and N/A section only for star-rating */}
+                {isStar && (
+                  <div style={{ marginBottom: "16px" }}>
+                    <div className="question-editor__star-rating-section">
+                      <div className="question-editor__grid-add">
+                        <input
+                          type="text"
+                          value={questionData.row_text || ""}
+                          onChange={(e) => handleFieldChange("row_text", e.target.value)}
+                          placeholder="Enter rating label (optional)"
+                          className="question-editor__grid-input"
+                        />
+                      </div>
+                      <div className="question-editor__grid-preview">
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>{questionData.row_text || "Rating"}</th>
+                              <th style={{ width: "200px" }}>
+                                <div className="star-rating-preview">
+                                  {[...Array(5)].map((_, i) => (
+                                    <i
+                                      key={i}
+                                      className="ri-star-line"
+                                      style={{ color: "#AA2EFF", fontSize: "24px" }}
+                                    ></i>
+                                  ))}
+                                </div>
+                              </th>
+                              {questionData.show_na && (
+                                <th>{questionData.not_applicable_text || "Not Applicable"}</th>
+                              )}
+                            </tr>
+                          </thead>
+                        </table>
+                      </div>
+                    </div>
+          
+                    <div className="question-editor__not-applicable">
+                      <div className="question-editor__na-header">
+                        <label className="question-editor__toggle-label">
+                          Add a "Not Applicable" option
+                        </label>
+                        <div
+                          className={`question-editor__toggle ${
+                            questionData.show_na ? "question-editor__toggle--active" : ""
+                          }`}
+                          onClick={() =>
+                            handleFieldChange("show_na", !questionData.show_na)
+                          }
+                        >
+                          <div className="question-editor__toggle-handle" />
+                        </div>
+                        <span className="question-editor__na-note">
+                          (Won't be included in average calculations)
+                        </span>
+                      </div>
+                      {questionData.show_na && (
+                        <input
+                          type="text"
+                          value={questionData.not_applicable_text || ""}
+                          onChange={(e) =>
+                            handleFieldChange("not_applicable_text", e.target.value)
+                          }
+                          className="question-editor__na-input"
+                          placeholder="Not Applicable"
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
+          
+                {/* Shared branching logic */}
+                <div className="question-editor__branch-section2">
+                  <div className="question-editor_field question-editor_field--toggle">
+                    <label className="question-editor__toggle-label">
+                      Enable Branch Logic based on {valueType}
+                    </label>
+                    <div
+                      className={`question-editor__toggle ${
+                        questionData.numerical_branch_enabled ? "question-editor__toggle--active" : ""
+                      }`}
+                      onClick={() =>
+                        handleFieldChange("numerical_branch_enabled", !questionData.numerical_branch_enabled)
+                      }
+                    >
+                      <div className="question-editor__toggle-handle" />
+                    </div>
+                  </div>
+          
+                  {questionData.numerical_branch_enabled && (
+                    <div className="question-editor__field">
+                      <label className="question-editor__label">Branch Rules</label>
+                      <div className="question-editor__rules-container">
+                        {(questionData.numerical_branch_rules || []).map((rule, ruleIndex) => (
+                          <div key={ruleIndex} className="question-editor__rule numerical-rule">
+                            <div className="question-editor__rule-row">
+                              <select
+                                value={rule.condition}
+                                onChange={(e) => { /* ... update rule */ }}
+                                className="question-editor__rule-select"
+                              >
+                                <option value="less">Less than</option>
+                                <option value="equal">Equal to</option>
+                                <option value="greater">Greater than</option>
+                              </select>
+                              <input
+                                type="number"
+                                value={rule.value || ""}
+                                min={isNps ? 0 : isStar ? 1 : undefined}
+                                max={isNps ? 10 : isStar ? 5 : undefined}
+                                onChange={(e) => { /* ... update rule */ }}
+                                className="question-editor__rule-input"
+                                placeholder={Enter ${valueType}}
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleEditNumericalBranch(ruleIndex)}
+                                className={`question-editor__branch-btn ${
+                                  rule.branch ? "question-editor__branch-btn--active" : ""
+                                }`}
+                              >
+                                <i className="ri-git-branch-line"></i>
+                                {rule.branch ? "Edit Branch" : "Add Branch"}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => { /* ... remove rule */ }}
+                                className="question-editor_btn question-editor_btn--icon"
+                              >
+                                <i className="ri-close-circle-line"></i>
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+          
+                        {(!questionData.numerical_branch_rules ||
+                          questionData.numerical_branch_rules.length < 3) && (
+                          <button
+                            type="button"
+                            onClick={() => { /* ... add rule */ }}
+                            className="question-editor_btn question-editorbtn--primary question-editor_btn--add"
+                          >
+                            <i className="ri-add-line"></i>
+                            Add Branch Rule
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );

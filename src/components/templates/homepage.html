@@ -1,0 +1,614 @@
+{% extends "layout.html" %}
+{% block title %}Home - {% endblock %}
+{% block content %}
+<script>
+    var check = true; // Set to true to check for tokens
+    var redirect = false; // Set to true to redirect to account page if no token is found
+    var redirectTo = '/account'; // Redirect to this page if redirect is set to true
+    if (check) {
+        var adminToken = localStorage.getItem('admin_key');
+        if (adminToken) {
+            window.location.href = '/admin_dashboard';
+        }
+        var partnerToken = localStorage.getItem('partner_token');
+        if (partnerToken) {
+            window.location.href = '/partner_dashboard';
+        }
+        var jwtToken = localStorage.getItem('jwt_token');
+        if (jwtToken) {
+            window.location.href = '/user_dashboard';
+        }
+        if (redirect) {
+            window.location.href = redirectTo;
+        }
+    }
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+    integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}">
+
+
+<section class="hero_section">
+    <div class="container_width">
+        <div class="hero_content">
+            <div class="hero_left">
+                <h1 class="hero_title primaryfont">YOUR ONE STOP SOLUTION</h1>
+                <p class="hero_description">
+                    Eclipseer aims to provide one stop solution for both people and businesses. Our objective is to make
+                    it easy for businesses to gain insights for their solutions and provide a platform to people to earn
+                    rewards easily.
+                </p>
+                <a href="#" class="hero_register">Register <i class="ri-arrow-right-line"></i></a>
+
+                <div class="stats_cards">
+                    <div class="stats_card">
+                        <div class="card_text">
+                            <h3>2000+</h3>
+                            <p>Active Users</p>
+                        </div>
+                        <div class="card_icon">
+                            <img src="{{ url_for('static',filename='assets/herocard1.png') }}" alt="Users icon">
+                        </div>
+                    </div>
+
+                    <div class="stats_card">
+                        <div class="card_text">
+                            <h3>100+</h3>
+                            <p>Available Surveys</p>
+                        </div>
+                        <div class="card_icon">
+                            <img src="{{ url_for('static',filename='assets/herocard2.png') }}" alt="Users icon">
+                        </div>
+                    </div>
+
+                    <div class="stats_card">
+                        <div class="card_text">
+                            <h3>$10,000+</h3>
+                            <p>Rewards Earned</p>
+                        </div>
+                        <div class="card_icon">
+                            <img src="{{ url_for('static',filename='assets/herocard3.png') }}" alt="Users icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero_right">
+                <div class="hero_image">
+                    <img src="{{ url_for('static',filename='assets/HeroRight.gif') }}" alt="Users icon">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="why_us_section">
+    <div class="container_width">
+        <div class="section_header">
+            <h2 class="section_title primaryfont">WHY US?</h2>
+            <hr>
+        </div>
+
+        <div class="slideshow_container">
+            <div class="slideshow_content">
+                <div class="slideshow_left">
+                    <h3 class="slide_title primaryfont">Help customers make easy money and businesses get insightful
+                        results</h3>
+                    <div class="slide_indicators">
+                        <button class="indicator active primaryfont" data-slide="1">1</button>
+                        <button class="indicator primaryfont" data-slide="2">2</button>
+                        <button class="indicator primaryfont" data-slide="3">3</button>
+                    </div>
+                </div>
+                <div class="slideshow_right">
+                    <div class="slide_description active" data-slide="1">
+                        Eclipseer bridges the gap between businesses seeking actionable insights and participants
+                        looking to earn rewards. With cutting-edge AI, we make the process seamless, impactful, and
+                        <span class="highlight">rewarding for all parties.</span>
+                    </div>
+                    <div class="slide_description" data-slide="2">
+                        Our platform uses advanced algorithms to match surveys with the right participants, ensuring
+                        high-quality responses and valuable insights.
+                    </div>
+                    <div class="slide_description" data-slide="3">
+                        Join thousands of satisfied users who have already discovered the easiest way to earn rewards
+                        while helping businesses grow.
+                    </div>
+                </div>
+            </div>
+            <div class="slideshow_details">
+                <div class="slideshow_details_content">
+                    <div class="slideshow_details_left">
+                        <div class="slide_details_text active" data-slide="1">
+                            <h3 class="primaryfont">Earn rewards for your opinions without hassle</h3>
+                            <p>Flexible cash-out options tailored to your preferences. Join a global community of valued
+                                contributors.</p>
+                        </div>
+                        <div class="slide_details_text" data-slide="2">
+                            <h3 class="primaryfont">Earn rewards for your opinions without hassle 1</h3>
+                            <p>Flexible cash-out options tailored to your preferences. Join a global community of valued
+                                contributors.</p>
+                        </div>
+                        <div class="slide_details_text" data-slide="3">
+                            <h3 class="primaryfont">Earn rewards for your opinions without hassle 2</h3>
+                            <p>Flexible cash-out options tailored to your preferences. Join a global community of valued
+                                contributors.</p>
+                        </div>
+                    </div>
+                    <div class="slideshow_details_right">
+                        <div class="slideshow_details_assets">
+                            <img src="{{ url_for('static',filename='assets/whyuspoint1.png') }}" alt=""
+                                class="details_assets_img active" data-slide="1">
+                            <img src="{{ url_for('static',filename='assets/herocard1.png') }}" alt=""
+                                class="details_assets_img" data-slide="2">
+                            <img src="{{ url_for('static',filename='assets/herocard1.png') }}" alt=""
+                                class="details_assets_img" data-slide="3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services_section">
+    <div class="container_width">
+        <div class="section_header opposite" id="services_section_header">
+            <div class="section_header_details">
+                <h2 class="section_title primaryfont">SERVICES</h2>
+                <div style="position: relative;">
+                    <div class="pill_button__container">
+                        <div class="pill_button__pill" id="pill_button__pill"></div>
+                        <button class="pill_button__btn active" onclick="pillButton.setSelected('business')"
+                            id="pill_button__business">Business</button>
+                        <button class="pill_button__btn" onclick="pillButton.setSelected('participant')"
+                            id="pill_button__participant">Participant</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+
+        <div class="business_points">
+            <div class="services_point_content right">
+                <div class="services_point_image">
+                    <div class="services_cards_container">
+                        <img src="{{ url_for('static',filename='assets/services_1_1.png') }}" alt=""
+                            class="overlap-img img1">
+                        <img src="{{ url_for('static',filename='assets/services_1_2.png') }}" alt=""
+                            class="overlap-img img2">
+                        <img src="{{ url_for('static',filename='assets/services_1_3.png') }}" alt=""
+                            class="overlap-img img3">
+                    </div>
+                </div>
+
+                <div class="services_point_text">
+                    <div class="point_number">01</div>
+                    <h3 class="point_title">Create <span>fully customizable</span class="highlight"> surveys</h3>
+                    <p class="point_description">
+                        Lorem ipsum odor amet, consectetuer adipiscing elit. Ultricies condimentum feugiat pharetra
+                        conubia vitae. Nisl ultrices egestas at tellus ultricies mollis malesuada justo justo. Proin
+                        urna porttitor hac dui fermentum.
+                    </p>
+                </div>
+            </div>
+
+            <div class="services_point_content left">
+                <div class="services_point_image">
+                </div>
+                <div class="services_point_text">
+                    <div class="point_number">02</div>
+                    <h3 class="point_title">Get useful and user centric <span class="highlight">insights</span></h3>
+                    <p class="point_description">
+                        Lorem ipsum odor amet, consectetuer adipiscing elit. Ultricies condimentum feugiat pharetra
+                        conubia vitae. Nisl ultrices egestas at tellus ultricies mollis malesuada justo justo. Proin
+                        urna porttitor hac dui fermentum.
+                    </p>
+                </div>
+            </div>
+
+            <div class="services_point_content right">
+                <div class="services_point_image">
+                </div>
+                <div class="services_point_text">
+                    <div class="point_number">03</div>
+                    <h3 class="point_title">Take action and see the <span class="highlight">results</span></h3>
+                    <p class="point_description">
+                        Lorem ipsum odor amet, consectetuer adipiscing elit. Ultricies condimentum feugiat pharetra
+                        conubia vitae. Nisl ultrices egestas at tellus ultricies mollis malesuada justo justo. Proin
+                        urna porttitor hac dui fermentum.
+                    </p>
+                </div>
+            </div>
+
+            <div class="services_point_content left">
+                <div class="services_point_image">
+                </div>
+                <div class="services_point_text">
+                    <div class="point_number">04</div>
+                    <h3 class="point_title">Use the power of <span class="highlight">AI</span></h3>
+                    <p class="point_description">
+                        Lorem ipsum odor amet, consectetuer adipiscing elit. Ultricies condimentum feugiat pharetra
+                        conubia vitae. Nisl ultrices egestas at tellus ultricies mollis malesuada justo justo. Proin
+                        urna porttitor hac dui fermentum.
+                    </p>
+                </div>
+            </div>
+
+            <div class="services_cards">
+                <div class="service_card active" data-index="0">
+                    <h3>Usability Tests</h3>
+                    <p>Evaluate how easily users navigate and interact with your product.</p>
+                    <a href="#" class="learn_more">Learn more <i class="ri-arrow-right-line"></i></a>
+                    <div class="progress_container">
+                        <div class="progress_bar"></div>
+                    </div>
+                </div>
+
+                <div class="service_card" data-index="1">
+                    <h3>Interviews</h3>
+                    <p>Gather in-depth qualitative insights from your target audience.</p>
+                    <a href="#" class="learn_more">Learn more <i class="ri-arrow-right-line"></i></a>
+                    <div class="progress_container">
+                        <div class="progress_bar"></div>
+                    </div>
+                </div>
+
+
+                <div class="">
+                    <h1 class="services_additional_title primaryfont">Additional Services</h1>
+                    <p class="services_additional_description">
+                        We can also design custom <strong>methodologies</strong> tailored to your specific needs. With
+                        our experienced researchers, there’s virtually no challenge we can’t tackle.
+                    </p>
+                </div>
+
+                <div class="service_card" data-index="2">
+                    <h3>Focus Groups</h3>
+                    <p>Explore group dynamics and shared feedback.</p>
+                    <a href="#" class="learn_more">Learn more <i class="ri-arrow-right-line"></i></a>
+                    <div class="progress_container">
+                        <div class="progress_bar"></div>
+                    </div>
+                </div>
+
+                <div class="service_card" data-index="3">
+                    <h3>Playtests (Gaming)</h3>
+                    <p>Test gameplay to improve user experience and satisfaction.</p>
+                    <a href="#" class="learn_more">Learn more <i class="ri-arrow-right-line"></i></a>
+                    <div class="progress_container">
+                        <div class="progress_bar"></div>
+                    </div>
+                </div>
+
+                <div class="service_card" data-index="4">
+                    <h3>Concept Testing</h3>
+                    <p>Assess early ideas or prototypes for market readiness.</p>
+                    <a href="#" class="learn_more">Learn more <i class="ri-arrow-right-line"></i></a>
+                    <div class="progress_container">
+                        <div class="progress_bar"></div>
+                    </div>
+                </div>
+
+                <div class="service_card" data-index="5">
+                    <h3>Expert Reviews</h3>
+                    <p>An expert evaluates your product for usability and design flaws.</p>
+                    <a href="#" class="learn_more">Learn more <i class="ri-arrow-right-line"></i></a>
+                    <div class="progress_container">
+                        <div class="progress_bar"></div>
+                    </div>
+                </div>
+
+                <div class="service_card" data-index="6">
+                    <h3>Surveys</h3>
+                    <p>Collect quantitative feedback efficiently.</p>
+                    <a href="#" class="learn_more">Learn more <i class="ri-arrow-right-line"></i></a>
+                    <div class="progress_container">
+                        <div class="progress_bar"></div>
+                    </div>
+                </div>
+
+                <div class="service_card" data-index="7">
+                    <h3>Diary Studies</h3>
+                    <p>Understand user behavior over time through self-reported data.</p>
+                    <a href="#" class="learn_more">Learn more <i class="ri-arrow-right-line"></i></a>
+                    <div class="progress_container">
+                        <div class="progress_bar"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="user_points"></div>
+    </div>
+</section>
+
+<section class="contact_section">
+    <div class="container_width">
+        <div class="section_header">
+            <h2 class="section_title primaryfont">Contact Us</h2>
+            <hr>
+        </div>
+
+        <div class="contact_wrapper">
+            <div class="pipeline_section">
+                <h2 class="pipeline_title primaryfont">We're dedicated to empowering individuals and businesses alike.
+                    Let's explore opportunities together.</h2>
+
+                <div class="pipeline_steps">
+                    <div class="pipeline_step active" data-step="1">
+                        <div class="step_number">1</div>
+                        <div class="step_content">
+                            <h3 class="primaryfont">Contact Us</h3>
+                            <p>Schedule a call to discuss your research needs and objectives.</p>
+                        </div>
+                    </div>
+
+                    <div class="pipeline_step" data-step="2">
+                        <div class="step_number">2</div>
+                        <div class="step_content">
+                            <h3 class="primaryfont">Conduct Research</h3>
+                            <p>We handle all the research, from planning to execution, using the methodology that best
+                                fits your goals.</p>
+                        </div>
+                    </div>
+
+                    <div class="pipeline_step" data-step="3">
+                        <div class="step_number">3</div>
+                        <div class="step_content">
+                            <h3 class="primaryfont">Deliver Insights</h3>
+                            <p>Receive actionable insights and recommendations to elevate your business.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact_form_section">
+                <h2 class="primaryfont">Drop Us A Line</h2>
+
+                <form class="contact_form" id="contactForm">
+                    <div class="form_row">
+                        <div class="form_group">
+                            <input class="primaryfont" type="text" id="name" name="name" required placeholder="Name*">
+                        </div>
+                        <div class="form_group">
+                            <input class="primaryfont" type="text" id="lastName" name="lastName" required
+                                placeholder="Last Name*">
+                        </div>
+                    </div>
+
+                    <div class="form_row">
+                        <div class="form_group">
+                            <input class="primaryfont" type="email" id="email" name="email" required
+                                placeholder="Email Address*">
+                        </div>
+                        <div class="form_group">
+                            <input class="primaryfont" type="tel" id="phone" name="phone" placeholder="Phone Number">
+                        </div>
+                    </div>
+
+                    <div class="form_group">
+                        <textarea class="primaryfont" id="message" name="message" required
+                            placeholder="Message*"></textarea>
+                    </div>
+
+                    <button type="submit" class="button_primary submit_btn primaryfont">SEND</button>
+                </form>
+
+                <div class="contact_info">
+
+                    <div class="contact_details">
+                        <p class="address primaryfont">This will be an address, should be a little lengthy</p>
+                        <a href="tel:+923165165672" class="primaryfont">+92 316 516 5672</a>
+                        <a href="mailto:info@eclipseer.com" class="primaryfont">info@eclipseer.com</a>
+                    </div>
+
+                    <div class="social_links">
+                        <a href="#" class="social_link">Instagram <i class="ri-arrow-right-line"></i></a>
+                        <a href="#" class="social_link">Facebook <i class="ri-arrow-right-line"></i></a>
+                        <a href="#" class="social_link">LinkedIn <i class="ri-arrow-right-line"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="videos_section">
+    <div class="container_width">
+        <div class="section_header">
+            <h2 class="section_title primaryfont opposite">VIDEOS</h2>
+            <hr>
+        </div>
+
+        <div class="videos_list">
+            <a class="video_item" href="#">
+                <div class="video_content">
+                    <span class="video_index">01</span>
+                    <div>
+                        <h3 class="video_title primaryfont">VIDEO TITLE ONE</h3>
+                        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Ultricies condimentum feugiat pharetra
+                            conubia vitae. Nisl ultrices egestas at tellus ultrices mollis</p>
+                    </div>
+                </div>
+                <div class="video_thumbnail">
+                    <img src="{{ url_for('static', filename='assets/videos/image1.png') }}" alt="Video thumbnail">
+                </div>
+            </a>
+
+            <a class="video_item" href="#">
+                <div class="video_content">
+                    <span class="video_index">02</span>
+                    <div>
+                        <h3 class="video_title primaryfont">VIDEO TITLE TWO</h3>
+                        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Ultricies condimentum feugiat pharetra
+                            conubia vitae.</p>
+                    </div>
+                </div>
+                <div class="video_thumbnail">
+                    <img src="{{ url_for('static', filename='assets/videos/image1.png') }}" alt="Video thumbnail">
+                </div>
+            </a>
+
+            <a class="video_item" href="#">
+                <div class="video_content">
+                    <span class="video_index">03</span>
+                    <div>
+                        <h3 class="video_title primaryfont">VIDEO TITLE THREE</h3>
+                        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Ultricies condimentum feugiat pharetra
+                            conubia vitae. Nisl ultrices egestas at tellus ultrices</p>
+                    </div>
+                </div>
+                <div class="video_thumbnail">
+                    <img src="{{ url_for('static', filename='assets/videos/image1.png') }}" alt="Video thumbnail">
+                </div>
+            </a>
+
+            <a class="video_item" href="#">
+                <div class="video_content">
+                    <span class="video_index">04</span>
+                    <div>
+                        <h3 class="video_title primaryfont">VIDEO TITLE FOUR</h3>
+                        <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Ultricies condimentum feugiat pharetra
+                            conubia vitae. Nisl ultrices egestas at tellus ultrices mollis</p>
+                    </div>
+                </div>
+                <div class="video_thumbnail">
+                    <img src="{{ url_for('static', filename='assets/videos/image1.png') }}" alt="Video thumbnail">
+                </div>
+            </a>
+        </div>
+
+        <a href="#" class="more_link">More <i class="ri-arrow-right-line"></i></a>
+    </div>
+</section>
+
+<section class="testimonial_section">
+    <div class="container_width">
+        <div class="section_header">
+            <h2 class="section_title primaryfont">TESTIOMINALS</h2>
+            <hr>
+        </div>
+
+
+        <div class="owl-carousel">
+            <div class="testimonial_card">
+                <div class="testimonial_top">
+                    <div class="testimonial_quote">
+                        <img src="{{ url_for('static', filename='assets/testimonial_quote.png') }}" alt="quote">
+                    </div>
+                    <div class="testimonial_name primaryfont">Mike Smith</div>
+                </div>
+    
+                <div class="testimonial_bottom">
+                    <div class="testimonial_image">
+                        <img src="{{ url_for('static', filename='assets/testimonial_1.png') }}" alt="testimonial 1 image">
+                    </div>
+                    <p>Throughout our collaboration, Eclipseer’s dedication to exceptional results was evident. Our
+                        portfolio now exceeds expectations, thanks to their expertise.</p>
+                </div>
+            </div>
+    
+            <div class="testimonial_card">
+                <div class="testimonial_top">
+                    <div class="testimonial_quote">
+                        <img src="{{ url_for('static', filename='assets/testimonial_quote.png') }}" alt="quote">
+                    </div>
+                    <div class="testimonial_name primaryfont">Amanda Green</div>
+                </div>
+    
+                <div class="testimonial_bottom">
+                    <div class="testimonial_image">
+                        <img src="{{ url_for('static', filename='assets/testimonial_2.png') }}" alt="testimonial 1 image">
+                    </div>
+                    <p>Throughout our collaboration, Eclipseer’s dedication to exceptional results was evident. Our portfolio now exceeds expectations, thanks to their expertise.</p>
+                </div>
+            </div>
+
+            <div class="testimonial_card">
+                <div class="testimonial_top">
+                    <div class="testimonial_quote">
+                        <img src="{{ url_for('static', filename='assets/testimonial_quote.png') }}" alt="quote">
+                    </div>
+                    <div class="testimonial_name primaryfont">Mike Smith</div>
+                </div>
+    
+                <div class="testimonial_bottom">
+                    <div class="testimonial_image">
+                        <img src="{{ url_for('static', filename='assets/testimonial_1.png') }}" alt="testimonial 1 image">
+                    </div>
+                    <p>Throughout our collaboration, Eclipseer’s dedication to exceptional results was evident. Our
+                        portfolio now exceeds expectations, thanks to their expertise.</p>
+                </div>
+            </div>
+    
+            <div class="testimonial_card">
+                <div class="testimonial_top">
+                    <div class="testimonial_quote">
+                        <img src="{{ url_for('static', filename='assets/testimonial_quote.png') }}" alt="quote">
+                    </div>
+                    <div class="testimonial_name primaryfont">Amanda Green</div>
+                </div>
+    
+                <div class="testimonial_bottom">
+                    <div class="testimonial_image">
+                        <img src="{{ url_for('static', filename='assets/testimonial_2.png') }}" alt="testimonial 1 image">
+                    </div>
+                    <p>Throughout our collaboration, Eclipseer’s dedication to exceptional results was evident. Our portfolio now exceeds expectations, thanks to their expertise.</p>
+                </div>
+            </div>
+
+
+            <div class="testimonial_card">
+                <div class="testimonial_top">
+                    <div class="testimonial_quote">
+                        <img src="{{ url_for('static', filename='assets/testimonial_quote.png') }}" alt="quote">
+                    </div>
+                    <div class="testimonial_name primaryfont">Mike Smith</div>
+                </div>
+    
+                <div class="testimonial_bottom">
+                    <div class="testimonial_image">
+                        <img src="{{ url_for('static', filename='assets/testimonial_1.png') }}" alt="testimonial 1 image">
+                    </div>
+                    <p>Throughout our collaboration, Eclipseer’s dedication to exceptional results was evident. Our
+                        portfolio now exceeds expectations, thanks to their expertise.</p>
+                </div>
+            </div>
+    
+            <div class="testimonial_card">
+                <div class="testimonial_top">
+                    <div class="testimonial_quote">
+                        <img src="{{ url_for('static', filename='assets/testimonial_quote.png') }}" alt="quote">
+                    </div>
+                    <div class="testimonial_name primaryfont">Amanda Green</div>
+                </div>
+    
+                <div class="testimonial_bottom">
+                    <div class="testimonial_image">
+                        <img src="{{ url_for('static', filename='assets/testimonial_2.png') }}" alt="testimonial 1 image">
+                    </div>
+                    <p>Throughout our collaboration, Eclipseer’s dedication to exceptional results was evident. Our portfolio now exceeds expectations, thanks to their expertise.</p>
+                </div>
+            </div> 
+        </div>
+
+        <div class="carousel_control">
+            <div class="carousel_dots"></div> <!-- Dots will be generated here dynamically -->
+            <div class="carousel_buttons">
+                <button><i class="ri-arrow-left-line"></i></button>
+                <button><i class="ri-arrow-right-line"></i></button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+    integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ url_for('static', filename='js/homepage.js') }}"></script>
+{% endblock %}

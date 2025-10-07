@@ -1,0 +1,84 @@
+/* ViewAllButton Component Styles */
+/* Extracted from UserHomepage.css dashboard section styling */
+
+.view-all-button {
+  background: transparent;
+  border: none;
+  color: #8b5cf6;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-all-button:hover:not(.view-all-button--disabled) {
+  background: rgba(139, 92, 246, 0.1);
+  color: #a78bfa;
+  transform: translateY(-1px);
+}
+
+.view-all-button:active:not(.view-all-button--disabled) {
+  transform: translateY(0);
+}
+
+/* Variants */
+.view-all-button--primary {
+  color: #8b5cf6;
+  border: 1px solid transparent;
+}
+
+.view-all-button--primary:hover:not(.view-all-button--disabled) {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.view-all-button--secondary {
+  color: #6b7280;
+  background: rgba(107, 114, 128, 0.1);
+}
+
+.view-all-button--secondary:hover:not(.view-all-button--disabled) {
+  background: rgba(107, 114, 128, 0.2);
+  color: #9ca3af;
+}
+
+.view-all-button--outline {
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  background: transparent;
+}
+
+.view-all-button--outline:hover:not(.view-all-button--disabled) {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: #8b5cf6;
+}
+
+/* Disabled state */
+.view-all-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .view-all-button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .view-all-button {
+    font-size: calc(0.8rem - 3px);
+    padding: 0.3rem 0.6rem;
+  }
+}

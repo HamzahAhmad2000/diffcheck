@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}User Dashboard - {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_dashboard.css') }}">
+
+<!-- <h1>User Dashboard</h1>
+        
+<div class="token-info">
+    <p>Available Tokens: <span id="tokens-available"></span></p>
+    <p>Total Tokens: <span id="tokens-total"></span></p>
+</div>
+<button id="buy-deceased-profile" class="btn btn-primary">Buy Deceased Profile</button>
+<button id="add-deceased-profile" class="btn btn-success">Add Deceased Profile</button>
+
+<div class="deceased-profiles">
+    <h2>Your Deceased Profiles</h2>
+    <div id="deceased-profiles-list"></div>
+</div>
+
+<div class="guest-book-entries">
+    <h2>Guest Book Entries</h2>
+    <div id="guest-book-entries-list"></div>
+</div>
+
+
+<div class="all-user-orders">
+    <h2>User Orders</h2>
+    <div class="orders-list"></div>
+</div> -->
+
+
+
+
+
+
+<div class="dashboard">
+    <h1>User Dahsboard</h1>
+    <button class="logout_button">Logout</button>
+
+</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"></script>
+<script src="{{ url_for('static', filename='js/user_dashboard.js') }}"></script>
+{% endblock %}

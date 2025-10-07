@@ -1,0 +1,34 @@
+{
+    "reportMetadata": {
+      "surveyId": "123",
+      "surveyTitle": "Employee Satisfaction Survey",
+      "reportGeneratedAt": "2025-05-01T12:00:00Z",
+      "filtersApplied": {},
+      "comparisonSettings": { "type": "No Comparison" }
+    },
+    "insights": {
+      "executive_summary": "- The overall satisfaction is high.\n- Employees appreciate the new benefits package.",
+      "question_insights": {
+        "1": {
+          "sequence_number": 1,
+          "questionText": "How satisfied are you with your job?",
+          "headlineInsight": "70% of employees are very satisfied.",
+          "analyticsDetails": { "type": "single_select_distribution", "options_distribution": [ {"option": "Very satisfied","percentage": 70}, {"option": "Satisfied","percentage": 20}, {"option": "Neutral","percentage": 10} ] }
+        },
+        "2": {
+          "sequence_number": 2,
+          "questionText": "What benefits do you value?",
+          "headlineInsight": "Health insurance ranks top with 85%.",
+          "analyticsDetails": { "type": "multi_select_distribution", "option_distribution": [ {"option": "Health insurance","percentage_of_responses": 85}, {"option": "Remote work","percentage_of_responses": 60} ] }
+        }
+      },
+      "openEndedAnalysis": {
+        "analysisStatus": "Completed",
+        "warningMessage": null,
+        "themes": [
+          { "themeName": "Work-life balance", "themeSummary": "Mentioned by 40% of respondents.", "exampleQuotes": ["I love the flexibility."] }
+        ]
+      }
+    },
+    "warnings": {}
+  }

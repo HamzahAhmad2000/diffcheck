@@ -1,0 +1,206 @@
+/* ImageCropper.css */
+
+.image-cropper-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.image-cropper-modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    max-width: 90vw;
+    max-height: 90vh;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease-out;
+}
+
+.image-cropper-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid #e1e5e9;
+}
+
+.image-cropper-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1f36;
+}
+
+.image-cropper-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: all 0.2s ease;
+}
+
+.image-cropper-close:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+}
+
+.image-cropper-close i {
+    font-size: 20px;
+}
+
+.image-cropper-content {
+    padding: 20px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    max-height: 60vh;
+    overflow: hidden;
+}
+
+.image-cropper-crop {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.image-cropper-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.image-cropper-footer {
+    display: flex;
+    gap: 12px;
+    padding: 16px 24px 20px;
+    border-top: 1px solid #e1e5e9;
+    justify-content: flex-end;
+}
+
+.image-cropper-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    min-width: 100px;
+}
+
+.image-cropper-btn--cancel {
+    background-color: #f8f9fa;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+}
+
+.image-cropper-btn--cancel:hover {
+    background-color: #f3f4f6;
+    color: #374151;
+    border-color: #9ca3af;
+}
+
+.image-cropper-btn--crop {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+.image-cropper-btn--crop:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.image-cropper-btn--crop:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.1);
+}
+
+/* React Image Crop overrides */
+.ReactCrop {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.ReactCrop__crop-selection {
+    border: 2px solid #667eea;
+    box-shadow: 0 0 0 9999em rgba(0, 0, 0, 0.5);
+}
+
+.ReactCrop__drag-handle {
+    background-color: #667eea;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ReactCrop__drag-handle:after {
+    background-color: #667eea;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .image-cropper-modal {
+        width: 95vw;
+        max-height: 85vh;
+    }
+    
+    .image-cropper-header,
+    .image-cropper-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+    
+    .image-cropper-content {
+        padding: 16px;
+        min-height: 300px;
+    }
+    
+    .image-cropper-footer {
+        flex-direction: column;
+    }
+    
+    .image-cropper-btn {
+        width: 100%;
+    }
+} 

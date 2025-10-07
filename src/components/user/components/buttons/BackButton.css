@@ -1,0 +1,170 @@
+/* BackButton Component Styles */
+/* Extracted from UserEditTags.js and user page navigation styling */
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Size variants */
+.back-button--small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  min-height: 32px;
+}
+
+.back-button--small i {
+  font-size: 1rem;
+}
+
+.back-button--medium {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  min-height: 40px;
+}
+
+.back-button--medium i {
+  font-size: 1.1rem;
+}
+
+.back-button--large {
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  min-height: 48px;
+}
+
+.back-button--large i {
+  font-size: 1.2rem;
+}
+
+/* Primary variant (default) */
+.back-button--primary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.39);
+}
+
+.back-button--primary:hover:not(.back-button--disabled) {
+  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(139, 92, 246, 0.5);
+}
+
+/* Secondary variant */
+.back-button--secondary {
+  background: rgba(107, 114, 128, 0.1);
+  color: #9ca3af;
+  border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+.back-button--secondary:hover:not(.back-button--disabled) {
+  background: rgba(107, 114, 128, 0.2);
+  color: #d1d5db;
+  transform: translateY(-1px);
+}
+
+/* Ghost variant */
+.back-button--ghost {
+  background: transparent;
+  color: #8b5cf6;
+  border: none;
+}
+
+.back-button--ghost:hover:not(.back-button--disabled) {
+  background: rgba(139, 92, 246, 0.1);
+  color: #a78bfa;
+  transform: translateY(-1px);
+}
+
+/* Outline variant */
+.back-button--outline {
+  background: transparent;
+  color: #8b5cf6;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.back-button--outline:hover:not(.back-button--disabled) {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: #8b5cf6;
+  transform: translateY(-1px);
+}
+
+/* Disabled state */
+.back-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Active state */
+.back-button:active:not(.back-button--disabled) {
+  transform: translateY(0);
+}
+
+/* Focus state */
+.back-button:focus:not(.back-button--disabled) {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.3);
+}
+
+/* Icon styling */
+.back-button i {
+  transition: transform 0.2s ease;
+}
+
+.back-button:hover:not(.back-button--disabled) i {
+  transform: translateX(-2px);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .back-button--small {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    min-height: 28px;
+  }
+
+  .back-button--medium {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    min-height: 36px;
+  }
+
+  .back-button--large {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-button--small {
+    font-size: calc(0.7rem - 3px);
+    padding: 0.25rem 0.5rem;
+  }
+
+  .back-button--medium {
+    font-size: calc(0.8rem - 3px);
+    padding: 0.4rem 0.8rem;
+  }
+
+  .back-button--large {
+    font-size: calc(0.9rem - 3px);
+    padding: 0.6rem 1.2rem;
+  }
+
+  .back-button i {
+    font-size: 0.9rem;
+  }
+}

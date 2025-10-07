@@ -1,0 +1,297 @@
+/* LoadingIndicator Component Styles */
+/* Extracted from MarketplacePage.js and UserHomepage.js loading states */
+
+.loading-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.loading-indicator--centered {
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-indicator--full-height {
+  min-height: 200px;
+}
+
+.loading-indicator__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loading-indicator__text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Spinner Variant */
+.loading-indicator__spinner {
+  position: relative;
+  display: inline-block;
+}
+
+.loading-indicator__spinner-circle {
+  border: 3px solid rgba(139, 92, 246, 0.2);
+  border-top: 3px solid #8b5cf6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Dots Variant */
+.loading-indicator__dots {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.loading-indicator__dot {
+  border-radius: 50%;
+  background: #8b5cf6;
+  animation: pulse-dot 1.4s ease-in-out infinite both;
+}
+
+.loading-indicator__dot:nth-child(1) { animation-delay: -0.32s; }
+.loading-indicator__dot:nth-child(2) { animation-delay: -0.16s; }
+.loading-indicator__dot:nth-child(3) { animation-delay: 0s; }
+
+/* Pulse Variant */
+.loading-indicator__pulse {
+  position: relative;
+  display: inline-block;
+}
+
+.loading-indicator__pulse-circle {
+  background: #8b5cf6;
+  border-radius: 50%;
+  animation: pulse-scale 1.5s ease-in-out infinite;
+}
+
+/* Bar Variant */
+.loading-indicator__bar {
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-indicator__bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa, #8b5cf6);
+  background-size: 200% 100%;
+  animation: slide-bar 2s ease-in-out infinite;
+}
+
+/* Size Variants */
+.loading-indicator--small .loading-indicator__spinner-circle {
+  width: 20px;
+  height: 20px;
+}
+
+.loading-indicator--small .loading-indicator__dot {
+  width: 6px;
+  height: 6px;
+}
+
+.loading-indicator--small .loading-indicator__pulse-circle {
+  width: 20px;
+  height: 20px;
+}
+
+.loading-indicator--small .loading-indicator__bar {
+  width: 120px;
+  height: 4px;
+}
+
+.loading-indicator--small .loading-indicator__text {
+  font-size: 0.8rem;
+}
+
+.loading-indicator--medium .loading-indicator__spinner-circle {
+  width: 32px;
+  height: 32px;
+}
+
+.loading-indicator--medium .loading-indicator__dot {
+  width: 8px;
+  height: 8px;
+}
+
+.loading-indicator--medium .loading-indicator__pulse-circle {
+  width: 32px;
+  height: 32px;
+}
+
+.loading-indicator--medium .loading-indicator__bar {
+  width: 160px;
+  height: 6px;
+}
+
+.loading-indicator--medium .loading-indicator__text {
+  font-size: 0.9rem;
+}
+
+.loading-indicator--large .loading-indicator__spinner-circle {
+  width: 48px;
+  height: 48px;
+}
+
+.loading-indicator--large .loading-indicator__dot {
+  width: 12px;
+  height: 12px;
+}
+
+.loading-indicator--large .loading-indicator__pulse-circle {
+  width: 48px;
+  height: 48px;
+}
+
+.loading-indicator--large .loading-indicator__bar {
+  width: 200px;
+  height: 8px;
+}
+
+.loading-indicator--large .loading-indicator__text {
+  font-size: 1rem;
+}
+
+/* Color Variants */
+.loading-indicator--primary .loading-indicator__spinner-circle {
+  border-color: rgba(139, 92, 246, 0.2);
+  border-top-color: #8b5cf6;
+}
+
+.loading-indicator--primary .loading-indicator__dot,
+.loading-indicator--primary .loading-indicator__pulse-circle {
+  background: #8b5cf6;
+}
+
+.loading-indicator--primary .loading-indicator__bar-fill {
+  background: linear-gradient(90deg, #8b5cf6, #a78bfa, #8b5cf6);
+}
+
+.loading-indicator--primary .loading-indicator__text {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.loading-indicator--secondary .loading-indicator__spinner-circle {
+  border-color: rgba(107, 114, 128, 0.2);
+  border-top-color: #6b7280;
+}
+
+.loading-indicator--secondary .loading-indicator__dot,
+.loading-indicator--secondary .loading-indicator__pulse-circle {
+  background: #6b7280;
+}
+
+.loading-indicator--secondary .loading-indicator__bar-fill {
+  background: linear-gradient(90deg, #6b7280, #9ca3af, #6b7280);
+}
+
+.loading-indicator--secondary .loading-indicator__text {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.loading-indicator--white .loading-indicator__spinner-circle {
+  border-color: rgba(255, 255, 255, 0.2);
+  border-top-color: #ffffff;
+}
+
+.loading-indicator--white .loading-indicator__dot,
+.loading-indicator--white .loading-indicator__pulse-circle {
+  background: #ffffff;
+}
+
+.loading-indicator--white .loading-indicator__bar-fill {
+  background: linear-gradient(90deg, #ffffff, rgba(255, 255, 255, 0.7), #ffffff);
+}
+
+.loading-indicator--white .loading-indicator__text {
+  color: #ffffff;
+}
+
+.loading-indicator--dark .loading-indicator__spinner-circle {
+  border-color: rgba(0, 0, 0, 0.2);
+  border-top-color: #000000;
+}
+
+.loading-indicator--dark .loading-indicator__dot,
+.loading-indicator--dark .loading-indicator__pulse-circle {
+  background: #000000;
+}
+
+.loading-indicator--dark .loading-indicator__bar-fill {
+  background: linear-gradient(90deg, #000000, #374151, #000000);
+}
+
+.loading-indicator--dark .loading-indicator__text {
+  color: #000000;
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-dot {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-scale {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+}
+
+@keyframes slide-bar {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .loading-indicator__text {
+    font-size: 0.85rem;
+  }
+  
+  .loading-indicator--full-height {
+    min-height: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-indicator__text {
+    font-size: calc(0.8rem - 3px);
+  }
+  
+  .loading-indicator--full-height {
+    min-height: 120px;
+  }
+  
+  .loading-indicator__content {
+    gap: 0.75rem;
+  }
+}

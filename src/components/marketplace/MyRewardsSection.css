@@ -1,0 +1,458 @@
+/* MyRewardsSection.css */
+
+.my-rewards-section {
+    background: var(--color-surface, #1e1e1e);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(170, 46, 255, 0.2);
+    border: 1px solid rgba(170, 46, 255, 0.3);
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.my-rewards-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.my-rewards-header h2 {
+    font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--color-text-light, #ffffff);
+    margin: 0;
+    background: linear-gradient(135deg, #AA2EFF, #6c5ce7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.export-options {
+    display: flex;
+    gap: 8px;
+}
+
+.export-button {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border: 2px solid var(--color-border, #4e4e4e);
+    border-radius: 10px;
+    background: var(--color-surface-alt, #3a3a3a);
+    color: var(--color-text-light, #ffffff);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.export-button:hover {
+    border-color: #AA2EFF;
+    color: #AA2EFF;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(170, 46, 255, 0.2);
+}
+
+.export-button.csv {
+    border-color: #27ae60;
+    color: #27ae60;
+}
+
+.export-button.csv:hover {
+    background: #27ae60;
+    color: white;
+    border-color: #27ae60;
+}
+
+.export-button.download {
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.export-button.download:hover {
+    background: #3498db;
+    color: white;
+    border-color: #3498db;
+}
+
+/* Loading State */
+.rewards-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    color: var(--color-text-light, #ffffff);
+}
+
+.rewards-loading .loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid var(--color-border, #4e4e4e);
+    border-top: 3px solid #AA2EFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 16px;
+}
+
+.rewards-loading p {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Table Container */
+.rewards-table-container {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 12px;
+    border: 1px solid rgba(170, 46, 255, 0.3);
+    background: var(--color-surface, #1e1e1e);
+}
+
+.rewards-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    background: var(--color-surface, #1e1e1e);
+    min-width: 600px;
+    color: var(--color-text-light, #ffffff);
+}
+
+.rewards-table thead {
+    background: linear-gradient(135deg, rgba(170, 46, 255, 0.2), rgba(108, 92, 231, 0.2));
+    border-bottom: 2px solid rgba(170, 46, 255, 0.4);
+}
+
+.rewards-table th {
+    padding: 16px 20px;
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text-light, #ffffff);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(170, 46, 255, 0.3);
+}
+
+.rewards-table th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.rewards-table th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.rewards-table tbody tr {
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid rgba(170, 46, 255, 0.2);
+}
+
+.rewards-table tbody tr:hover {
+    background: rgba(170, 46, 255, 0.1);
+}
+
+.rewards-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.rewards-table td {
+    padding: 16px 20px;
+    vertical-align: middle;
+    color: var(--color-text-light, #ffffff);
+}
+
+/* Table Cell Styling */
+.reward-title {
+    font-weight: 600;
+    color: var(--color-text-light, #ffffff);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.reward-type .type-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.type-badge.direct {
+    background: rgba(170, 46, 255, 0.1);
+    color: #AA2EFF;
+    border: 1px solid rgba(170, 46, 255, 0.2);
+}
+
+.type-badge.raffle_entry {
+    background: rgba(108, 92, 231, 0.1);
+    color: #6c5ce7;
+    border: 1px solid rgba(108, 92, 231, 0.2);
+}
+
+/* Reward Item Display */
+.reward-item-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reward-item-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid rgba(170, 46, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.reward-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0; /* Allow text truncation */
+}
+
+.reward-name {
+    font-weight: 600;
+    color: var(--color-text-light, #ffffff);
+    font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.reward-description {
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #a0a0a0);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* XP Display in Table */
+.xp-display {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.xp-amount {
+    font-weight: 700;
+    color: #AA2EFF;
+    font-size: 1.1rem;
+}
+
+.xp-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted, #a0a0a0);
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.xp-spent {
+    font-weight: 700;
+    color: #e74c3c;
+    font-family: 'Monaco', 'Menlo', monospace;
+}
+
+.reward-date {
+    color: var(--color-text-muted, #a0a0a0);
+    font-weight: 500;
+}
+
+.reward-status .status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    letter-spacing: 0.3px;
+}
+
+.status-badge.status-confirmed {
+    background: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+    border: 1px solid rgba(39, 174, 96, 0.2);
+}
+
+.status-badge.status-unconfirmed {
+    background: rgba(241, 196, 15, 0.1);
+    color: #f39c12;
+    border: 1px solid rgba(241, 196, 15, 0.2);
+}
+
+.status-badge.status-pending {
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    border: 1px solid rgba(52, 152, 219, 0.2);
+}
+
+.status-badge.status-rejected {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border: 1px solid rgba(231, 76, 60, 0.2);
+}
+
+.status-badge.status-default {
+    background: rgba(149, 165, 166, 0.1);
+    color: #95a5a6;
+    border: 1px solid rgba(149, 165, 166, 0.2);
+}
+
+/* No Rewards State */
+.no-rewards {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--color-text-muted, #a0a0a0);
+}
+
+.no-rewards-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    opacity: 0.6;
+    color: var(--color-primary, #AA2EFF);
+}
+
+.no-rewards h3 {
+    font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text-light, #ffffff);
+    margin: 0 0 12px 0;
+}
+
+.no-rewards p {
+    font-size: 1rem;
+    color: var(--color-text-muted, #a0a0a0);
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .my-rewards-section {
+        padding: 20px;
+        border-radius: 15px;
+    }
+    
+    .my-rewards-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .my-rewards-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .export-options {
+        align-self: stretch;
+        justify-content: center;
+    }
+    
+    .export-button {
+        flex: 1;
+        justify-content: center;
+        padding: 10px 16px;
+    }
+    
+    .rewards-table-container {
+        margin: 0 -20px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .rewards-table {
+        font-size: 0.9rem;
+        min-width: 700px;
+    }
+    
+    .rewards-table th,
+    .rewards-table td {
+        padding: 12px 16px;
+    }
+    
+    .reward-title {
+        max-width: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .my-rewards-section {
+        padding: 15px;
+    }
+    
+    .my-rewards-header h2 {
+        font-size: 1.3rem;
+    }
+    
+    .export-button {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+    }
+    
+    .rewards-table {
+        font-size: 0.85rem;
+        min-width: 650px;
+    }
+    
+    .rewards-table th,
+    .rewards-table td {
+        padding: 10px 12px;
+    }
+    
+    .no-rewards {
+        padding: 60px 15px;
+    }
+    
+    .no-rewards-icon {
+        font-size: 3rem;
+    }
+    
+    .no-rewards h3 {
+        font-size: 1.25rem;
+    }
+    
+    .no-rewards p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Smooth table animations */
+.rewards-table tbody tr {
+    animation: fadeInRow 0.4s ease-out;
+    animation-fill-mode: both;
+}
+
+.rewards-table tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.rewards-table tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.rewards-table tbody tr:nth-child(3) { animation-delay: 0.3s; }
+.rewards-table tbody tr:nth-child(4) { animation-delay: 0.4s; }
+.rewards-table tbody tr:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+} 

@@ -1,0 +1,332 @@
+/* Inherit base styles from AIChat.css or global styles if preferred */
+/* For this example, we'll define specific styles, borrowing from AIChat.css concepts */
+
+/* Page layout */
+.ai-test-generator-page {
+  background: linear-gradient(135deg, #f0f2f5 0%, #e6e9ed 100%);
+  padding: 40px;
+  width: 100%;
+}
+
+.ai-test-generator-container {
+  width: 100%; /* Changed from max-width to full width */
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Generator Card Styling */
+.generator-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.generator-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #aa2eff, #8a1ed6); /* Updated to new primary color */
+}
+
+.generator-header {
+  padding: 30px 35px;
+  border-bottom: 1px solid #e8e8e8;
+  background: #fdfcff; /* Light header background */
+}
+
+.generator-title {
+  font-family: 'Clash Display', sans-serif !important;
+  font-size: 28px;
+  font-weight: 600;
+  color: #aa2eff; /* Updated to new primary color */
+  margin: 0 0 10px 0;
+  letter-spacing: -0.3px;
+}
+
+.generator-subtitle {
+  font-size: 15px;
+  color: #555;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.generator-form {
+  padding: 30px 35px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-label {
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.form-label i {
+  color: #aa2eff; /* Updated to new primary color */
+  font-size: 18px;
+}
+
+.form-select,
+.form-input-number {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  color: #333;
+}
+
+.form-select:focus,
+.form-input-number:focus {
+  border-color: #aa2eff; /* Updated to new primary color */
+  box-shadow: 0 0 0 3px rgba(170, 46, 255, 0.15);
+  outline: none;
+}
+
+.form-select:disabled,
+.form-input-number:disabled {
+  background-color: #f0f0f0;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.loading-text {
+  font-style: italic;
+  color: #777;
+  padding: 10px 0;
+}
+
+.info-text {
+  font-size: 14px;
+  color: #e74c3c; /* Warning color */
+  margin-top: 5px;
+}
+
+.form-actions {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.generator-button {
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background: linear-gradient(45deg, #aa2eff, #8a1ed6); /* Updated to new primary color */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(170, 46, 255, 0.2);
+}
+
+.generator-button:hover:not(.disabled) {
+  transform: scale(1.02); /* Updated transform value */
+  box-shadow: 0 6px 18px rgba(170, 46, 255, 0.3);
+  background: linear-gradient(45deg, #991ee6, #7a1bc0); /* Darker shade for hover */
+}
+
+.generator-button.disabled {
+  background: #b0b0b0; /* Greyed out */
+  color: #777;
+  opacity: 0.8;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.generator-button i {
+  font-size: 18px;
+}
+
+.spinning {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.generation-progress-notice {
+    background-color: #f7f0ff;
+    border: 1px solid #e6d0ff;
+    color: #aa2eff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.generation-progress-notice i {
+    font-size: 20px;
+}
+
+/* AI Points Display Styles */
+.ai-points-display {
+  margin: 20px 0;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 12px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.points-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.points-info i {
+  font-size: 24px;
+  color: #ffd700;
+}
+
+.buy-points-btn-small {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.buy-points-btn-small:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+.points-note {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 13px;
+  display: block;
+}
+
+.error-text {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* Tip Card Styling (adapted from AIChat.css tip-card) */
+.tip-card-generator { /* Unique class to avoid conflicts if AIChat.css is global */
+  margin-top: 40px;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  border: 1px solid #e0e0e0;
+  /* Removed float animation for a more static tool page */
+}
+
+.tip-card-generator .tip-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  color: #aa2eff; /* Updated to new primary color */
+}
+
+.tip-card-generator .tip-header i {
+  font-size: 22px;
+  color: #aa2eff; /* Updated to new primary color */
+}
+
+.tip-card-generator .tip-header span {
+  font-family: 'Clash Display', sans-serif !important;
+  font-size: 18px; /* Adjusted size */
+  font-weight: 500; /* Medium weight */
+}
+
+.tip-card-generator .tip-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tip-card-generator .tip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 0; /* Adjusted padding */
+  color: #444; /* Slightly darker text */
+  font-size: 14.5px; /* Adjusted size */
+  border-bottom: 1px solid #f0f0f0;
+  line-height: 1.6;
+}
+
+.tip-card-generator .tip-item:last-child {
+  border-bottom: none;
+}
+
+.tip-card-generator .tip-item i {
+  color: #aa2eff; /* Updated to new primary color */
+  font-size: 16px;
+  margin-top: 3px;
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+  .ai-test-generator-page {
+    padding: 20px;
+  }
+  
+  .ai-test-generator-container {
+    padding: 0;
+  }
+  .generator-header, .generator-form {
+    padding: 20px 25px;
+  }
+  .generator-title {
+    font-size: 24px;
+  }
+  .generator-subtitle {
+    font-size: 14px;
+  }
+  .form-label {
+    font-size: 15px;
+  }
+  .form-select, .form-input-number {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+  .generator-button {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+  .tip-card-generator {
+    padding: 20px;
+  }
+} 

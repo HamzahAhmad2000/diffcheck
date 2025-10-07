@@ -1,0 +1,226 @@
+/* styles/ConditionalLogicEditor.css */
+.conditional-logic-editor {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 16px;
+    margin-bottom: 16px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .conditional-logic-editor__title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #333;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 8px;
+  }
+  
+  .conditional-logic-editor__field {
+    margin-bottom: 16px;
+  }
+  
+  .conditional-logic-editor__label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #444;
+  }
+  
+  .conditional-logic-editor__condition-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #444;
+  }
+  
+  .conditional-logic-editor__select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #fff;
+  }
+  
+  .conditional-logic-editor__select--operator {
+    width: 60%;
+    margin-right: 10px;
+  }
+  
+  .conditional-logic-editor__input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    background-color: #fff;
+  }
+  
+  .conditional-logic-editor__input--number {
+    width: 35%;
+  }
+  
+  .conditional-logic-editor__placeholder {
+    color: #333;
+    background-color: #f0f4ff;
+    border: 1px dashed #c6d3ff;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  
+  .conditional-logic-editor__help-text {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 8px;
+  }
+  
+  .conditional-logic-editor__error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    padding: 8px 12px;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+  }
+  
+  .conditional-logic-editor__condition-group {
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .conditional-logic-editor__checkbox-group {
+    margin-bottom: 12px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #efefef;
+    border-radius: 4px;
+    padding: 8px;
+  }
+  
+  .conditional-logic-editor__checkbox-label {
+    color : #333;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .conditional-logic-editor__checkbox-label input {
+    margin-right: 8px;
+  }
+  
+  .conditional-logic-editor__radio-group {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #efefef;
+  }
+  
+  .conditional-logic-editor__radio-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .conditional-logic-editor__radio-label input {
+    margin-right: 8px;
+  }
+  
+  .conditional-logic-editor__numerical-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .conditional-logic-editor__range-hint {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-top: 4px;
+    font-style: italic;
+  }
+  
+  .conditional-logic-editor__condition-render-area {
+    margin-bottom: 16px;
+  }
+  
+  .conditional-logic-editor__summary {
+    background-color: #e8f4fe;
+    border: 1px solid #b8e2fc;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+  
+  .conditional-logic-editor__summary h4 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #0077cc;
+  }
+  
+  .conditional-logic-editor__summary p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  .conditional-logic-editor__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .conditional-logic-editor__btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: none;
+    font-weight: 500;
+  }
+  
+  .conditional-logic-editor__btn--cancel {
+    background-color: #f8f9fa;
+    color: #495057;
+    border: 1px solid #ced4da;
+  }
+  
+  .conditional-logic-editor__btn--cancel:hover {
+    background-color: #e9ecef;
+  }
+  
+  .conditional-logic-editor__btn--save {
+    background-color: #AA2EFF;
+    color: white;
+  }
+  
+  .conditional-logic-editor__btn--save:hover {
+    background-color: #9429E0;
+  }
+  
+  .conditional-logic-editor__btn--clear {
+    background-color: #f8f9fa;
+    color: #dc3545;
+    border: 1px solid #dc3545;
+  }
+  
+  .conditional-logic-editor__btn--clear:hover {
+    background-color: #f8d7da;
+  }

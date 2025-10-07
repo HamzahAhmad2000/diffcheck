@@ -1,0 +1,205 @@
+/* react/src/styles/account.css */
+
+/* General Account Page Styles */
+.account-page-container {
+  padding: 20px;
+  /* background-color: #f9f9f9; */ /* Example background for account pages */
+  /* min-height: calc(100vh - var(--navbar-height, 60px) - var(--footer-height, 50px)); */ /* Full height minus nav/footer */
+}
+
+.account-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.account-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 8px;
+}
+
+.account-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  color: #777;
+}
+
+/* Account Section Styling */
+.account-section {
+  background-color: #ffffff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
+}
+
+.account-section-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Common styles for form groups within account sections if they differ from auth.css */
+.account-form-group {
+  margin-bottom: 20px;
+}
+
+.account-form-group label {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #eaeaea ;
+  margin-bottom: 8px;
+}
+
+.account-form-group input[type="text"],
+.account-form-group input[type="email"],
+.account-form-group input[type="password"],
+.account-form-group input[type="date"],
+.account-form-group input[type="url"],
+.account-form-group select,
+.account-form-group textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.account-form-group input:focus,
+.account-form-group select:focus,
+.account-form-group textarea:focus {
+  outline: none;
+  border-color: #aa2eff;
+  box-shadow: 0 0 0 2px rgba(170, 46, 255, 0.15);
+}
+
+.account-form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.account-button {
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #aa2eff, #9514ff);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-right: 10px; /* Space between buttons */
+}
+
+.account-button:hover:not(:disabled) {
+  background: linear-gradient(45deg, #9514ff, #aa2eff);
+}
+
+.account-button.secondary {
+  background: #e9ecef;
+  color: #333;
+  border: 1px solid #ced4da;
+}
+
+.account-button.secondary:hover:not(:disabled) {
+  background: #dee2e6;
+}
+
+.account-button:disabled {
+  background-color: #d6d6d6;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+/* Specific layout for account details page, etc. */
+.profile-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.button-group {
+    margin-top: 25px;
+    text-align: right; /* Or 'left' or 'center' based on design */
+}
+
+.button-group .account-button:last-child {
+    margin-right: 0;
+}
+
+/* Placeholders for image styling (e.g., profile picture) */
+.profile-picture-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-picture {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: inline-block;
+  /* object-fit: cover; */ /* if using <img> */
+}
+
+/* This is a placeholder and would typically be in a Navbar.css or similar */
+.account_page_navbar_logo {
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+/* This is a placeholder and would typically be in a specific component or general layout CSS */
+.account_page_background_image {
+    /* For example, if you had a specific background for account pages */
+    /* background-image: url('../../static/assets/account_bg.png'); */
+    /* background-size: cover; */
+    /* background-position: center; */
+}
+
+/* Styles for the TagSelector might go here if specific to account context,
+   or if TagSelector.css is imported within account.css for cascading. */
+
+
+/* Responsive adjustments for account pages */
+@media (max-width: 768px) {
+  .account-title {
+    font-size: 28px;
+  }
+  .account-section-title {
+    font-size: 20px;
+  }
+  .account-button {
+    width: 100%;
+    margin-bottom: 10px;
+    margin-right: 0;
+  }
+  .button-group {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-page-container {
+    padding: 15px;
+  }
+  .account-section {
+    padding: 20px;
+  }
+  .account-title {
+    font-size: 24px;
+  }
+} 

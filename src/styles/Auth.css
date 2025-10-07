@@ -1,0 +1,855 @@
+/* react/src/styles/Auth.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+/* You'll need to add Clash Display font to your project */
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400;500;600,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body { /* Use a class like .auth-active-body if this is too global */
+  font-family: 'Poppins', sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.auth-form {
+  width: 100%;
+  max-width: 550px; /* Consistent base width */
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+  text-align: left;
+  /* No background color to blend with body, or a very subtle dark shade if needed */
+  /* border: 1px solid #333; Optional: if a slight form definition is desired */
+  /* border-radius: 10px; Optional */
+  
+  /* Basic fade-in animation */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInForm 0.7s 0.2s ease-out forwards;
+}
+
+@keyframes fadeInForm {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-form.long-form {
+  max-width: 650px; /* Wider for forms with more sections */
+}
+
+.auth-title {
+  font-family: "Clash Display", sans-serif;
+  font-size: 30px; /* Matches login-form-container h2 */
+  font-weight: 600; /* Stronger title */
+  color: #FFF;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 1rem; /* Adjusted */
+}
+
+.auth-subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  color: #aaa;
+  text-align: center;
+  margin-bottom: 2rem; /* Adjusted */
+  line-height: 1.6;
+}
+
+.form-group {
+  margin-bottom: 1.5rem; /* Adjusted */
+  width: 100%;
+}
+
+.form-group label {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #eaeaea; /* Lighter for dark theme */
+  margin-bottom: 0.5rem; /* Adjusted */
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"],
+.form-group input[type="date"],
+.form-group select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #FFF;
+  font-family: "Clash Display", sans-serif; /* Consistent with original Auth.css */
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group select::placeholder { /* Select doesn't really have a placeholder like input */
+  color: #FFF; /* Should be a bit dimmer, e.g., #bbb */
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.7; /* Make placeholder slightly less prominent */
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus,
+.form-group input[type="date"]:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #aa2eff;
+  box-shadow: none; /* No box-shadow on focus for this theme */
+}
+
+.form-group select {
+  cursor: pointer;
+}
+
+.form-group select option {
+  background-color: #000000; /* Dropdown options background */
+  color: #FFF;
+}
+
+.form-group input.input-error {
+  border-color: #ff6b6b !important; /* Red border for error */
+  /* background-color: rgba(255, 107, 107, 0.05); Optional subtle bg hint for error */
+}
+
+.error-text { /* Field specific error */
+  color: #ff6b6b;
+  font-size: 13px;
+  margin-top: 6px; /* Increased slightly */
+  font-family: 'Poppins', sans-serif;
+}
+
+.success-message {
+  background-color: rgba(46, 204, 113, 0.1); /* Greenish transparent */
+  color: #2ecc71; /* Bright green */
+  padding: 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid rgba(46, 204, 113, 0.2);
+  font-family: 'Poppins', sans-serif;
+}
+
+.error-message { /* For server errors or general form errors */
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff6b6b;
+  padding: 0.8rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 14px;
+  border: 1px solid rgba(255, 0, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Styles for react-datepicker */
+.date-picker-wrapper {
+  width: 100%;
+}
+
+.date-picker-custom-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #FFF;
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.date-picker-custom-input::placeholder {
+  color: #FFF;
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+.date-picker-custom-input:focus {
+  outline: none;
+  border-color: #aa2eff;
+  box-shadow: none;
+}
+
+.date-picker-custom-input.input-error {
+  border-color: #ff6b6b !important;
+}
+
+.react-datepicker__header {
+  background-color: #1f1f1f; 
+  border-bottom: 1px solid #333;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  color: #FFF; 
+}
+
+.react-datepicker__day-name,
+.react-datepicker__day,
+.react-datepicker__time-name {
+  color: #ccc; 
+}
+
+.react-datepicker__day:hover {
+  background-color: #333;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #aa2eff;
+  color: #FFF;
+}
+
+.react-datepicker__day--disabled {
+  color: #555;
+  cursor: default;
+}
+
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::before,
+.react-datepicker-popper[data-placement^="bottom"] .react-datepicker__triangle::after {
+    border-bottom-color: #1f1f1f; 
+}
+
+.react-datepicker__year-dropdown,
+.react-datepicker__month-dropdown,
+.react-datepicker__month-year-dropdown {
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+}
+
+.react-datepicker__year-option:hover,
+.react-datepicker__month-option:hover,
+.react-datepicker__month-year-option:hover {
+  background-color: #555; 
+}
+
+.react-datepicker__year-option--selected_year,
+.react-datepicker__month-option--selected_month {
+    background-color: #aa2eff;
+    color: white;
+}
+
+.react-datepicker__navigation--years-previous,
+.react-datepicker__navigation--years-upcoming {
+    border-color: white; 
+}
+
+.react-datepicker__year-read-view--down-arrow,
+.react-datepicker__month-read-view--down-arrow,
+.react-datepicker__month-year-read-view--down-arrow {
+ border-color: white; 
+}
+/* END Styles for react-datepicker */
+
+/* Primary Button Style - adopted from .login-button-form */
+.auth-button {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #aa2eff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+  margin-bottom: 1rem; /* Default margin */
+}
+
+.auth-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -100%; /* Start off-screen to the left */
+  width: 200%; /* Wide enough to pass through */
+  height: 200%; /* Tall enough */
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 50%, /* Brighter reflection */
+    transparent 100%
+  );
+  transform: translate(-50%, -50%) skewX(-20deg); /* Center vertically and skew */
+  transition: left 0.65s ease-in-out; /* Slower, smoother transition */
+}
+
+.auth-button:hover::before {
+  left: 100%; /* Move to pass through to the right */
+}
+
+.auth-button:hover:not(:disabled) {
+  background-color: #9a1aff; /* Darker purple on hover */
+  transform: scale(1.02); /* Slight zoom effect */
+}
+
+.auth-button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+  opacity: 0.6;
+  box-shadow: none;
+  transform: none;
+}
+.auth-button:disabled::before {
+    display: none; /* Hide reflection on disabled */
+}
+
+
+/* Secondary Button Style - like .google-login-button */
+.auth-button.secondary {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #555; /* Darker border for contrast on black */
+  text-transform: none; /* Often secondary buttons are not uppercase */
+  font-weight: 400; /* Normal weight for secondary */
+}
+
+.auth-button.secondary:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.05); /* Subtle hover */
+  border-color: #777;
+  transform: scale(1.01); /* Less pronounced scale */
+}
+.auth-button.secondary::before {
+    display: none; /* No reflection for secondary by default */
+}
+
+/* Alternate Button Style */
+.auth-button.alternate {
+  background: transparent;
+  color: #aa2eff; /* Accent color text */
+  border: 1px solid #aa2eff;
+  text-transform: none;
+  font-weight: 400;
+}
+.auth-button.alternate:hover:not(:disabled) {
+  background-color: rgba(170, 46, 255, 0.1); /* Accent color tint on hover */
+  color: #c28bff; /* Lighter accent */
+  border-color: #c28bff;
+  transform: scale(1.01);
+}
+.auth-button.alternate::before {
+    display: none; /* No reflection for alternate */
+}
+
+.auth-button.compact {
+  padding: 0.6rem 1rem; /* Smaller padding */
+  font-size: 16px; /* Smaller font */
+  width: auto;
+  min-width: 120px;
+  margin-top: 10px;
+}
+
+
+.form-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: #aa2eff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px;
+  text-decoration: none; /* No underline by default */
+}
+
+.link-button:hover {
+  color: #c28bff; /* Lighter purple on hover */
+  text-decoration: underline;
+}
+
+/* Terms and Conditions Group */
+.terms-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.terms-group input[type="checkbox"] {
+  /* width: auto; */ /* Handled by browser */
+  accent-color: #aa2eff; /* Styles the checkmark color in modern browsers */
+  height: 18px;
+  width: 18px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #fff; /* Add border for better visibility on dark theme */
+  appearance: none; /* Remove default appearance to style custom */
+  border-radius: 3px;
+  position: relative;
+}
+.terms-group input[type="checkbox"]:checked {
+  background-color: #aa2eff;
+  border-color: #aa2eff;
+}
+.terms-group input[type="checkbox"]:checked::before {
+  content: '\2713'; /* Checkmark character */
+  font-size: 14px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+}
+
+.terms-group input[type="checkbox"].input-error {
+  border-color: #ff6b6b !important;
+}
+
+
+.terms-label {
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: #aaa;
+  font-weight: 400 !important; 
+  margin-bottom: 0 !important; 
+}
+
+.terms-label a {
+  color: #aa2eff;
+  text-decoration: none;
+}
+
+.terms-label a:hover {
+  text-decoration: underline;
+  color: #c28bff;
+}
+
+/* Social Linking Styles */
+.social-linking-section {
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  border-top: 1px solid #333; /* Darker border */
+  padding-top: 1.5rem;
+}
+
+.social-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #FFF; /* White text */
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.social-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Wider minmax */
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+/* Individual social buttons would inherit .auth-button.secondary or have their own styles */
+/* E.g., .social-link-button could be a class on the button from SocialLinkButton.js */
+.social-link-button { /* Example class for SocialLinkButton's button */
+    /* Inherit from .auth-button.secondary or define explicitly */
+    /* e.g. using .auth-button and .secondary classes on it */
+}
+
+
+/* Full width button for options like in ForgotPasswordChoose */
+.full-width-button { /* This is often the primary auth-button, just ensuring it's full width */
+  width: 100%;
+  /* padding: 15px;
+  font-size: 16px; */
+  margin-bottom: 1rem; /* consistent spacing */
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px !important; /* More specific if needed */
+}
+
+/* Recovery Options Container */
+.recovery-options {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.recovery-options .auth-button { /* Ensure buttons here get the new styles */
+    margin-bottom: 1rem;
+}
+.recovery-options .auth-button:last-child {
+    margin-bottom: 0;
+}
+
+
+/* Info text for guidance */
+.info-text {
+  font-size: 14px; /* Slightly larger */
+  font-family: 'Poppins', sans-serif;
+  color: #aaa; /* Lighter grey */
+  text-align: center;
+  margin-bottom: 1rem; /* Spacing after info text */
+  line-height: 1.5;
+}
+.info-text.error-text { /* For error info, e.g. social linking disabled */
+    color: #ff6b6b;
+}
+
+
+/* Security sections for SignupStep4 */
+.security-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #333; /* Darker border */
+}
+.security-section:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.section-title { /* For sub-sections like MFA, Security Questions */
+  font-family: 'Clash Display', sans-serif;
+  font-size: 22px; /* Prominent sub-title */
+  font-weight: 500;
+  color: #FFF;
+  margin-bottom: 1rem;
+}
+
+.mfa-setup-details {
+  background-color: rgba(255, 255, 255, 0.03); /* Very subtle bg */
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  border: 1px solid #2a2a2a;
+}
+.mfa-setup-details p {
+  margin-bottom: 0.8rem;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: #ccc;
+}
+.mfa-setup-details strong {
+  font-weight: 600;
+  color: #aa2eff; /* Accent color for key info */
+}
+.qr-placeholder { /* Placeholder for QR code */
+  width: 140px; /* Slightly larger */
+  height: 140px;
+  background-color: rgba(255, 255, 255, 0.1); /* Light placeholder bg */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto; /* Centered */
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: 'Poppins', sans-serif;
+  color: #bbb;
+}
+
+.security-question-group {
+  margin-bottom: 1rem;
+}
+
+.passkeys-display ul {
+  list-style-type: none; /* Cleaner look */
+  padding-left: 0;
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1rem;
+  border-radius: 4px;
+  max-height: 180px; /* More space for keys */
+  overflow-y: auto;
+  border: 1px solid #2a2a2a;
+}
+.passkeys-display li {
+  margin-bottom: 0.5rem;
+  font-size: 15px; /* Larger mono font */
+  color: #ddd;
+  padding: 0.3rem;
+  border-radius: 3px;
+  background-color: rgba(255,255,255,0.02);
+}
+.passkeys-display li:nth-child(odd){
+    background-color: rgba(255,255,255,0.04);
+}
+
+
+.form-actions {
+  display: flex;
+  justify-content: space-between; 
+  gap: 1rem; 
+  margin-top: 2rem; /* More space before actions */
+  flex-wrap: wrap; 
+}
+
+.form-actions .auth-button {
+  flex-grow: 1; 
+  min-width: 150px; /* Ensure buttons are reasonably sized */
+   margin-bottom: 0; /* Remove default margin from .auth-button if it's in actions */
+}
+
+/* Handle two buttons in actions to be roughly 50% width */
+.form-actions > .auth-button:nth-child(1):nth-last-child(2),
+.form-actions > .auth-button:nth-child(2):nth-last-child(1) {
+    width: calc(50% - 0.5rem); /* 0.5rem is half of the gap */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1.5rem;
+  }
+  .auth-form {
+    padding: 2rem 1.5rem;
+    max-width: 90%; /* More fluid on tablets */
+  }
+  .auth-title {
+    font-size: 26px;
+  }
+  .auth-subtitle {
+    font-size: 14px;
+  }
+  .social-buttons-grid {
+    grid-template-columns: 1fr; /* Stack social buttons */
+  }
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group input[type="password"],
+  .form-group input[type="date"],
+  .form-group select,
+  .form-group input::placeholder {
+    font-size: 18px; /* Slightly smaller on mobile for better fit */
+  }
+  .auth-button {
+    font-size: 18px; /* Adjust button font size */
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 0.5rem; /* Minimal padding on phones */
+    min-height: auto; /* Allow content to dictate height */
+  }
+  .auth-form {
+    padding: 1.5rem 1rem;
+    max-width: 100%; /* Full width */
+    box-shadow: none;
+  }
+  .auth-title {
+    font-size: 22px; /* Even smaller */
+  }
+  .form-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .form-actions .auth-button,
+  .social-buttons-grid .auth-button {
+    padding: 0.9rem; /* Slightly adjust padding for better tap targets */
+    width: 100%;
+  }
+
+  .form-actions .auth-button {
+    margin-bottom: 0.5rem;
+  }
+  .form-actions .auth-button:last-child {
+      margin-bottom: 0;
+  }
+}
+
+/* Recovery Form Styles */
+.recovery-form {
+  max-width: 600px;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.recovery-options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.recovery-option {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #333;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.recovery-option:hover {
+  background: rgba(170, 46, 255, 0.1);
+  border-color: #aa2eff;
+  transform: translateY(-2px);
+}
+
+.recovery-option__icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  background: rgba(170, 46, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recovery-option__icon i {
+  font-size: 24px;
+  color: #aa2eff;
+}
+
+.recovery-option__content {
+  flex-grow: 1;
+}
+
+.recovery-option__content h3 {
+  font-family: "Clash Display", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: #FFF;
+  margin-bottom: 0.5rem;
+}
+
+.recovery-option__content p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  color: #aaa;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.form-footer .link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 15px;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.form-footer .link-button:hover {
+  background: rgba(170, 46, 255, 0.1);
+  text-decoration: none;
+}
+
+.form-footer .link-button i {
+  font-size: 18px;
+}
+
+/* Responsive styles for recovery form */
+@media (max-width: 768px) {
+  .recovery-form {
+    max-width: 100%;
+    padding: 2rem 1.5rem;
+  }
+
+  .recovery-option {
+    padding: 1.2rem;
+    gap: 1rem;
+  }
+
+  .recovery-option__icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .recovery-option__icon i {
+    font-size: 20px;
+  }
+
+  .recovery-option__content h3 {
+    font-size: 16px;
+  }
+
+  .recovery-option__content p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recovery-form {
+    padding: 1.5rem 1rem;
+  }
+
+  .recovery-option {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 1rem;
+  }
+
+  .recovery-option__icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .recovery-option__icon i {
+    font-size: 18px;
+  }
+
+  .recovery-option__content {
+    width: 100%;
+  }
+
+  .recovery-option__content h3 {
+    font-size: 15px;
+  }
+
+  .recovery-option__content p {
+    font-size: 12px;
+  }
+
+  .form-footer .link-button {
+    font-size: 14px;
+  }
+}

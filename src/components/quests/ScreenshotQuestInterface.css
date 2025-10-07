@@ -1,0 +1,393 @@
+/* Screenshot Quest Interface - Unique Black Background Styling */
+.screenshot-quest-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(10px);
+}
+
+.screenshot-quest-container {
+    background: #000000;
+    border: 2px solid #333333;
+    border-radius: 16px;
+    max-width: 700px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+    color: #ffffff;
+}
+
+/* Header */
+.screenshot-quest-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px;
+    border-bottom: 2px solid #222222;
+    background: #111111;
+    border-radius: 14px 14px 0 0;
+}
+
+.screenshot-quest-title-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.screenshot-quest-icon {
+    font-size: 32px;
+    padding: 8px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+.screenshot-quest-title {
+    margin: 0;
+    color: #aa2eff;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.screenshot-quest-type {
+    color: #888888;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.screenshot-quest-close {
+    background: #1a1a1a;
+    border: 2px solid #333333;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 8px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.screenshot-quest-close:hover {
+    background: #333333;
+    border-color: #555555;
+    color: #aa2eff;
+}
+
+/* Main Content */
+.screenshot-quest-content {
+    padding: 24px;
+    background: #000000;
+}
+
+/* Quest Description */
+.screenshot-quest-description {
+    background: #111111;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    border: 1px solid #333333;
+}
+
+.screenshot-quest-desc-text {
+    margin: 0;
+    color: #cccccc;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+/* XP Reward */
+.screenshot-quest-reward {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.screenshot-quest-xp {
+    display: inline-block;
+    background: linear-gradient(135deg, #aa2eff, #9020e0);
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 2px solid #333333;
+    box-shadow: 0 4px 15px rgba(170, 46, 255, 0.3);
+}
+
+/* Steps */
+.screenshot-quest-step {
+    background: #111111;
+    border: 2px solid #333333;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.screenshot-quest-step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.screenshot-quest-step-number {
+    width: 32px;
+    height: 32px;
+    background: #aa2eff;
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid #333333;
+}
+
+.screenshot-quest-step-title {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+/* Link Section */
+.screenshot-quest-link-container {
+    background: #1a1a1a;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+.screenshot-quest-link-text {
+    color: #aa2eff;
+    margin: 0 0 12px 0;
+    font-family: monospace;
+    background: #000000;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #333333;
+    word-break: break-all;
+}
+
+.screenshot-quest-link-btn {
+    background: #aa2eff;
+    color: #ffffff;
+    border: 2px solid #333333;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.screenshot-quest-link-btn:hover {
+    background: #9020e0;
+    border-color: #555555;
+    box-shadow: 0 4px 15px rgba(170, 46, 255, 0.3);
+}
+
+.screenshot-quest-link-btn.visited {
+    background: #4caf50;
+    border-color: #4caf50;
+}
+
+.screenshot-quest-link-btn.visited:hover {
+    background: #45a049;
+}
+
+/* Upload Area */
+.screenshot-quest-upload-area {
+    margin-bottom: 20px;
+}
+
+.screenshot-quest-file-input {
+    display: none;
+}
+
+.screenshot-quest-upload-label {
+    display: block;
+    border: 3px dashed #555555;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #1a1a1a;
+}
+
+.screenshot-quest-upload-label:hover {
+    border-color: #aa2eff;
+    background: #222222;
+    box-shadow: 0 4px 15px rgba(170, 46, 255, 0.2);
+}
+
+.screenshot-quest-upload-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    color: #aa2eff;
+}
+
+.screenshot-quest-upload-text {
+    margin: 0;
+    color: #cccccc;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.screenshot-quest-file-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.screenshot-quest-file-name {
+    color: #4caf50;
+    background: #000000;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #333333;
+    font-family: monospace;
+    font-size: 0.9rem;
+}
+
+/* Notes Textarea */
+.screenshot-quest-notes {
+    margin-bottom: 20px;
+}
+
+.screenshot-quest-notes-textarea {
+    width: 100%;
+    background: #1a1a1a;
+    border: 2px solid #333333;
+    color: #ffffff;
+    padding: 12px;
+    border-radius: 8px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.screenshot-quest-notes-textarea:focus {
+    outline: none;
+    border-color: #aa2eff;
+    box-shadow: 0 0 0 3px rgba(170, 46, 255, 0.2);
+}
+
+.screenshot-quest-notes-textarea::placeholder {
+    color: #666666;
+}
+
+/* Submit Button */
+.screenshot-quest-submit-btn {
+    background: #4caf50;
+    color: #ffffff;
+    border: 2px solid #333333;
+    padding: 16px 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+}
+
+.screenshot-quest-submit-btn:hover:not(:disabled) {
+    background: #45a049;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    border-color: #555555;
+}
+
+.screenshot-quest-submit-btn:disabled {
+    background: #333333;
+    color: #666666;
+    cursor: not-allowed;
+    border-color: #222222;
+}
+
+/* Approval Info */
+.screenshot-quest-approval-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+
+.screenshot-quest-approval-icon {
+    color: #4caf50;
+    font-size: 1.2rem;
+}
+
+.screenshot-quest-approval-text {
+    color: #aaaaaa;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .screenshot-quest-container {
+        width: 95%;
+        margin: 20px;
+        max-height: 95vh;
+    }
+    
+    .screenshot-quest-header,
+    .screenshot-quest-content {
+        padding: 16px;
+    }
+    
+    .screenshot-quest-title {
+        font-size: 1.3rem;
+    }
+    
+    .screenshot-quest-upload-label {
+        padding: 30px 20px;
+    }
+    
+    .screenshot-quest-upload-icon {
+        font-size: 36px;
+    }
+    
+    .screenshot-quest-step {
+        padding: 16px;
+    }
+}
+
+/* Custom Scrollbar for Dark Theme */
+.screenshot-quest-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.screenshot-quest-container::-webkit-scrollbar-track {
+    background: #1a1a1a;
+}
+
+.screenshot-quest-container::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+}
+
+.screenshot-quest-container::-webkit-scrollbar-thumb:hover {
+    background: #555555;
+} 

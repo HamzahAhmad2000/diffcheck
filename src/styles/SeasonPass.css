@@ -1,0 +1,406 @@
+/* Season Pass Styles */
+
+
+.season-pass-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="m 60 0 l 0 60 l -60 0 z" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.season-pass-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 40px;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.season-pass-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.season-pass-info h2.season-pass-title {
+    margin: 0 0 8px 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.season-pass-title i {
+    font-size: 2rem;
+    color: #ffd700;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.season-pass-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: center;
+}
+
+.season-countdown {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+}
+
+.season-countdown i {
+    color: #ffd700;
+}
+
+.pass-tier {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.pass-tier.lunar {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #2d3748;
+}
+
+.pass-tier.totality {
+    background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+    color: white;
+}
+
+.season-pass-actions {
+    position: relative;
+    z-index: 1;
+}
+
+.activate-pass-btn,
+.view-rewards-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.activate-pass-btn:hover,
+.view-rewards-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.5);
+}
+
+.view-rewards-btn {
+    background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+}
+
+.view-rewards-btn:hover {
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.5);
+}
+
+.season-pass-progress {
+    position: relative;
+    z-index: 1;
+}
+
+.level-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.current-level {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.level-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.level-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: #ffd700;
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.xp-info {
+    text-align: right;
+}
+
+.current-xp {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.xp-to-next {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.progress-bar-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    flex: 1;
+    height: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ffd700 0%, #ffed4e 100%);
+    border-radius: 6px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.3) 50%, transparent 100%);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.progress-percentage {
+    font-weight: 700;
+    font-size: 0.9rem;
+    min-width: 50px;
+    text-align: right;
+}
+
+.level-preview {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.level-reward-preview {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 12px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    font-size: 0.9rem;
+}
+
+.level-badge {
+    background: rgba(255, 215, 0, 0.9);
+    color: #2d3748;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.reward-preview {
+    font-weight: 500;
+}
+
+.claim-btn {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.claim-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
+}
+
+.pass-tiers-preview {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.tier-preview {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 16px;
+    border-radius: 12px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.tier-preview:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.tier-preview.totality {
+    background: rgba(255, 215, 0, 0.1);
+    border-color: rgba(255, 215, 0, 0.3);
+}
+
+.tier-preview.totality:hover {
+    background: rgba(255, 215, 0, 0.15);
+}
+
+.tier-name {
+    display: block;
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tier-price {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #ffd700;
+    margin-bottom: 4px;
+}
+
+.tier-multiplier {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    font-weight: 500;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .season-pass-section {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .season-pass-header {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .season-pass-meta {
+        justify-content: center;
+    }
+
+    .season-pass-actions {
+        align-self: stretch;
+    }
+
+    .activate-pass-btn,
+    .view-rewards-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .level-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+
+    .xp-info {
+        text-align: center;
+    }
+
+    .pass-tiers-preview {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .level-preview {
+        justify-content: center;
+    }
+
+    .season-pass-title {
+        font-size: 1.5rem !important;
+    }
+
+    .level-number {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .season-pass-section {
+        padding: 16px;
+    }
+
+    .season-pass-title {
+        font-size: 1.3rem !important;
+    }
+
+    .level-number {
+        font-size: 1.8rem;
+    }
+
+    .current-xp {
+        font-size: 1.2rem;
+    }
+}
+
+
+

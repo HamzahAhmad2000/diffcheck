@@ -1,0 +1,588 @@
+/*============================================================ Root Level CSS =============================================================*/
+:root {
+    /* Set colors */
+    --Primary1: #5702FF;
+    --Primary2: #4801D6;
+    --Primary1-light: #E9E4FF;
+
+    --Text-color-1: #131415;
+    --Text-color-2: #9373FF;
+    
+
+
+    --White: #fbfbfb;
+    --GrayBlack: #191919;
+    --GrayBlack-light: #505050;
+    --OffWhite: #efefef;
+    --bg-color: #DDEBFB;
+}
+
+/* Media Queries */
+/* @media screen and (max-width: 1200px){}
+@media screen and (max-width: 1024px){}
+@media screen and (max-width: 768px){}
+@media screen and (max-width: 640px){}
+@media screen and (max-width: 480px){} */
+/*============================================================ CSS boiler plate =============================================================*/
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    font-family: 'Poppins', sans-serif;
+    font-size: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    box-sizing: border-box;
+}
+
+/* Heading Sizes */
+h1 {
+    font-size: 2.986rem;
+}
+
+h2 {
+    font-size: 2.488rem;
+}
+
+h3 {
+    font-size: 2.074rem;
+}
+
+h4 {
+    font-size: 1.728rem;
+}
+
+h5 {
+    font-size: 1.44rem;
+}
+
+h6 {
+    font-size: 1.2rem;
+}
+
+/* Paragraph and small text */
+p {
+    font-size: 1rem;
+}
+
+small {
+    font-size: 0.833rem;
+}
+
+/* Extra small text size */
+.xsmall {
+    font-size: 0.694rem;
+}
+/*============================================================ Scrollbar =============================================================*/
+/* scroll bar */
+::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--Primary1);
+    /* border-radius: 50px; */
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--White);
+}
+
+::-webkit-scrollbar-corner {
+    background-color: var(--White);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+}
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
+    background: var(--Primary1);
+    color: var(--White);
+    transition: all 0.3s;
+}
+#sidebar .nav-link {
+    color: var(--White);
+}
+#sidebar .nav-link:hover {
+    background: var(--Primary2);
+}
+#sidebar .nav-link.active {
+    background: var(--Primary2);
+}
+.content {
+    width: 100%;
+}
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+    background-color: #007bff;
+    color: white;
+    font-weight: 600;
+    border-radius: 10px 10px 0 0;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+
+.sidebar_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+#logout-btn{
+    background-color: var(--White);
+    color: var(--Primary1);
+    border-radius: 50px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+#logout-btn:hover{
+    background-color: var(--Primary2);
+    color: var(--White);
+}
+
+
+#qr_codes_container{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+table{
+    width: 100% !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="url"],
+.form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.timeline-event,
+.album-image {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+
+
+.event-images {
+    margin-top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --text-color: #333;
+    --bg-color: #f4f4f4;
+    --sidebar-bg: #2c3e50;
+    --card-bg: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.controls {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.controls button, #add-member, #edit-add-member {
+    margin: 0 5px;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#family-tree-container, #edit-family-tree-container {
+    width: 100%;
+    height: 600px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    position: relative;
+}
+
+#family-tree, #edit-family-tree {
+    width: 2000px;
+    height: 2000px;
+    background-color: #fff;
+    background-image: 
+        linear-gradient(to right, #e0e0e0 1px, transparent 1px),
+        linear-gradient(to bottom, #e0e0e0 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: absolute;
+}
+
+.family-member {
+    width: 150px;
+    height: 200px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.family-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.family-member h3 {
+    margin: 0;
+    font-size: 14px;
+}
+
+.family-member p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.connector {
+    width: 10px;
+    height: 10px;
+    background-color: #4CAF50;
+    border-radius: 50%;
+    position: absolute;
+    cursor: pointer;
+}
+
+.connector.top { top: -5px; left: 50%; transform: translateX(-50%); }
+.connector.right { right: -5px; top: 50%; transform: translateY(-50%); }
+.connector.bottom { bottom: -5px; left: 50%; transform: translateX(-50%); }
+.connector.left { left: -5px; top: 50%; transform: translateY(-50%); }
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#member-details {
+    display: flex;
+    flex-direction: column;
+}
+
+#member-details input, #member-details button {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.edit-btn, .delete-btn {
+    position: absolute;
+    top: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: none;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    display: none;
+}
+
+.edit-btn {
+    right: 30px;
+    background-color: #2196F3;
+}
+
+.delete-btn {
+    right: 5px;
+    background-color: #f44336;
+}
+
+.family-member:hover .edit-btn,
+.family-member:hover .delete-btn {
+    display: block;
+}
+
+/* Edit form styles */
+#edit-member-form {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#edit-member-details {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-member-details input, #edit-member-details button {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+#edit-family-tree-member-image-preview {
+    max-width: 200px;
+    max-height: 200px;
+    display: none;
+}
+
+#edit-family-tree-member-image-upload {
+    margin-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+.dashboard-grid {
+    /* display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 30px; */
+    display: flex;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.dashboard-card {
+    background-color: var(--white-color-2);
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.dashboard-card h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: var(--gray-color);
+}
+
+.dashboard-card p {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--Primary1);
+}
+
+.dashboard-grid-2 {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Add styles for QR Codes section */
+#qr-codes-section {
+    margin-top: 20px;
+}
+
+#qr-search {
+    width: 100%;
+    margin-bottom: 15px;
+}

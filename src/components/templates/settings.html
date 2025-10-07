@@ -1,0 +1,248 @@
+{% extends "layout.html" %}
+{% block title %}Settings - {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+
+<!-- <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token() }}"> -->
+
+
+<div class="top_margin"></div>
+<!-- <div class="subscription_section">
+    <div class="subscription_text">
+        <h2 class="heading_type_1">Subscription Plans</h2>
+    </div>
+
+
+    <div class="all_plans">
+        <div class="plan" id="plan1">
+            <div>
+                <p class="sub_type">Free</p>
+                <p class="sub_price">$00.00/mo</p>
+                <span><i class="ri-checkbox-circle-fill"></i><p>1 Free Short</p></span>
+                <span><i class="ri-checkbox-circle-fill"></i><p>Auto Posted on Youtube, Instagram/Facebook and Tiktok</p></span>
+            </div>
+            <button class="button_1" id="cancelSubscription">Select</button>
+        </div>
+
+        <div class="plan" id="plan2">
+            <div>
+                <p class="sub_type">Starter</p>
+                <p class="sub_price">$73.50/mo</p>
+                <span><i class="ri-checkbox-circle-fill"></i><p>3 Shorts per week</p></span>
+                <span><i class="ri-checkbox-circle-fill"></i><p>Auto Posted on Youtube, Instagram/Facebook and Tiktok</p></span>
+            </div>
+            <button class="button_1" id="starterplan">Select</button>
+        </div>
+
+        <div class="plan" id="plan3">
+            <div>
+                <p class="sub_type">Growth</p>
+                <p class="sub_price">$123.50/mo</p>
+                <span><i class="ri-checkbox-circle-fill"></i><p>1 Short per day</p></span>
+                <span><i class="ri-checkbox-circle-fill"></i><p>Auto Posted on Youtube, Instagram/Facebook and Tiktok</p></span>
+            </div>
+            <button class="button_1" id="growthplan">Select</button>
+        </div>
+
+        <div class="plan" id="plan4">
+            <div>
+                <p class="sub_type">Pro</p>
+                <p class="sub_price">$418.50/mo</p>
+                <span><i class="ri-checkbox-circle-fill"></i><p>2 Shorts per day</p></span>
+                <span><i class="ri-checkbox-circle-fill"></i><p>Auto Posted on Youtube, Instagram/Facebook and Tiktok</p></span>
+            </div>
+            <button class="button_1" id="proplan">Select</button>
+        </div>
+    </div>
+</div> -->
+
+
+
+<!-- <div id="message"></div> -->
+
+<!-- <div class="change_name_section">
+    <h2 class="heading_type_1">Change name</h2>
+    <div id="changeNameMessage"></div>
+    <form id="changeNameForm">
+        <div class="input_container">
+            <span>Name</span>
+            <input type="text" id="newName" name="new_name" placeholder="Enter new name" required>
+        </div>
+        <button type="submit" class="form_button_type_2">Change Name</button>
+    </form>
+</div>
+
+<div class="change_password_section">
+    <h2 class="heading_type_1">Change Password</h2>
+    <div id="changePasswordMessage"></div>
+    <form id="changePasswordForm" class="settings_form">
+
+        <div class="password_container">
+            <span>Current Password</span>
+            <div>
+                <input type="password" id="currentPassword" name="current_password" placeholder="Enter current password" required autocomplete="current-password">
+                <button type="button" id="toggleCurrentPassword"><i class="ri-eye-fill ri-xl"></i></button>
+            </div>
+        </div>
+
+        <div class="password_container">
+            <span>New Password</span>
+            <div>
+                <input type="password" id="newPassword" name="new_password" placeholder="Enter new password" required autocomplete="new-password">
+                <button type="button" id="toggleNewPassword"><i class="ri-eye-fill ri-xl"></i></button>
+            </div>
+        </div>
+
+        <div class="password_container">
+            <span>Confirm New Password</span>
+            <div>
+                <input type="password" id="confirmPassword" name="confirm_password" placeholder="Enter confirm new password" required autocomplete="new-password">
+                <button type="button" id="toggleConfirmPassword"><i class="ri-eye-fill ri-xl"></i></button>
+            </div>
+        </div>
+
+
+        <button type="submit" class="form_button_type_2">Change Password</button>
+    </form>
+</div>
+
+<div class="change_pfp_section">
+    <h2 class="heading_type_1">Change Profile Picture</h2>
+    <div id="changePfpMessage"></div>
+    <form id="changePfpForm" enctype="multipart/form-data">
+        <div id="customUploadButton" class="custom-file-upload">
+            <div class="custom-file-upload-text">
+                <span>Drag file here to upload.</span>
+                <p>Alternately you can select file by</p>
+                <p>Clicking here</p>
+            </div>
+            <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" style="display: none;">
+        </div>
+        <div class="file_info">
+            <span id="selectedFileName"></span>
+            <button id="file_remove"><i class="ri-delete-bin-5-line ri-xl"></i></button>
+        </div>
+
+        <input type="file" id="newProfilePicture" name="profile_picture" accept="image/*">
+        <button type="submit" class="form_button_type_2">Update</button>
+    </form>
+</div> -->
+
+<div class="settings-container">
+    <!-- <h1>Account Settings</h1> -->
+    <div class="settings-section">
+        <h5>Profile Information</h5>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="contact_number">Contact Number</label>
+                <input type="tel" id="contact_number" name="contact_number" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Update Profile</button>
+        </form>
+    </div>
+
+    <div class="settings-section">
+        <h5>Change Password</h5>
+        <form id="passwordForm">
+            <div class="form-group">
+                <label for="current_password">Current Password</label>
+                <input type="password" id="current_password" name="current_password" required>
+            </div>
+            <div class="form-group">
+                <label for="new_password">New Password</label>
+                <input type="password" id="new_password" name="new_password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm New Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+            <button type="submit" class="btn-primary">Change Password</button>
+        </form>
+    </div>
+
+
+    <div class="settings-section">
+        <h5>Profile Picture</h5>
+        <form id="pfpForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="profile_picture" id="upload_label">Click here to upload a new profile picture</label>
+                <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+            </div>
+            <img id="imagePreview" src="#" alt="Image Preview" />
+            <button type="submit" class="btn-primary">Update Profile Picture</button>
+        </form>
+    </div>
+
+
+    <div class="settings-section">
+        <h5>Two-Factor Authentication</h5>
+        <div class="form-group" id="twofa_group">
+            <label class="switch">
+                <input type="checkbox" id="two_factor_auth">
+                <span class="slider"></span>
+            </label>
+            <span>Enable Two-Factor Authentication</span>
+        </div>
+    </div>
+
+    <div class="settings-section" id="securityQuestionSection">
+        <h5>Security Question</h5>
+        <form id="securityQuestionForm">
+            <div class="form-group">
+                <label for="security_question">Select a security question</label>
+                <select id="security_question" name="security_question" class="form-select" required>
+                    <option value="">Select a security question</option>
+                    <option value="What is your mother's maiden name?">What is your mother's maiden name?</option>
+                    <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+                    <option value="What was the name of your elementary school?">What was the name of your elementary school?</option>
+                    <option value="In what city were you born?">In what city were you born?</option>
+                    <option value="What is your favorite book?">What is your favorite book?</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="security_answer">Answer</label>
+                <input type="text" id="security_answer" name="security_answer" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Answer</button>
+        </form>
+    </div>
+    
+
+    <div class="settings-section">
+        <h5>Delete Account</h5>
+        <button id="deleteAccountBtn" class="btn-danger">Delete Account</button>
+    </div>
+</div>
+
+<div id="deleteAccountModal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h2>Are you sure?</h2>
+        <p>Please enter the word 'confirm' to delete your account.</p>
+        <form id="deleteAccountForm">
+            <div class="form-group">
+                <label for="deleteConfirmation">Enter 'confirm' to delete</label>
+                <input type="text" id="deleteConfirmation" name="deleteConfirmation" required>
+            </div>
+            <button type="submit" class="btn-danger">Delete Account</button>
+        </form>
+    </div>
+</div>
+
+
+
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/settings.js')}}"></script>
+{% endblock %}

@@ -1,0 +1,192 @@
+.custom-editor {
+    border: 1px solid #aa2eff;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    font-family: 'Poppins', sans-serif;
+}
+
+.custom-editor__toolbar {
+    display: flex;
+    gap: 4px;
+    padding: 8px;
+    border-bottom: 1px dashed #aa2eff;
+    background: #f5f5f5;
+    flex-wrap: wrap;
+}
+
+.custom-editor__toolbar-btn {
+    border: none;
+    background: none;
+    padding: 6px;
+    border-radius: 4px;
+    cursor: pointer !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    transition: all 0.2s ease;
+    min-width: 32px;
+    height: 32px;
+    position: relative;
+    outline: none !important;
+    user-select: none;
+}
+
+.custom-editor__toolbar-btn:hover {
+    background: rgba(170, 46, 255, 0.1);
+    color: #aa2eff;
+    transform: translateY(-1px);
+}
+
+.custom-editor__toolbar-btn.active {
+    background: #aa2eff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(170, 46, 255, 0.3);
+}
+
+.custom-editor__toolbar-btn:active {
+    transform: translateY(0);
+}
+
+.custom-editor__toolbar-btn i {
+    font-size: 16px;
+    pointer-events: none;
+}
+
+.custom-editor__toolbar-separator {
+    width: 1px;
+    height: 24px;
+    background: #ddd;
+    margin: 4px 2px;
+    align-self: center;
+}
+
+.custom-editor__color-picker-container {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-editor__color-palette {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    min-width: 120px;
+    user-select: none;
+}
+
+.custom-editor__color-option {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+    user-select: none;
+    position: relative;
+}
+
+.custom-editor__color-option:hover {
+    transform: scale(1.1);
+    border-color: #aa2eff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-editor__color-option:active {
+    transform: scale(1.05);
+    border-color: #aa2eff;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.custom-editor__content {
+    padding: 15px;
+    min-height: 100px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background: white;
+    outline: none;
+    overflow-y: auto;
+    word-wrap: break-word;
+    caret-color: #333;
+}
+
+.custom-editor__content:focus {
+    outline: none;
+    border: none;
+}
+
+.custom-editor__content:empty:before {
+    content: attr(data-placeholder);
+    color: #999;
+    font-style: italic;
+    pointer-events: none;
+}
+
+/* Style for links created in the editor */
+.custom-editor__content a {
+    color: #8a2be2;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.custom-editor__content a:hover {
+    color: #9932cc;
+}
+
+/* Style for lists */
+.custom-editor__content ul,
+.custom-editor__content ol {
+    margin: 8px 0;
+    padding-left: 20px;
+}
+
+.custom-editor__content li {
+    margin: 4px 0;
+}
+
+/* Style for bold, italic, underline */
+.custom-editor__content strong,
+.custom-editor__content b {
+    font-weight: bold;
+}
+
+.custom-editor__content em,
+.custom-editor__content i {
+    font-style: italic;
+}
+
+.custom-editor__content u {
+    text-decoration: underline;
+}
+
+/* Preserve text colors and ensure they display properly */
+.custom-editor__content [style*="color"] {
+    /* Ensure color styles are preserved and override defaults */
+}
+
+.custom-editor__content span[style*="color"] {
+    /* Specific targeting for colored spans */
+}
+
+/* Better selection visibility when text is selected */
+.custom-editor__content ::selection {
+    background: rgba(170, 46, 255, 0.2);
+    color: inherit;
+}
+
+.custom-editor__content ::-moz-selection {
+    background: rgba(170, 46, 255, 0.2);
+    color: inherit;
+}

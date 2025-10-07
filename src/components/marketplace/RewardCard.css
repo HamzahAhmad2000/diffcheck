@@ -1,0 +1,347 @@
+/* RewardCard.css */
+
+.reward-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(170, 46, 255, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.reward-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    border-color: rgba(170, 46, 255, 0.2);
+}
+
+.reward-card.insufficient-xp {
+    opacity: 0.6;
+    filter: grayscale(0.3);
+}
+
+.reward-card.insufficient-xp:hover {
+    transform: translateY(-2px);
+}
+
+/* Card Image */
+.reward-card-image {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+}
+
+.reward-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.reward-card:hover .reward-card-image img {
+    transform: scale(1.05);
+}
+
+.reward-card-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #AA2EFF10, #6c5ce710);
+    color: #AA2EFF;
+    font-size: 3rem;
+}
+
+/* Item Type Badge */
+.item-type-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 2;
+}
+
+.item-type-badge.direct {
+    background: rgba(34, 197, 94, 0.95);
+    border-color: rgba(34, 197, 94, 0.8);
+}
+
+.item-type-badge.raffle {
+    background: rgba(239, 68, 68, 0.95);
+    border-color: rgba(239, 68, 68, 0.8);
+}
+
+/* Card Content */
+.reward-card-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.reward-card-header {
+    display: flex;
+    flex-direction: column; /* Stack title and XP vertically */
+    align-items: center; /* Center everything horizontally */
+    gap: 10px;
+    text-align: center;
+}
+
+.reward-card-title {
+    font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2d3436;
+    margin: 0;
+    line-height: 1.3;
+    text-align: center;
+    width: 100%;
+}
+
+.reward-card-xp {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, #AA2EFF, #6c5ce7);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(170, 46, 255, 0.3);
+}
+
+.reward-card-xp .xp-amount {
+    font-size: 1rem;
+}
+
+.reward-card-xp .xp-label {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+.reward-card-description {
+    color: #636e72;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+/* Stock and Raffle Info */
+.stock-info,
+.raffle-info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #636e72;
+}
+
+.stock-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    background: #e8f5e8;
+    color: #27ae60;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    width: fit-content;
+}
+
+.stock-count.low-stock {
+    background: #fff3cd;
+    color: #e67e22;
+}
+
+.raffle-entries,
+.raffle-end-date {
+    font-weight: 500;
+}
+
+.raffle-end-date {
+    color: #e74c3c;
+    font-weight: 600;
+}
+
+/* Action Button */
+.reward-card-button {
+    width: 120px; /* Fixed pixel width for consistency */
+    min-width: 120px; /* Minimum width */
+    margin: auto auto 0; /* Center the button and push to bottom */
+    padding: 14px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.9rem; /* Consistent font size */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.reward-card-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.reward-card-button:hover::before {
+    left: 100%;
+}
+
+.reward-card-button.direct {
+    background: linear-gradient(135deg, #AA2EFF, #6c5ce7);
+    color: white;
+    box-shadow: 0 6px 20px rgba(170, 46, 255, 0.3);
+}
+
+.reward-card-button.direct:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(170, 46, 255, 0.4);
+}
+
+.reward-card-button.raffle {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+    color: white;
+    box-shadow: 0 6px 20px rgba(108, 92, 231, 0.3);
+}
+
+.reward-card-button.raffle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
+}
+
+.reward-card-button.disabled {
+    background: #ddd6fe;
+    color: #8b5cf6;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.reward-card-button.disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.reward-card-button.disabled::before {
+    display: none;
+}
+
+/* Loading State */
+.reward-card.loading {
+    pointer-events: none;
+}
+
+.reward-card.loading .reward-card-button {
+    position: relative;
+    color: transparent;
+}
+
+.reward-card.loading .reward-card-button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .reward-card-content {
+        padding: 16px;
+    }
+    
+    .reward-card-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    
+    .reward-card-xp {
+        align-self: flex-end;
+        padding: 6px 10px;
+    }
+    
+    .reward-card-title {
+        font-size: 1.1rem;
+    }
+    
+    .reward-card-button {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .reward-card-image {
+        height: 160px;
+    }
+    
+    .reward-card-content {
+        padding: 14px;
+        gap: 10px;
+    }
+    
+    .reward-card-title {
+        font-size: 1rem;
+    }
+    
+    .reward-card-description {
+        font-size: 0.85rem;
+    }
+}
+
+/* Animation on mount */
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.reward-card {
+    animation: cardSlideIn 0.5s ease-out;
+} 

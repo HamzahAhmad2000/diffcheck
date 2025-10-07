@@ -1,0 +1,748 @@
+/* AdminLayout.css - Fix styling issues for admin components */
+
+/* Fix white text on white background issues */
+.admin-content {
+  background-color: #f8fafc !important;
+  color: #1f2937;
+  min-height: 100vh;
+  padding: 2rem !important;
+}
+
+.admin-content * {
+  color: #1f2937;
+}
+
+/* Fix specific text elements that might be inheriting white text */
+.admin-content h1,
+.admin-content h2,
+.admin-content h3,
+.admin-content h4,
+.admin-content h5,
+.admin-content h6,
+.admin-content p,
+.admin-content span,
+.admin-content div,
+.admin-content label,
+.admin-content td,
+.admin-content th,
+.admin-content li {
+  color: #1f2937;
+}
+
+/* Override any chat-title or chat-subtitle that might have white text */
+.admin-content .chat-title,
+.admin-content .chat-subtitle {
+  color: #1f2937;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+/* Fix form container in CreateBusiness */
+.form-container-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #1f2937;
+  padding: 2.5rem !important;
+  margin: 0 !important;
+  /* Let Sidebar.css handle margin-left */
+}
+
+.form-container-card * {
+  color: #1f2937;
+}
+
+/* Fix main content spacing issues - DO NOT override sidebar margin rules */
+.admin-content,
+.main-content3,
+.main-content3.user-management-page,
+.admin-page-content,
+.admin-form-page,
+.admin-table-page,
+.user-management-page,
+.admin-registration-page {
+  padding-left: 2rem !important;
+  /* DO NOT override margin-left - let Sidebar.css handle it */
+}
+
+/* Ensure proper sidebar spacing is maintained for admin pages */
+body.sidebar-active .admin-content,
+body.sidebar-active .main-content3,
+body.sidebar-active .admin-page-content,
+body.sidebar-active .admin-form-page,
+body.sidebar-active .admin-table-page,
+body.sidebar-active .user-management-page,
+body.sidebar-active .admin-registration-page {
+  /* Let Sidebar.css handle margin-left: 300px and width calculations */
+  /* Just ensure proper padding */
+  padding-left: 2rem !important;
+}
+
+/* Fix page container spacing */
+.page-container .main-content3,
+.page-container .admin-content {
+  padding-left: 1rem !important;
+  /* Let Sidebar.css handle margin-left and width */
+}
+
+/* Ensure admin main content backgrounds are light, not black */
+.newmain-content33.admin-table-page,
+.newmain-content33.user-management-page,
+.admin-form-page,
+.admin-table-page,
+.business-specific-dashboard,
+.business-admin-dashboard {
+  background-color: #f8fafc !important;
+}
+
+.admin-header {
+  margin-bottom: 2rem !important;
+}
+
+.admin-header-content {
+  margin-bottom: 1rem !important;
+}
+
+.admin-title {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: #aa2eff !important;
+  margin-bottom: 0.5rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+.admin-title i {
+  color: #aa2eff !important;
+}
+
+.admin-subtitle {
+  font-size: 1rem !important;
+  color: #6b7280 !important;
+  margin: 0 !important;
+}
+
+.admin-header-actions {
+  margin-top: 1rem !important;
+}
+
+/* Fix table container spacing - remove excessive left padding */
+.admin-table-container {
+  padding-left: 0 !important;
+  width: 100% !important;
+  background-color: #ffffff !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07) !important;
+  overflow-x: auto !important;
+  padding: 1rem !important;
+  /* Let Sidebar.css handle margin-left */
+}
+
+/* Additional specific overrides for quest and subscription pages */
+.admin-form-page,
+body.sidebar-active .admin-form-page {
+  padding-left: 2rem !important;
+  /* Let Sidebar.css handle margin-left and width */
+}
+
+.form-container-card {
+  /* Let sidebar handle positioning, just ensure proper internal spacing */
+}
+
+.admin-table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  font-size: 14px !important;
+  margin: 0 !important;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 12px 15px !important;
+  text-align: left !important;
+  border-bottom: 1px solid #e9ecef !important;
+  vertical-align: middle !important;
+  color: #1f2937;
+}
+
+.admin-table th {
+  background-color: #f8f9fa !important;
+  font-weight: 600 !important;
+  color: #495057 !important;
+  white-space: nowrap !important;
+}
+
+.admin-table tbody tr:hover {
+  background-color: #f1f3f5 !important;
+}
+
+.admin-table tbody tr:hover td {
+  color: #1f2937;
+}
+
+/* Fix stats cards */
+.admin-stats-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 1.5rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.admin-stat-card {
+  background: white !important;
+  padding: 1.5rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+}
+
+.admin-stat-icon {
+  width: 48px !important;
+  height: 48px !important;
+  background: #aa2eff !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: white !important;
+}
+
+.admin-stat-content h3 {
+  font-size: 1.5rem !important;
+  font-weight: 700 !important;
+  color: #1f2937;
+  margin: 0 !important;
+}
+
+.admin-stat-content p {
+  font-size: 0.875rem !important;
+  color: #6b7280 !important;
+  margin: 0 !important;
+}
+
+/* Fix filters */
+.admin-filters {
+  margin-bottom: 1.5rem !important;
+}
+
+.admin-checkbox {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  color: #1f2937;
+  font-size: 0.875rem !important;
+}
+
+/* Fix buttons */
+.admin-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+  text-decoration: none !important;
+}
+
+.admin-button--primary {
+  background: linear-gradient(135deg, #aa2eff 0%, #9514ff 100%) !important;
+  color: white !important;
+}
+
+.admin-button--primary:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 8px 25px -5px rgba(170, 46, 255, 0.4) !important;
+}
+
+.admin-button--secondary {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.admin-button--secondary:hover {
+  background: #e5e7eb !important;
+}
+
+/* Fix table actions */
+.admin-table-actions {
+  display: flex !important;
+  gap: 0.5rem !important;
+  align-items: center !important;
+}
+
+.admin-table-action {
+  padding: 0.5rem !important;
+  border: none !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2rem !important;
+  height: 2rem !important;
+}
+
+.admin-table-action.edit {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+.admin-table-action.edit:hover {
+  background: #fcd34d !important;
+  transform: scale(1.1) !important;
+}
+
+.admin-table-action.delete {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+}
+
+.admin-table-action.delete:hover {
+  background: #fca5a5 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Fix status badges */
+.status-badge {
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 12px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  white-space: nowrap !important;
+}
+
+.status-badge.status-active {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+}
+
+.status-badge.status-inactive {
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+}
+
+/* Fix empty state */
+.admin-empty-state {
+  text-align: center !important;
+  padding: 3rem 1rem !important;
+  color: #6b7280 !important;
+}
+
+.admin-empty-state i {
+  font-size: 3rem !important;
+  color: #d1d5db !important;
+  margin-bottom: 1rem !important;
+}
+
+.admin-empty-state h3 {
+  font-size: 1.25rem !important;
+  color: #374151 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.admin-empty-state p {
+  color: #6b7280 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Fix modal overlays */
+.admin-modal-overlay {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 1000 !important;
+  padding: 1rem !important;
+}
+
+.admin-modal {
+  background: white !important;
+  border-radius: 12px !important;
+  max-width: 600px !important;
+  width: 100% !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.admin-modal-header {
+  padding: 1.5rem !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.admin-modal-header h2 {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  color: #1f2937;
+  margin: 0 !important;
+}
+
+.admin-modal-close {
+  background: none !important;
+  border: none !important;
+  color: #6b7280 !important;
+  cursor: pointer !important;
+  padding: 0.5rem !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.admin-modal-close:hover {
+  background: #f3f4f6 !important;
+  color: #374151 !important;
+}
+
+/* Fix form elements */
+.admin-form {
+  padding: 1.5rem !important;
+}
+
+.admin-form-group {
+  margin-bottom: 1.5rem !important;
+}
+
+.admin-form-label {
+  display: block !important;
+  margin-bottom: 0.5rem !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  font-size: 0.875rem !important;
+}
+
+.admin-form-input,
+.admin-form-textarea {
+  width: 100% !important;
+  padding: 0.75rem !important;
+  border: 2px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  font-size: 0.875rem !important;
+  transition: all 0.2s ease !important;
+  background: white !important;
+  color: #1f2937;
+  box-sizing: border-box !important;
+}
+
+.admin-form-input:focus,
+.admin-form-textarea:focus {
+  outline: none !important;
+  border-color: #aa2eff !important;
+  box-shadow: 0 0 0 3px rgba(170, 46, 255, 0.1) !important;
+}
+
+.admin-form-actions {
+  display: flex !important;
+  gap: 1rem !important;
+  justify-content: flex-end !important;
+  margin-top: 1.5rem !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid #e5e7eb !important;
+}
+
+/* Fix grid layouts */
+.admin-form-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 1rem !important;
+}
+
+.admin-form-section {
+  margin-bottom: 2rem !important;
+  padding: 1.5rem !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  background: #f9fafb !important;
+}
+
+.admin-form-section h3 {
+  margin: 0 0 1rem 0 !important;
+  color: #374151 !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+}
+
+.admin-checkbox-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  gap: 1rem !important;
+}
+
+/* Fix specific component spacing issues */
+.main-content3 {
+  padding-left: 1rem !important;
+  /* Let Sidebar.css handle margin-left */
+}
+
+.page-container {
+  display: flex !important;
+  min-height: 100vh !important;
+}
+
+.user-management-page {
+  flex: 1 !important;
+  padding: 2rem !important;
+  background-color: #f8fafc !important;
+  /* Let Sidebar.css handle margin-left */
+}
+
+/* Override any existing sidebar spacing for these specific pages */
+.admin-content-wrapper {
+  padding-left: 0 !important;
+  width: 100% !important;
+  /* Let Sidebar.css handle margin-left */
+}
+
+/* Additional component-specific fixes */
+.package-name,
+.package-description,
+.bonus-badge,
+.no-bonus,
+.price-badge,
+.value-per-point,
+.toggle-popular,
+.responses-count,
+.price,
+.price-per-k,
+.package-info,
+.newform-group,
+.newform-group label,
+.permission-item,
+.permission-item label {
+  color: #1f2937;
+}
+
+/* Fix badges and status indicators */
+.bonus-badge {
+  background: #dcfce7 !important;
+  color: #166534 !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 12px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+}
+
+.no-bonus {
+  color: #6b7280 !important;
+}
+
+.price-badge {
+  background: #fef3c7 !important;
+  color: #92400e !important;
+  padding: 0.25rem 0.75rem !important;
+  border-radius: 12px !important;
+  font-weight: 600 !important;
+}
+
+.value-per-point {
+  color: #059669 !important;
+  font-weight: 600 !important;
+}
+
+.toggle-popular {
+  background: none !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0.5rem !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.toggle-popular.popular {
+  background: #fef3c7 !important;
+  color: #f59e0b !important;
+}
+
+.toggle-popular.not-popular {
+  background: #f3f4f6 !important;
+  color: #6b7280 !important;
+}
+
+.toggle-popular:hover {
+  transform: scale(1.05) !important;
+}
+
+/* Fix package preview sections */
+.package-preview {
+  background: #f8fafc !important;
+  border: 1px solid #e5e7eb !important;
+  border-radius: 8px !important;
+  padding: 1rem !important;
+}
+
+.preview-points,
+.preview-price,
+.preview-value {
+  color: #1f2937;
+}
+
+.base-points,
+.bonus-points,
+.total-points {
+  color: #1f2937;
+}
+
+.bonus-points {
+  color: #059669 !important;
+  font-weight: 600 !important;
+}
+
+/* Fix CreateBusiness specific elements */
+.form-header .chat-title {
+  color: #aa2eff !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+.form-header .chat-subtitle {
+  color: #6b7280 !important;
+}
+
+.newform-group {
+  color: #1f2937;
+}
+
+.newform-group label {
+  color: #374151 !important;
+  font-weight: 600 !important;
+}
+
+.permissions-grid {
+  background-color: #f9f9f9 !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+}
+
+.permission-item {
+  background-color: #fff !important;
+  color: #1f2937;
+  border: 1px solid #e5e7eb !important;
+}
+
+.permission-item label {
+  color: #555 !important;
+}
+
+.permission-item-header {
+  color: #1f2937;
+  font-weight: bold !important;
+}
+
+/* Table-specific fixes for all admin tables */
+table td,
+table th,
+.admin-table td,
+.admin-table th,
+.users-table td,
+.users-table th {
+  color: #1f2937;
+}
+
+/* Force dark text on all interactive elements */
+button,
+.admin-button,
+.form-button,
+.nawabutton,
+input,
+select,
+textarea {
+  color: #1f2937;
+}
+
+/* Exception for buttons that should have white text */
+.admin-button--primary,
+.nawabutton,
+button[type="submit"] {
+  color: white !important;
+}
+
+/* Universal styling for admin pages - let Sidebar.css handle positioning */
+.admin-content,
+.main-content3,
+.admin-page-content,
+.admin-form-page,
+.admin-table-page,
+.user-management-page,
+.admin-registration-page,
+.business-specific-dashboard,
+.business-admin-dashboard,
+.business-feedback-page,
+.quests-panel-container .main-content-panel,
+.main-content.business-specific-dashboard {
+  padding-left: 2rem !important;
+  /* Sidebar.css will handle margin-left: 300px and width: calc(100% - 300px) when body.sidebar-active */
+}
+
+/* Ensure sidebar spacing is respected for admin pages */
+body.sidebar-active .admin-content,
+body.sidebar-active .main-content3,
+body.sidebar-active .admin-page-content,
+body.sidebar-active .admin-form-page,
+body.sidebar-active .admin-table-page,
+body.sidebar-active .user-management-page,
+body.sidebar-active .admin-registration-page,
+body.sidebar-active .business-specific-dashboard,
+body.sidebar-active .business-admin-dashboard,
+body.sidebar-active .business-feedback-page,
+body.sidebar-active .quests-panel-container .main-content-panel,
+body.sidebar-active .main-content.business-specific-dashboard {
+  /* Sidebar.css handles the 300px margin and width calculations */
+  padding-left: 2rem !important;
+}
+
+/* Ensure responsive behavior */
+@media (max-width: 768px) {
+  .admin-content {
+    padding: 1rem !important;
+  }
+  
+  .admin-table-container {
+    padding: 0.5rem !important;
+  }
+  
+  .admin-stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .admin-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .admin-checkbox-grid {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Mobile responsive - Sidebar.css handles mobile layout */
+  .admin-content,
+  .main-content3,
+  .admin-page-content,
+  .admin-form-page,
+  .admin-table-page,
+  .user-management-page,
+  .admin-registration-page,
+  .business-specific-dashboard,
+  .business-admin-dashboard,
+  .business-feedback-page,
+  .quests-panel-container .main-content-panel,
+  .main-content.business-specific-dashboard {
+    padding-left: 1rem !important;
+    /* Sidebar.css handles mobile margin and width */
+  }
+} 

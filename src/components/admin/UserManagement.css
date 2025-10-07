@@ -1,0 +1,346 @@
+/* UserManagement.css */
+
+.user-management-page {
+    padding: 20px;
+    max-width: 1400px;
+    margin-left: 150px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.email-link {
+    color: inherit;       /* Keeps the default text color */
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .email-link:hover {
+    text-decoration: underline;
+  }
+  
+
+.user-management-controls {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabs-container {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 16px;
+}
+
+.tab-button {
+    padding: 12px 20px;
+    border: none;
+    background: #f8f9fa;
+    color: #6c757d;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab-button:hover {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.tab-button.active {
+    background: #007bff;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.3);
+}
+
+.controls-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.search-container {
+    flex: 1;
+    min-width: 300px;
+}
+
+.search-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.sort-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.sort-select {
+    padding: 10px 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.sort-order-button {
+    padding: 10px 12px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    background: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.sort-order-button:hover {
+    background: #f8f9fa;
+    border-color: #007bff;
+}
+
+.add-admin-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.add-admin-button:hover {
+    background: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.users-table-container {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.users-table th {
+    background: #f8f9fa;
+    padding: 16px 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #495057;
+    border-bottom: 2px solid #e9ecef;
+    white-space: nowrap;
+}
+
+.users-table td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+    color: #333333 !important;
+}
+
+/* Ensure all text content in table cells is visible */
+.users-table td,
+.users-table td *,
+.users-table tbody tr td,
+.users-table tbody tr td * {
+    color: #333333 !important;
+}
+
+.users-table tr:hover {
+    background: #f8f9fa;
+}
+
+.users-table tr:hover td {
+    color: #333333 !important; /* Ensure text stays visible on hover */
+}
+
+.users-table tr:hover td * {
+    color: #333333 !important; /* Ensure all child elements stay visible on hover */
+}
+
+.role-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white !important;
+    width: fit-content;
+    white-space: nowrap;
+}
+
+.badge-super-admin {
+    background: #7B68EE !important; /* Medium slate blue - lighter and more appealing */
+    color: white !important;
+}
+
+.badge-business-admin {
+    background: #5CB8E4 !important; /* Sky blue - professional and visible */
+    color: white !important;
+}
+
+.badge-user {
+    background: #20B2AA !important; /* Light sea green - softer than the original gray */
+    color: white !important;
+}
+
+.badge-default {
+    background: #A9A9A9 !important; /* Dark gray - for any undefined roles */
+    color: white !important;
+}
+
+.business-info {
+    color: #6c757d !important;
+    font-weight: 500;
+}
+
+.no-business {
+    color: #6c757d !important;
+    font-style: italic;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.delete-button {
+    padding: 8px 12px;
+    background: #ff6b6b !important; /* Lighter red that's still visible */
+    color: white !important;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-button i {
+    color: white !important; /* Ensure the icon is white */
+}
+
+.delete-button:hover {
+    background: #ff5252 !important; /* Slightly darker on hover */
+    color: white !important;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(255, 82, 82, 0.3);
+}
+
+.no-users-message {
+    text-align: center;
+    padding: 60px 20px;
+    color: #6c757d;
+}
+
+.no-users-message p {
+    font-size: 16px;
+    margin: 0;
+}
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    font-size: 16px;
+    color: #6c757d;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .controls-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-container {
+        min-width: auto;
+    }
+    
+    .sort-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-management-page {
+        padding: 16px;
+    }
+    
+    .user-management-controls {
+        padding: 16px;
+    }
+    
+    .tabs-container {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    
+    .tab-button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+    
+    .users-table-container {
+        overflow-x: auto;
+    }
+    
+    .users-table {
+        min-width: 800px;
+    }
+    
+    .users-table th,
+    .users-table td {
+        padding: 12px 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header h1 {
+        font-size: 24px;
+    }
+    
+    .dashboard-header p {
+        font-size: 14px;
+    }
+    
+    .add-admin-button {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+} 

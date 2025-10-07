@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/partner.css') }}">
+</head>
+<body>
+    <input type="hidden" id="csrf_token" name="csrf_token" value="{{ csrf_token() }}">
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav id="sidebar">
+            <div class="position-sticky sidebar_container">
+                <div class="sidebar_container">
+                    <div class="p-4">
+                        <h3 class="text-white">Partner Panel</h3>
+                    </div>
+                    <ul class="nav flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active" id="add-user-link">
+                                Add User
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" id="user-table-link">
+                                Registered Users
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" id="qr-codes-link">
+                                QR Codes
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="p-4">
+                    <button id="logout-btn" class="btn btn-danger w-100">Log Out</button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="content p-4">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>Total QR Codes</h3>
+                    <p id="total-qr-codes">Loading...</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Assigned QR Codes</h3>
+                    <p id="assigned-qr-codes">Loading...</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Available QR Codes</h3>
+                    <p id="available-qr-codes">Loading...</p>
+                </div>
+            </div>
+            <!-- Add User Form -->
+            <div id="add-user-section" class="card mb-4">
+                <div class="card-body">
+                    <form id="addUserForm">
+                        <!-- Form fields (same as before) -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact_number" class="form-label">Contact Number</label>
+                            <input type="tel" class="form-control" id="contact_number" name="contact_number" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="deceased_name" class="form-label">Deceased Name</label>
+                            <input type="text" class="form-control" id="deceased_name" name="deceased_name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add User</button>
+                    </form>
+                </div>
+            </div>
+            
+
+            <!-- User Table -->
+            <div id="user-table-section" class="card" style="display: none;">
+                <!-- <div class="card-header">
+                    User Management
+                </div> -->
+                <div class="card-body">
+                    <table class="table table-striped" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Contact</th>
+                                <th>Address</th>
+                                <th>Deceased Profiles</th>
+                                <th>Actions</th>                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div id="qr-codes-section" class="card mb-4" style="display: none;">
+                <div class="card-body">
+                    <h3>QR Codes</h3>
+                    <div class="card-body">
+                        <p id="total_qr_codes" class="mb-3"></p>
+                        <div id="qr_codes_container" class="mb-3"></div>
+                    </div>
+                    <input type="text" id="qr-search" placeholder="Search QR Codes" class="form-control mb-3">
+                    <table class="table table-striped" id="qrCodesTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>URL</th>
+                                <th>Deceased Name</th>
+                                <th>Is Active</th>
+                                <th>QR Code Image</th>
+                                <th>Created At</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                    <div id="pagination" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Add Deceased Profile Modal -->
+<div id="add-deceased-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add Deceased Profile</h2>
+        <form id="add-deceased-form" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+    
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob">
+            </div>
+    
+            <div class="form-group">
+                <label for="dod">Date of Death:</label>
+                <input type="date" id="dod" name="dod">
+            </div>
+    
+            <div class="form-group">
+                <label for="address">Burial Address:</label>
+                <input type="text" id="address" name="address">
+            </div>
+    
+            <div class="form-group">
+                <label for="url-location">Google Maps URL:</label>
+                <input type="url" id="url-location" name="url_location">
+            </div>
+    
+            <div class="form-group">
+                <label for="profile-image">Profile Image:</label>
+                <input type="file" id="profile-image" name="image" accept="image/*">
+            </div>
+    
+            <div class="form-group">
+                <label for="about">About:</label>
+                <textarea id="about" name="about" rows="4"></textarea>
+            </div>
+    
+            <div class="form-group">
+                <label for="quote">Quote:</label>
+                <input type="text" id="quote" name="quote">
+            </div>
+    
+            <div class="form-group">
+                <label for="is-public">Make Profile Public:</label>
+                <input type="checkbox" id="is-public" name="is_public" value="true">
+            </div>
+    
+            <div class="form-group">
+                <label for="timeline-events">Timeline Events:</label>
+                <div id="timeline-events"></div>
+                <button type="button" id="add-timeline-event" class="btn btn-secondary">Add Event</button>
+            </div>
+    
+            <div class="form-group">
+                <label for="album-images">Album Images:</label>
+                <div id="album-images"></div>
+                <button type="button" id="add-album-image" class="btn btn-secondary">Add Image</button>
+            </div>
+    
+            <div class="form-group" id="family-tree-outer-container">
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Create Profile</button>
+        </form>
+    </div>
+    
+</div>
+
+<!-- Edit Deceased Profile Modal -->
+<div id="edit-deceased-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Edit Deceased Profile</h2>
+        <form id="edit-deceased-form" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" id="edit-profile-id" name="profile_id">
+    
+            <!-- Same fields as the add deceased form, with the prefix 'edit-' -->
+            <div class="form-group">
+                <label for="edit-name">Name:</label>
+                <input type="text" id="edit-name" name="name">
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-dob">Date of Birth:</label>
+                <input type="date" id="edit-dob" name="dob">
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-dod">Date of Death:</label>
+                <input type="date" id="edit-dod" name="dod">
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-address">Burial Address:</label>
+                <input type="text" id="edit-address" name="address">
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-url-location">Google Maps URL:</label>
+                <input type="url" id="edit-url-location" name="url_location">
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-profile-image">Profile Image:</label>
+                <input type="file" id="edit-profile-image" name="image" accept="image/*">
+                <img id="current-profile-image" src="" alt="Current Profile Image" style="max-width: 200px; display: none;">
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-about">About:</label>
+                <textarea id="edit-about" name="about" rows="4"></textarea>
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-quote">Quote:</label>
+                <input type="text" id="edit-quote" name="quote">
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-is-public">Make Profile Public:</label>
+                <input type="checkbox" id="edit-is-public" name="is_public" value="true">
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-timeline-events">Timeline Events:</label>
+                <div id="edit-timeline-events"></div>
+                <button type="button" id="edit-add-timeline-event" class="btn btn-secondary">Add Event</button>
+            </div>
+    
+            <div class="form-group">
+                <label for="edit-album-images">Album Images:</label>
+                <div id="edit-album-images"></div>
+                <button type="button" id="edit-add-album-image" class="btn btn-secondary">Add Image</button>
+            </div>
+    
+            <div class="form-group" id="family-tree-outer-container">
+            </div>
+    
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+        </form>
+    </div>
+    </div>
+    
+    <div id="member-form" class="modal">
+        <div class="modal-content">
+            <h2>Add/Edit Family Member</h2>
+            <form id="member-details">
+                <input type="text" id="family-tree-member-name" placeholder="Name" required>
+                <input type="date" id="family-tree-member-dob" placeholder="Date of Birth" required>
+                <input type="date" id="family-tree-member-dod" placeholder="Date of Death">
+                <input type="hidden" id="family-tree-member-image">
+                <img id="family-tree-member-image-preview" style="max-width: 200px; max-height: 200px; display: none;">
+                <input type="file" id="family-tree-member-image-upload" accept="image/*">
+                <button type="submit">Save</button>
+                <button type="button" id="cancel-form">Cancel</button>
+            </form>
+        </div>
+    </div>    
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"></script>
+    <script src="{{ url_for('static', filename='js/partner.js') }}"></script>
+</body>
+</html>

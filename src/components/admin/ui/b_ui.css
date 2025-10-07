@@ -1,0 +1,102 @@
+/* Light-themed UI primitives for admin forms.
+   Reuses tokens from b_admin_styling.css and aligns with BusinessQuestsPanel.css input feel. */
+
+/* Field wrapper */
+.b_ui-field { display: flex; flex-direction: column; gap: 6px; }
+.b_ui-label { font-size: 13px; color: var(--b-admin-text); font-weight: 500; }
+.b_ui-required { color: #ff3b30; margin-left: 4px; }
+.b_ui-hint { font-size: 12px; color: var(--b-admin-muted); }
+.b_ui-error { font-size: 12px; color: #c62828; }
+
+/* Base inputs overlay to match BusinessQuestsPanel.css feel but light themed */
+.b_ui-input,
+.b_ui-textarea,
+.b_ui-select {
+  background: #ffffff; /* override panel dark */
+  border: 1px solid var(--b-admin-border);
+  border-radius: var(--b-admin-radius-md);
+  color: var(--b-admin-text);
+}
+
+.b_ui-input:focus,
+.b_ui-textarea:focus,
+.b_ui-select:focus {
+  border-color: var(--b-admin-primary);
+  box-shadow: 0 0 0 2px rgba(170,46,255,0.15);
+}
+
+.b_ui-input.is-invalid,
+.b_ui-textarea.is-invalid,
+.b_ui-select.is-invalid {
+  border-color: #e53935;
+  box-shadow: 0 0 0 2px rgba(229,57,53,0.15);
+}
+
+/* Checkbox */
+.b_ui-check { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+.b_ui-check__input { position: absolute; opacity: 0; pointer-events: none; }
+.b_ui-check__box {
+  width: 18px; height: 18px; border-radius: 4px;
+  border: 1px solid var(--b-admin-border);
+  background: #fff; position: relative; flex: 0 0 18px;
+}
+.b_ui-check__input:checked + .b_ui-check__box {
+  border-color: var(--b-admin-primary);
+  background: var(--b-admin-primary);
+}
+.b_ui-check__input:checked + .b_ui-check__box::after {
+  content: '';
+  position: absolute; inset: 3px 5px 5px 3px;
+  border: solid #fff; border-width: 0 0 2px 2px; transform: rotate(-45deg);
+}
+.b_ui-check__label { color: var(--b-admin-text); font-size: 14px; }
+
+/* Radio */
+.b_ui-radio-group { display: flex; flex-direction: column; gap: 8px; }
+.b_ui-radio-group--inline { flex-direction: row; flex-wrap: wrap; }
+.b_ui-radio { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+.b_ui-radio__input { position: absolute; opacity: 0; pointer-events: none; }
+.b_ui-radio__dot {
+  width: 18px; height: 18px; border-radius: 999px; border: 1px solid var(--b-admin-border);
+  background: #fff; position: relative; flex: 0 0 18px;
+}
+.b_ui-radio__input:checked + .b_ui-radio__dot {
+  border-color: var(--b-admin-primary);
+}
+.b_ui-radio__input:checked + .b_ui-radio__dot::after {
+  content: '';
+  position: absolute; width: 8px; height: 8px; border-radius: 999px; background: var(--b-admin-primary);
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+.b_ui-radio__label { color: var(--b-admin-text); font-size: 14px; }
+
+/* Toggle */
+.b_ui-toggle { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; }
+.b_ui-toggle__input { position: absolute; opacity: 0; pointer-events: none; }
+.b_ui-toggle__track {
+  width: 44px; height: 24px; border-radius: 999px; background: #e5e7eb; position: relative; transition: background 0.2s ease;
+  border: 1px solid var(--b-admin-border);
+}
+.b_ui-toggle__thumb {
+  position: absolute; top: 50%; left: 2px; transform: translateY(-50%);
+  width: 20px; height: 20px; border-radius: 999px; background: #ffffff; box-shadow: var(--b-admin-shadow-sm);
+  transition: left 0.2s ease;
+}
+.b_ui-toggle__input:checked + .b_ui-toggle__track { background: rgba(170,46,255,0.25); border-color: var(--b-admin-primary); }
+.b_ui-toggle__input:checked + .b_ui-toggle__track .b_ui-toggle__thumb { left: 22px; }
+.b_ui-toggle__label { color: var(--b-admin-text); font-size: 14px; }
+
+/* File upload */
+.b_ui-file { display: flex; flex-direction: column; gap: 6px; }
+.b_ui-file__input { display: none; }
+.b_ui-file__control {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 12px; border: 1px solid var(--b-admin-border); border-radius: var(--b-admin-radius-md);
+  background: #fff; color: var(--b-admin-muted);
+}
+.b_ui-file__placeholder { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.b_ui-file__button { flex: none; }
+
+
+
+

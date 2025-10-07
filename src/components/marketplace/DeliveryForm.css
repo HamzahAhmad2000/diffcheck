@@ -1,0 +1,342 @@
+/* Delivery Form Styles - Based on Marketplace Design */
+
+.delivery-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.form-section {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.form-section:hover {
+    border-color: #aa2eff;
+    box-shadow: 0 4px 20px rgba(170, 46, 255, 0.1);
+}
+
+.section-title {
+    color: #aa2eff;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-title::before {
+    content: '';
+    width: 4px;
+    height: 1.4rem;
+    background: linear-gradient(135deg, #aa2eff, #7c3aed);
+    border-radius: 2px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    color: #eaeaea;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #aa2eff;
+    box-shadow: 0 0 0 3px rgba(170, 46, 255, 0.1);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #9ca3af;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    padding: 1rem;
+    background: white;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-label:hover {
+    border-color: #aa2eff;
+    background: #fafbfc;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    accent-color: #aa2eff;
+    transform: scale(1.2);
+}
+
+.checkbox-text {
+    font-weight: 500;
+    color: #2d3748;
+}
+
+/* Dark themed billing address checkbox container */
+.billing-address-dark {
+    background: #0f0f10;
+    border: 1px solid #2a2a2a;
+    border-radius: 10px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.billing-address-dark .checkbox-text {
+    color: #e5e7eb;
+}
+
+.billing-address-dark input[type="checkbox"] {
+    accent-color: #aa2eff;
+}
+
+.purchase-summary {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #aa2eff10, #7c3aed10);
+    border: 1px solid #aa2eff30;
+    border-radius: 12px;
+}
+
+.purchase-summary .dashboard-item {
+    margin: 0;
+    background: white;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem 0;
+    border-top: 1px solid #e9ecef;
+    margin-top: 2rem;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.button--primary {
+    background: linear-gradient(135deg, #aa2eff, #7c3aed);
+    color: white;
+    box-shadow: 0 4px 12px rgba(170, 46, 255, 0.3);
+}
+
+.button--primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(170, 46, 255, 0.4);
+}
+
+.button--primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.button--secondary {
+    background: white;
+    color: #6b7280;
+    border: 1px solid #d1d5db;
+}
+
+.button--secondary:hover:not(:disabled) {
+    background: #f9fafb;
+    border-color: #aa2eff;
+    color: #aa2eff;
+}
+
+.button--secondary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Loading spinner for buttons */
+.user-loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .delivery-form {
+        padding: 1rem 0;
+    }
+    
+    .form-section {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .button {
+        width: 100%;
+    }
+    
+    .section-title {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-section {
+        padding: 1rem;
+    }
+    
+    .purchase-summary {
+        padding: 1rem;
+    }
+}
+
+/* Enhanced focus states for accessibility */
+.form-group input:focus-visible,
+.form-group select:focus-visible,
+.form-group textarea:focus-visible {
+    outline: 2px solid #aa2eff;
+    outline-offset: 2px;
+}
+
+.checkbox-label:focus-within {
+    border-color: #aa2eff;
+    box-shadow: 0 0 0 3px rgba(170, 46, 255, 0.1);
+}
+
+/* Error states */
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.error-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+/* Success states */
+.form-group input.success,
+.form-group select.success,
+.form-group textarea.success {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+} 
+
+/* --- Delivery form dark textareas and image styles --- */
+.delivery-form-textarea {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 1px solid var(--color-border, #4e4e4e);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background: var(--color-background, #000);
+    color: var(--color-text-light, #fff);
+    resize: vertical;
+}
+
+.delivery-form-textarea::placeholder {
+    color: var(--color-text-muted, #a0a0a0);
+}
+
+.delivery-form-textarea:focus {
+    outline: none;
+    border-color: var(--color-primary, #aa2eff);
+    box-shadow: 0 0 0 3px rgba(170, 46, 255, 0.1);
+}
+
+.purchase-item-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 1px solid var(--color-border, #4e4e4e);
+}
+
+.purchase-item-image__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}

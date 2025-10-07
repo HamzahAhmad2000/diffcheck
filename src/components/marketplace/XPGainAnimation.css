@@ -1,0 +1,415 @@
+/* XPGainAnimation.css */
+
+.xp-animation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: overlayFadeIn 0.3s ease-out;
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+        backdrop-filter: blur(0px);
+    }
+    to {
+        opacity: 1;
+        backdrop-filter: blur(4px);
+    }
+}
+
+.xp-animation-content {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    border: 2px solid rgba(170, 46, 255, 0.1);
+    position: relative;
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.xp-animation-content.visible {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.xp-animation-content.gain {
+    border-color: rgba(39, 174, 96, 0.2);
+    box-shadow: 0 20px 60px rgba(39, 174, 96, 0.15);
+}
+
+.xp-animation-content.spend {
+    border-color: rgba(231, 76, 60, 0.2);
+    box-shadow: 0 20px 60px rgba(231, 76, 60, 0.15);
+}
+
+/* Checkmark Animation */
+.completion-checkmark {
+    margin-bottom: 20px;
+    animation: checkmarkBounce 0.8s ease-out 0.2s both;
+}
+
+.checkmark-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+    animation: circleScale 0.6s ease-out 0.1s both;
+}
+
+.checkmark-stem,
+.checkmark-kick {
+    position: absolute;
+    background: white;
+    border-radius: 2px;
+}
+
+.checkmark-stem {
+    width: 4px;
+    height: 20px;
+    left: 42px;
+    top: 32px;
+    transform-origin: bottom;
+    animation: checkmarkStem 0.3s ease-out 0.4s both;
+}
+
+.checkmark-kick {
+    width: 12px;
+    height: 4px;
+    left: 28px;
+    top: 46px;
+    transform-origin: left;
+    animation: checkmarkKick 0.3s ease-out 0.7s both;
+}
+
+@keyframes circleScale {
+    from {
+        transform: scale(0) rotate(180deg);
+    }
+    to {
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes checkmarkStem {
+    from {
+        transform: scaleY(0);
+    }
+    to {
+        transform: scaleY(1);
+    }
+}
+
+@keyframes checkmarkKick {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+@keyframes checkmarkBounce {
+    from {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+/* XP Display */
+.xp-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.xp-icon {
+    font-size: 3rem;
+    animation: iconFloat 0.6s ease-out 0.3s both;
+}
+
+@keyframes iconFloat {
+    from {
+        transform: translateY(20px) scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.xp-amount {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    animation: numberScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s both;
+}
+
+.xp-symbol {
+    color: #636e72;
+}
+
+.xp-animation-content.gain .xp-symbol {
+    color: #27ae60;
+}
+
+.xp-animation-content.spend .xp-symbol {
+    color: #e74c3c;
+}
+
+.xp-number {
+    background: linear-gradient(135deg, #AA2EFF, #6c5ce7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.xp-label {
+    font-size: 1.2rem;
+    color: #636e72;
+    font-weight: 600;
+}
+
+@keyframes numberScale {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Message */
+.xp-message {
+    color: #636e72;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    animation: messageFadeIn 0.5s ease-out 0.6s both;
+}
+
+@keyframes messageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Badge Notification */
+.badge-notification {
+    background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+    border: 2px solid #fdcb6e;
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+    animation: badgeSlideIn 0.6s ease-out 0.8s both;
+}
+
+.badge-header {
+    font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #e17055;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.badge-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.badge-image {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.badge-info {
+    text-align: left;
+    flex: 1;
+}
+
+.badge-name {
+    font-weight: 700;
+    color: #2d3436;
+    margin-bottom: 4px;
+}
+
+.badge-description {
+    font-size: 0.9rem;
+    color: #636e72;
+    line-height: 1.4;
+}
+
+@keyframes badgeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Confetti Animation */
+.confetti-piece {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #AA2EFF;
+    top: 50%;
+    left: 50%;
+    transform-origin: center;
+    animation: confettiFall 2s ease-out var(--delay, 0s) both;
+}
+
+.confetti-piece:nth-child(odd) {
+    background: #6c5ce7;
+    border-radius: 50%;
+}
+
+.confetti-piece:nth-child(3n) {
+    background: #27ae60;
+    transform: rotate(45deg);
+}
+
+.confetti-piece:nth-child(4n) {
+    background: #e74c3c;
+    border-radius: 2px;
+}
+
+.confetti-piece:nth-child(5n) {
+    background: #f39c12;
+    width: 6px;
+    height: 12px;
+}
+
+@keyframes confettiFall {
+    from {
+        transform: translateY(-100vh) translateX(var(--x-offset, 0px)) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(100vh) translateX(var(--x-offset, 0px)) rotate(var(--rotation, 360deg));
+        opacity: 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .xp-animation-content {
+        padding: 30px 25px;
+        border-radius: 20px;
+    }
+    
+    .checkmark-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .checkmark-stem {
+        width: 3px;
+        height: 15px;
+        left: 32px;
+        top: 24px;
+    }
+    
+    .checkmark-kick {
+        width: 9px;
+        height: 3px;
+        left: 21px;
+        top: 35px;
+    }
+    
+    .xp-icon {
+        font-size: 2.5rem;
+    }
+    
+    .xp-amount {
+        font-size: 2rem;
+    }
+    
+    .xp-message {
+        font-size: 1rem;
+    }
+    
+    .badge-notification {
+        padding: 15px;
+    }
+    
+    .badge-header {
+        font-size: 1.1rem;
+    }
+    
+    .badge-image {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .xp-animation-content {
+        padding: 25px 20px;
+        width: 95%;
+    }
+    
+    .xp-amount {
+        font-size: 1.8rem;
+    }
+    
+    .xp-message {
+        font-size: 0.95rem;
+    }
+    
+    .badge-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+} 

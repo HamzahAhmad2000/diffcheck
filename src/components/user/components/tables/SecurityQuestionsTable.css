@@ -1,0 +1,250 @@
+/* SecurityQuestionsTable Component Styles */
+/* Extracted from UserEditProfile.js security questions section styling */
+
+.security-questions-table {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.security-questions-table__header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #333;
+  background: #1e1e1e;
+}
+
+.security-questions-table__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.security-questions-table__subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+.security-questions-table__content {
+  padding: 1.5rem;
+}
+
+.security-questions-table__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.security-questions-table__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: #262626;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.security-questions-table__row:hover {
+  border-color: #8b5cf6;
+  background: #2a2a2a;
+}
+
+.security-questions-table__question-group,
+.security-questions-table__answer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.security-questions-table__label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.security-questions-table__select,
+.security-questions-table__input {
+  width: 100%;
+  padding: 0.75rem;
+  background: #1a1a1a;
+  border: 1px solid #404040;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.security-questions-table__select:focus,
+.security-questions-table__input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background: #222;
+}
+
+.security-questions-table__select option {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.security-questions-table__input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.security-questions-table__select:disabled,
+.security-questions-table__input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.security-questions-table__actions {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #333;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.security-questions-table__button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.security-questions-table__button--primary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.39);
+}
+
+.security-questions-table__button--primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(139, 92, 246, 0.5);
+}
+
+.security-questions-table__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Variant styles */
+.security-questions-table--compact {
+  border-radius: 8px;
+}
+
+.security-questions-table--compact .security-questions-table__header {
+  padding: 1rem;
+}
+
+.security-questions-table--compact .security-questions-table__content {
+  padding: 1rem;
+}
+
+.security-questions-table--compact .security-questions-table__grid {
+  gap: 1rem;
+}
+
+.security-questions-table--compact .security-questions-table__row {
+  padding: 0.75rem;
+}
+
+.security-questions-table--card {
+  background: #262626;
+  border: 2px solid #404040;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.security-questions-table--card .security-questions-table__header {
+  background: #2a2a2a;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .security-questions-table__row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .security-questions-table__header {
+    padding: 1rem;
+  }
+
+  .security-questions-table__content {
+    padding: 1rem;
+  }
+
+  .security-questions-table__title {
+    font-size: 1.1rem;
+  }
+
+  .security-questions-table__subtitle {
+    font-size: 0.85rem;
+  }
+
+  .security-questions-table__select,
+  .security-questions-table__input {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+
+  .security-questions-table__button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .security-questions-table__header {
+    padding: 0.75rem;
+  }
+
+  .security-questions-table__content {
+    padding: 0.75rem;
+  }
+
+  .security-questions-table__title {
+    font-size: calc(1rem - 3px);
+  }
+
+  .security-questions-table__subtitle {
+    font-size: calc(0.8rem - 3px);
+  }
+
+  .security-questions-table__label {
+    font-size: calc(0.85rem - 3px);
+  }
+
+  .security-questions-table__select,
+  .security-questions-table__input {
+    font-size: calc(0.8rem - 3px);
+    padding: 0.5rem;
+  }
+
+  .security-questions-table__button {
+    font-size: calc(0.85rem - 3px);
+    padding: 0.6rem 1.2rem;
+  }
+
+  .security-questions-table__row {
+    padding: 0.75rem;
+  }
+
+  .security-questions-table__grid {
+    gap: 1rem;
+  }
+}

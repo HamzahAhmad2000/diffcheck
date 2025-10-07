@@ -1,0 +1,243 @@
+/* SearchBar Component Styles */
+/* Extracted from UserHomepage.css survey header search styling */
+
+.search-bar {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-bar__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-bar__input {
+  width: 100%;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1e1e1e;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+  transition: all 0.2s ease;
+  padding-left: 2.5rem; /* Space for icon */
+  padding-right: 2.5rem; /* Space for clear button */
+}
+
+.search-bar__input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search-bar__input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background: #262626;
+}
+
+.search-bar__icon {
+  position: absolute;
+  left: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1rem;
+  z-index: 1;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.search-bar__icon--loading {
+  animation: spin 1s linear infinite;
+}
+
+.search-bar__clear {
+  position: absolute;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.search-bar__clear:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.search-bar__spinner {
+  position: absolute;
+  right: 0.8rem;
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid #8b5cf6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Size variants */
+.search-bar--small .search-bar__input {
+  padding: 0.5rem 2rem 0.5rem 2.2rem;
+  font-size: 0.8rem;
+  height: 36px;
+}
+
+.search-bar--small .search-bar__icon {
+  left: 0.7rem;
+  font-size: 0.9rem;
+}
+
+.search-bar--small .search-bar__clear {
+  right: 0.4rem;
+}
+
+.search-bar--medium .search-bar__input {
+  padding: 0.6rem 2.5rem 0.6rem 2.5rem;
+  font-size: 0.9rem;
+  height: 40px;
+}
+
+.search-bar--medium .search-bar__icon {
+  left: 0.8rem;
+  font-size: 1rem;
+}
+
+.search-bar--medium .search-bar__clear {
+  right: 0.5rem;
+}
+
+.search-bar--large .search-bar__input {
+  padding: 0.8rem 3rem 0.8rem 3rem;
+  font-size: 1rem;
+  height: 48px;
+}
+
+.search-bar--large .search-bar__icon {
+  left: 1rem;
+  font-size: 1.1rem;
+}
+
+.search-bar--large .search-bar__clear {
+  right: 0.7rem;
+}
+
+/* Variant styles */
+.search-bar--primary .search-bar__input {
+  background: #1e1e1e;
+  border-color: #333;
+  color: #fff;
+}
+
+.search-bar--primary .search-bar__input:focus {
+  border-color: #8b5cf6;
+  background: #262626;
+}
+
+.search-bar--secondary .search-bar__input {
+  background: #f8f9fa;
+  border-color: #dee2e6;
+  color: #212529;
+}
+
+.search-bar--secondary .search-bar__input::placeholder {
+  color: #6c757d;
+}
+
+.search-bar--secondary .search-bar__input:focus {
+  border-color: #8b5cf6;
+  background: #fff;
+}
+
+.search-bar--secondary .search-bar__icon,
+.search-bar--secondary .search-bar__clear {
+  color: #6c757d;
+}
+
+.search-bar--secondary .search-bar__clear:hover {
+  color: #212529;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.search-bar--dark .search-bar__input {
+  background: #0d0d0d;
+  border-color: #404040;
+  color: #fff;
+}
+
+.search-bar--light .search-bar__input {
+  background: #ffffff;
+  border-color: #e0e0e0;
+  color: #333;
+}
+
+/* State styles */
+.search-bar--disabled .search-bar__input {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.search-bar--disabled .search-bar__icon,
+.search-bar--disabled .search-bar__clear {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.search-bar--loading .search-bar__input {
+  padding-right: 3rem;
+}
+
+.search-bar--has-value .search-bar__icon {
+  color: #8b5cf6;
+}
+
+/* Focus states */
+.search-bar:focus-within .search-bar__icon {
+  color: #8b5cf6;
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .search-bar {
+    max-width: 300px;
+  }
+  
+  .search-bar__input {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    max-width: 100%;
+  }
+  
+  .search-bar__input {
+    font-size: calc(0.8rem - 3px);
+    padding-left: 2.2rem;
+    padding-right: 2.2rem;
+  }
+  
+  .search-bar__icon {
+    left: 0.7rem;
+    font-size: 0.9rem;
+  }
+  
+  .search-bar__clear {
+    right: 0.4rem;
+  }
+}

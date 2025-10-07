@@ -1,0 +1,511 @@
+/* Quest Modal Styles - Fixes white text on white background */
+.quest-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.quest-modal-content {
+  background: white;
+  border-radius: 8px;
+  max-width: 900px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+.quest-modal-header {
+  background: #f8f9fa;
+  padding: 20px;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quest-modal-header h2 {
+  margin: 0;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.quest-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.quest-modal-close:hover {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+.quest-modal-body {
+  padding: 20px;
+}
+
+/* Form Elements in Modal */
+.quest-modal-body .form-group {
+  margin-bottom: 20px;
+}
+
+.quest-modal-body .form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.quest-modal-body .form-group input,
+.quest-modal-body .form-group select,
+.quest-modal-body .form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #333;
+  background-color: #fff;
+  transition: border-color 0.2s ease;
+}
+
+.quest-modal-body .form-group input:focus,
+.quest-modal-body .form-group select:focus,
+.quest-modal-body .form-group textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.quest-modal-body .form-group textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Checkbox and Radio Inputs */
+.quest-modal-body .form-group input[type="checkbox"],
+.quest-modal-body .form-group input[type="radio"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+.quest-modal-body .form-group .checkbox-label,
+.quest-modal-body .form-group .radio-label {
+  display: flex;
+  align-items: center;
+  color: #333;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* Button Styles in Modal */
+.quest-modal-body .form-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  margin-right: 10px;
+}
+
+.quest-modal-body .form-button:hover {
+  background-color: #0056b3;
+}
+
+.quest-modal-body .form-button.secondary {
+  background-color: #6c757d;
+}
+
+.quest-modal-body .form-button.secondary:hover {
+  background-color: #545b62;
+}
+
+.quest-modal-body .form-button.danger {
+  background-color: #dc3545;
+}
+
+.quest-modal-body .form-button.danger:hover {
+  background-color: #c82333;
+}
+
+/* Form Actions */
+.quest-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 20px;
+  border-top: 1px solid #e9ecef;
+  background-color: #f8f9fa;
+  border-radius: 0 0 8px 8px;
+}
+
+/* Error and Success Messages */
+.quest-modal-body .error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border: 1px solid #f5c6cb;
+}
+
+.quest-modal-body .success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border: 1px solid #c3e6cb;
+}
+
+/* Loading State */
+.quest-modal-body .loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #6c757d;
+}
+
+.quest-modal-body .loading-container .spinner {
+  margin-right: 10px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Text and Content Styling */
+.quest-modal-body p,
+.quest-modal-body div,
+.quest-modal-body span {
+  color: #333;
+}
+
+.quest-modal-body h3,
+.quest-modal-body h4,
+.quest-modal-body h5 {
+  color: #333;
+  margin-top: 0;
+}
+
+/* Specific overrides for common conflicts */
+.quest-modal-body * {
+  color: #333 !important;
+}
+
+.quest-modal-body .form-group input[type="text"],
+.quest-modal-body .form-group input[type="email"],
+.quest-modal-body .form-group input[type="number"],
+.quest-modal-body .form-group input[type="url"],
+.quest-modal-body .form-group select,
+.quest-modal-body .form-group textarea {
+  color: #333 !important;
+  background-color: #fff !important;
+}
+
+/* Quest Approval Dashboard Specific Styles */
+.quests-layout {
+  display: flex;
+  gap: 20px;
+  height: 600px;
+}
+
+.quests-list {
+  flex: 1;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+  border: 1px solid #e9ecef;
+}
+
+.quests-list h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.quest-item {
+  padding: 15px;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: white;
+}
+
+.quest-item:hover {
+  border-color: #007bff;
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
+
+.quest-item.selected {
+  border-color: #007bff;
+  background-color: #f8f9ff;
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15);
+}
+
+.quest-summary .quest-title {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.quest-summary .quest-business,
+.quest-summary .quest-creator,
+.quest-summary .quest-url,
+.quest-summary .quest-date {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 3px;
+}
+
+.quest-summary .quest-url {
+  color: #007bff;
+  font-family: monospace;
+  word-break: break-all;
+}
+
+.quest-details {
+  flex: 2;
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+  border: 1px solid #e9ecef;
+}
+
+.quest-info h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 1.3rem;
+}
+
+.quest-detail-item {
+  margin-bottom: 15px;
+}
+
+.quest-detail-item label {
+  display: block;
+  font-weight: 600;
+  color: #495057;
+  margin-bottom: 5px;
+  font-size: 0.9rem;
+}
+
+.quest-detail-item span,
+.quest-detail-item p {
+  color: #333;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.quest-detail-item a {
+  color: #007bff;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.quest-detail-item a:hover {
+  text-decoration: underline;
+}
+
+.approval-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #e9ecef;
+}
+
+.approval-section h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+.review-notes {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #333;
+  background-color: #fff;
+  resize: vertical;
+  margin-bottom: 15px;
+}
+
+.review-notes:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.approval-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.approve-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.approve-button:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.reject-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.reject-button:hover:not(:disabled) {
+  background-color: #c82333;
+}
+
+.approve-button:disabled,
+.reject-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.no-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #6c757d;
+}
+
+.no-selection h3 {
+  margin-bottom: 10px;
+  color: #6c757d;
+}
+
+.no-data {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+}
+
+.no-data h3 {
+  margin-bottom: 10px;
+  color: #6c757d;
+}
+
+.approval-stats {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+}
+
+.approval-stats .chat-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+.approval-stats h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quest-modal-content {
+    width: 95%;
+    max-height: 95vh;
+    margin: 10px;
+  }
+  
+  .quest-modal-header,
+  .quest-modal-body,
+  .quest-modal-actions {
+    padding: 15px;
+  }
+  
+  .quest-modal-actions {
+    flex-direction: column;
+  }
+  
+  .quest-modal-actions .form-button {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .quests-layout {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .quests-list,
+  .quest-details {
+    flex: none;
+    height: 300px;
+  }
+
+  .approval-actions {
+    flex-direction: column;
+  }
+
+  .approve-button,
+  .reject-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+} 

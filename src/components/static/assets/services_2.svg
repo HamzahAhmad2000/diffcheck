@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 380" width="460" height="380">
+  <style>
+    .bar { transition: height 1.5s ease-out; }
+    .count, .percentage { transition: opacity 1s, transform 1.5s ease-out; }
+  </style>
+
+  <!-- Entire content rotated -->
+  <g transform="translate(60, 20) rotate(8.27458 0 0)">
+    <rect width="398" height="307" rx="10" fill="#D9D9D9"/>
+    
+    <!-- Tilted Title -->
+    <text x="20" y="40" font-family="Arial, sans-serif" font-size="20" font-weight="bold">SURVEY RESULTS</text>
+    
+    <!-- Tilted Dropdown -->
+    <rect x="270" y="25" width="100" height="30" rx="5" fill="#1e1e1e"/>
+    <text x="285" y="45" font-family="Arial, sans-serif" font-size="12" fill="white">Last week</text>
+    <text x="350" y="44" font-family="Arial, sans-serif" font-size="8" fill="white">﹀</text>
+
+   <!-- Animated Bars -->
+<rect x="60" y="200" width="30" height="0" rx="5" fill="#aa2eff" class="bar">
+  <animate attributeName="height" from="0" to="60" dur="1.5s" fill="freeze" begin="0.2s"/>
+  <animate attributeName="y" from="200" to="140" dur="1.5s" fill="freeze" begin="0.2s"/>
+</rect>
+<rect x="100" y="200" width="30" height="0" rx="5" fill="#aa2eff" class="bar">
+  <animate attributeName="height" from="0" to="80" dur="1.5s" fill="freeze" begin="0.4s"/>
+  <animate attributeName="y" from="200" to="120" dur="1.5s" fill="freeze" begin="0.4s"/>
+</rect>
+<rect x="140" y="200" width="30" height="0" rx="5" fill="#aa2eff" class="bar">
+  <animate attributeName="height" from="0" to="70" dur="1.5s" fill="freeze" begin="0.6s"/>
+  <animate attributeName="y" from="200" to="130" dur="1.5s" fill="freeze" begin="0.6s"/>
+</rect>
+<rect x="180" y="200" width="30" height="0" rx="5" fill="#aa2eff" class="bar">
+  <animate attributeName="height" from="0" to="90" dur="1.5s" fill="freeze" begin="0.8s"/>
+  <animate attributeName="y" from="200" to="110" dur="1.5s" fill="freeze" begin="0.8s"/>
+</rect>
+<rect x="220" y="200" width="30" height="0" rx="5" fill="#5a0097" class="bar">
+  <animate attributeName="height" from="0" to="140" dur="1.5s" fill="freeze" begin="1s"/>
+  <animate attributeName="y" from="200" to="60" dur="1.5s" fill="freeze" begin="1s"/>
+</rect>
+<rect x="260" y="200" width="30" height="0" rx="5" fill="#aa2eff" class="bar">
+  <animate attributeName="height" from="0" to="80" dur="1.5s" fill="freeze" begin="1.2s"/>
+  <animate attributeName="y" from="200" to="120" dur="1.5s" fill="freeze" begin="1.2s"/>
+</rect>
+<rect x="300" y="200" width="30" height="0" rx="5" fill="#aa2eff" class="bar">
+  <animate attributeName="height" from="0" to="40" dur="1.5s" fill="freeze" begin="1.4s"/>
+  <animate attributeName="y" from="200" to="160" dur="1.5s" fill="freeze" begin="1.4s"/>
+</rect>
+
+    <!-- Day Labels -->
+    <g font-family="Arial, sans-serif" font-size="14" fill="black">
+      <text x="60" y="227">Mon</text>
+      <text x="100" y="227">Tue</text>
+      <text x="140" y="227">Wed</text>
+      <text x="180" y="227">Thu</text>
+      <text x="220" y="227">Fri</text>
+      <text x="260" y="227">Sat</text>
+      <text x="300" y="227">Sun</text>
+    </g>
+  </g>
+
+<g transform="rotate(8.27458 270 95)">
+  <text x="274" y="108" font-family="Arial, sans-serif" font-size="14" fill="black" class="count" opacity="0">
+    <animate attributeName="opacity" from="0" to="1" dur="1s" fill="freeze" begin="2s"/>
+    <animateTransform attributeName="transform" type="translate" from="0 20" to="0 0" dur="1.5s" fill="freeze" begin="2s"/>
+    210
+  </text>
+</g>
+
+
+  <!-- Animated Bottom Stats - Now with tilt -->
+  <g transform="rotate(8.27458 100 305)">
+    <text x="100" y="305" font-family="Arial, sans-serif" font-size="35" font-weight="bold" class="count" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" dur="1s" fill="freeze" begin="2.2s"/>
+      <animateTransform attributeName="transform" type="translate" from="0 20" to="0 0" dur="1.5s" fill="freeze" begin="2.2s"/>
+      532
+    </text>
+    <text x="87" y="325" font-family="Arial, sans-serif" font-size="14" class="count" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" dur="1s" fill="freeze" begin="2.2s"/>
+      Times Filled
+    </text>
+  </g>
+
+  <g transform="rotate(8.27458 260 305)">
+    <text x="260" y="327" font-family="Arial, sans-serif" font-size="35" font-weight="bold" class="percentage" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" dur="1s" fill="freeze" begin="2.4s"/>
+      <animateTransform attributeName="transform" type="translate" from="0 20" to="0 0" dur="1.5s" fill="freeze" begin="2.4s"/>
+      85%
+    </text>
+    <text x="255" y="347" font-family="Arial, sans-serif" font-size="14" class="percentage" opacity="0">
+      <animate attributeName="opacity" from="0" to="1" dur="1s" fill="freeze" begin="2.4s"/>
+      Filled Fully
+    </text>
+  </g>
+</svg>

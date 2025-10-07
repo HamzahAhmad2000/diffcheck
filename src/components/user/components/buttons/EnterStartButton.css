@@ -1,0 +1,197 @@
+/* EnterStartButton Component Styles */
+/* Extracted from UserHomepage.css and QuestDashboard.css button styling */
+
+.enter-start-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Size variants */
+.enter-start-button--small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  min-height: 32px;
+}
+
+.enter-start-button--medium {
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  min-height: 40px;
+}
+
+.enter-start-button--large {
+  padding: 0.8rem 1.6rem;
+  font-size: 1rem;
+  min-height: 48px;
+}
+
+/* Primary variant (default) */
+.enter-start-button--primary {
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  color: white;
+  box-shadow: 0 4px 14px 0 rgba(139, 92, 246, 0.39);
+}
+
+.enter-start-button--primary:hover:not(.enter-start-button--disabled) {
+  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px 0 rgba(139, 92, 246, 0.5);
+}
+
+/* Secondary variant */
+.enter-start-button--secondary {
+  background: rgba(107, 114, 128, 0.1);
+  color: #9ca3af;
+  border: 1px solid rgba(107, 114, 128, 0.3);
+}
+
+.enter-start-button--secondary:hover:not(.enter-start-button--disabled) {
+  background: rgba(107, 114, 128, 0.2);
+  color: #d1d5db;
+  transform: translateY(-1px);
+}
+
+/* Success variant */
+.enter-start-button--success {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  color: white;
+}
+
+.enter-start-button--success:hover:not(.enter-start-button--disabled) {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  transform: translateY(-2px);
+}
+
+/* Warning variant */
+.enter-start-button--warning {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+  color: white;
+}
+
+.enter-start-button--warning:hover:not(.enter-start-button--disabled) {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+  transform: translateY(-2px);
+}
+
+/* Danger variant */
+.enter-start-button--danger {
+  background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+  color: white;
+}
+
+.enter-start-button--danger:hover:not(.enter-start-button--disabled) {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  transform: translateY(-2px);
+}
+
+/* State variants */
+.enter-start-button--completed {
+  background: #6c757d !important;
+  color: white !important;
+  cursor: not-allowed !important;
+  opacity: 0.8;
+}
+
+.enter-start-button--claimable {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%) !important;
+  color: white !important;
+  animation: pulse-glow 2s infinite;
+}
+
+.enter-start-button--pending {
+  background: #6c757d !important;
+  color: white !important;
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+.enter-start-button--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.enter-start-button--loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+/* Loading spinner */
+.enter-start-button__spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Active state */
+.enter-start-button:active:not(.enter-start-button--disabled) {
+  transform: translateY(0);
+}
+
+/* Animations */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(16, 185, 129, 0.5), 0 0 10px rgba(16, 185, 129, 0.3), 0 0 15px rgba(16, 185, 129, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.8), 0 0 20px rgba(16, 185, 129, 0.6), 0 0 30px rgba(16, 185, 129, 0.4);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .enter-start-button--small {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    min-height: 28px;
+  }
+
+  .enter-start-button--medium {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    min-height: 36px;
+  }
+
+  .enter-start-button--large {
+    padding: 0.7rem 1.4rem;
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .enter-start-button--small {
+    font-size: calc(0.7rem - 3px);
+    padding: 0.25rem 0.5rem;
+  }
+
+  .enter-start-button--medium {
+    font-size: calc(0.8rem - 3px);
+    padding: 0.4rem 0.8rem;
+  }
+
+  .enter-start-button--large {
+    font-size: calc(0.9rem - 3px);
+    padding: 0.6rem 1.2rem;
+  }
+}

@@ -1,0 +1,326 @@
+/* Welcome Popup Styles */
+.welcome-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.welcome-popup {
+    background: var(--color-background);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: slideUp 0.4s ease-out;
+    border: 1px solid var(--color-border);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.welcome-popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.welcome-popup-progress {
+    flex: 1;
+}
+
+.progress-text {
+    font-size: 14px;
+    color: var(--color-text-muted);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.progress-bar {
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 2px;
+    overflow: hidden;
+    width: 200px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.welcome-popup-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    margin-left: 16px;
+}
+
+.welcome-popup-close:hover {
+    background: var(--color-border);
+    color: var(--color-text);
+}
+
+.welcome-popup-content {
+    padding: 32px 24px;
+    text-align: center;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcome-card {
+    width: 100%;
+}
+
+.welcome-card-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.welcome-card-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 12px;
+    line-height: 1.2;
+}
+
+.welcome-card-description {
+    font-size: 18px;
+    color: var(--color-primary);
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.welcome-card-content {
+    font-size: 16px;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.welcome-card-action {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.welcome-card-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(170, 46, 255, 0.3);
+}
+
+.welcome-card-action i {
+    font-size: 18px;
+}
+
+.welcome-popup-footer {
+    padding: 20px 24px 24px;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.welcome-popup-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.welcome-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-border);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.welcome-dot.active {
+    background: var(--color-primary);
+    transform: scale(1.2);
+}
+
+.welcome-dot.completed {
+    background: var(--color-success);
+}
+
+.welcome-popup-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.welcome-btn {
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+}
+
+.welcome-btn-secondary {
+    background: var(--color-background-secondary);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
+}
+
+.welcome-btn-secondary:hover {
+    background: var(--color-border);
+    color: var(--color-text);
+}
+
+.welcome-btn-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: white;
+    flex: 1;
+    justify-content: center;
+}
+
+.welcome-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(170, 46, 255, 0.3);
+}
+
+.welcome-btn i {
+    font-size: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .welcome-popup-overlay {
+        padding: 16px;
+    }
+    
+    .welcome-popup {
+        max-width: 100%;
+        border-radius: 16px;
+    }
+    
+    .welcome-popup-header {
+        padding: 20px 20px 12px;
+    }
+    
+    .welcome-popup-content {
+        padding: 24px 20px;
+        min-height: 250px;
+    }
+    
+    .welcome-card-icon {
+        font-size: 48px;
+        margin-bottom: 16px;
+    }
+    
+    .welcome-card-title {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    
+    .welcome-card-description {
+        font-size: 16px;
+        margin-bottom: 12px;
+    }
+    
+    .welcome-card-content {
+        font-size: 14px;
+        margin-bottom: 20px;
+    }
+    
+    .welcome-popup-footer {
+        padding: 16px 20px 20px;
+    }
+    
+    .welcome-popup-buttons {
+        flex-direction: column;
+    }
+    
+    .welcome-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .progress-bar {
+        width: 150px;
+    }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .welcome-popup {
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+}
+
+/* Animation for card transitions */
+.welcome-card {
+    animation: cardSlide 0.3s ease-out;
+}
+
+@keyframes cardSlide {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

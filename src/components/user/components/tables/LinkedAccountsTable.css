@@ -1,0 +1,332 @@
+/* LinkedAccountsTable Component Styles */
+/* Extracted from UserEditProfile.js social account management section styling */
+
+.linked-accounts-table {
+  width: 100%;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.linked-accounts-table__header {
+  padding: 1.5rem;
+  border-bottom: 1px solid #333;
+  background: #1e1e1e;
+}
+
+.linked-accounts-table__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.linked-accounts-table__subtitle {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+.linked-accounts-table__content {
+  padding: 1.5rem;
+}
+
+.linked-accounts-table__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.linked-account-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  background: #262626;
+  border: 1px solid #404040;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.linked-account-item:hover {
+  border-color: #8b5cf6;
+  background: #2a2a2a;
+}
+
+.linked-account-item__info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.linked-account-item__icon {
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.linked-account-item__details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.linked-account-item__provider {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.linked-account-item__identifier {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.linked-account-item__unlink {
+  padding: 0.5rem 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 6px;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.linked-account-item__unlink:hover:not(:disabled) {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+}
+
+.linked-account-item__unlink:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.linked-accounts-table__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.linked-accounts-table__empty i {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.linked-accounts-table__empty p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.linked-accounts-table__divider {
+  height: 1px;
+  background: #333;
+  margin: 1.5rem 0;
+}
+
+.linked-accounts-table__link-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.linked-accounts-table__link-title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.linked-accounts-table__providers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.linked-accounts-table__provider-button {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.linked-accounts-table__provider-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--provider-color, #8b5cf6);
+  color: var(--provider-color, #8b5cf6);
+  transform: translateY(-1px);
+}
+
+.linked-accounts-table__provider-button:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.linked-accounts-table__provider-button i {
+  font-size: 1rem;
+  color: var(--provider-color, #8b5cf6);
+}
+
+/* Variant styles */
+.linked-accounts-table--compact {
+  border-radius: 8px;
+}
+
+.linked-accounts-table--compact .linked-accounts-table__header {
+  padding: 1rem;
+}
+
+.linked-accounts-table--compact .linked-accounts-table__content {
+  padding: 1rem;
+}
+
+.linked-accounts-table--compact .linked-account-item {
+  padding: 0.75rem;
+}
+
+.linked-accounts-table--compact .linked-account-item__icon {
+  width: 32px;
+  height: 32px;
+  font-size: 1.2rem;
+}
+
+.linked-accounts-table--card {
+  background: #262626;
+  border: 2px solid #404040;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.linked-accounts-table--card .linked-accounts-table__header {
+  background: #2a2a2a;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .linked-accounts-table__header {
+    padding: 1rem;
+  }
+
+  .linked-accounts-table__content {
+    padding: 1rem;
+  }
+
+  .linked-accounts-table__title {
+    font-size: 1.1rem;
+  }
+
+  .linked-accounts-table__subtitle {
+    font-size: 0.85rem;
+  }
+
+  .linked-account-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+  }
+
+  .linked-account-item__info {
+    width: 100%;
+  }
+
+  .linked-account-item__unlink {
+    align-self: flex-end;
+  }
+
+  .linked-accounts-table__providers {
+    gap: 0.5rem;
+  }
+
+  .linked-accounts-table__provider-button {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .linked-accounts-table__header {
+    padding: 0.75rem;
+  }
+
+  .linked-accounts-table__content {
+    padding: 0.75rem;
+  }
+
+  .linked-accounts-table__title {
+    font-size: calc(1rem - 3px);
+  }
+
+  .linked-accounts-table__subtitle {
+    font-size: calc(0.8rem - 3px);
+  }
+
+  .linked-accounts-table__link-title {
+    font-size: calc(0.9rem - 3px);
+  }
+
+  .linked-account-item {
+    padding: 0.75rem;
+  }
+
+  .linked-account-item__icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+
+  .linked-account-item__provider {
+    font-size: calc(0.85rem - 3px);
+  }
+
+  .linked-account-item__identifier {
+    font-size: calc(0.75rem - 3px);
+  }
+
+  .linked-account-item__unlink {
+    font-size: calc(0.75rem - 3px);
+    padding: 0.4rem 0.8rem;
+  }
+
+  .linked-accounts-table__provider-button {
+    font-size: calc(0.8rem - 3px);
+    padding: 0.6rem 0.8rem;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .linked-accounts-table__provider-button i {
+    font-size: 1.2rem;
+  }
+
+  .linked-accounts-table__empty p {
+    font-size: calc(0.85rem - 3px);
+  }
+}

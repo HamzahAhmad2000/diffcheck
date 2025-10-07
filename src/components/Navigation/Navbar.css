@@ -1,0 +1,115 @@
+.navbar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.navbar {
+  width: 1200px;
+  height: 108px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #1E1E1E;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  margin-top: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo-icon {
+    width: 245px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+  
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-links a {
+    color: #FFF;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-transform: uppercase;
+    text-decoration: none; /* Removes default underline */
+    transition: text-decoration 0.3s ease-in-out; /* Smooth hover effect */
+  }
+  
+  .nav-links a:hover {
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+
+  .login-button-nav {
+    width: 117px;
+    height: 44px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    background: #AA2EFF;
+    color: #FFF;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  /* Shimmer effect on hover */
+  .login-button-nav::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 150%;
+    height: 100%;
+    background: linear-gradient(
+      120deg,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(255, 255, 255, 0.5) 50%,
+      rgba(255, 255, 255, 0) 70%
+    );
+    transition: left 0.5s ease-in-out;
+  }
+  
+  .login-button-nav:hover::before {
+    left: 100%;
+  }
+  
+  .login-button-nav:hover {
+    transform: scale(1.05);
+  }
+  
+  
+  /* Optional: Add active (click) effect */
+  .login-button-nav:active {
+    transform: scale(0.98);
+  }
+  
+
+@media (max-width: 1250px) {
+  .navbar {
+    width: 100%;
+    border-radius: 0;
+  }
+}

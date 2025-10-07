@@ -1,0 +1,64 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* Custom Font for Clash Display */
+@font-face {
+    font-family: 'Clash Display';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/ClashDisplay-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Clash Display';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/ClashDisplay-Medium.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Clash Display';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/ClashDisplay-Regular.otf') format('opentype');
+}
+
+/* Apply fonts */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Clash Display', sans-serif;
+}
+
+/* Google Fonts imports */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Pacifico&family=Satisfy&family=Sacramento&family=Allura&display=swap');
+
+/* Font classes for signature options */
+.Dancing-Script {
+  font-family: 'Dancing Script', cursive;
+}
+
+.Great-Vibes {
+  font-family: 'Great Vibes', cursive;
+}
+
+.Pacifico {
+  font-family: 'Pacifico', cursive;
+}
+
+.Satisfy {
+  font-family: 'Satisfy', cursive;
+}
+
+.Sacramento {
+  font-family: 'Sacramento', cursive;
+}
+
+.Allura {
+  font-family: 'Allura', cursive;
+}

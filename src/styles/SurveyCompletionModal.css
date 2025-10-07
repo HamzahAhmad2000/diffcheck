@@ -1,0 +1,248 @@
+/* Survey Completion Modal Styles */
+.survey-completion-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+    animation: modalOverlayFadeIn 0.3s ease-out;
+}
+
+@keyframes modalOverlayFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.survey-completion-modal {
+    background: #1a1a1a;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    animation: modalSlideUp 0.3s ease-out;
+    position: relative;
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.survey-completion-modal__header {
+    padding: 32px 32px 24px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+.survey-completion-modal__icon {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    animation: iconBounce 0.6s ease-out 0.2s both;
+}
+
+@keyframes iconBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) scale(1);
+    }
+    40% {
+        transform: translateY(-8px) scale(1.05);
+    }
+    60% {
+        transform: translateY(-4px) scale(1.02);
+    }
+}
+
+.survey-completion-modal__icon i {
+    font-size: 32px;
+    color: white;
+    font-weight: bold;
+}
+
+.survey-completion-modal__title {
+    font-family: var(--font-primary);
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.survey-completion-modal__content {
+    padding: 24px 32px;
+    text-align: center;
+}
+
+.survey-completion-modal__message {
+    font-size: 16px;
+    color: #e0e0e0;
+    margin: 0 0 12px;
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+.survey-completion-modal__sub-message {
+    font-size: 14px;
+    color: #b0b0b0;
+    margin: 0 0 24px;
+    line-height: 1.4;
+}
+
+.survey-completion-modal__reward-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #2a2a2a;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    font-size: 14px;
+    color: #28a745;
+    font-weight: 600;
+}
+
+.survey-completion-modal__reward-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.survey-completion-modal__reward-icon i {
+    font-size: 18px;
+    color: #28a745;
+}
+
+.survey-completion-modal__actions {
+    padding: 24px 32px 32px;
+    display: flex;
+    justify-content: center;
+}
+
+.survey-completion-modal__close-btn {
+    background: linear-gradient(135deg, #aa2eff, #7c1fcf);
+    color: white;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(170, 46, 255, 0.3);
+}
+
+.survey-completion-modal__close-btn:hover {
+    background: linear-gradient(135deg, #8a1fcf, #6a1bb3);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(170, 46, 255, 0.4);
+}
+
+.survey-completion-modal__close-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(170, 46, 255, 0.3);
+}
+
+.survey-completion-modal__close-btn i {
+    font-size: 18px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .survey-completion-modal-overlay {
+        padding: 16px;
+    }
+    
+    .survey-completion-modal {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+    
+    .survey-completion-modal__header {
+        padding: 24px 24px 20px;
+    }
+    
+    .survey-completion-modal__icon {
+        width: 56px;
+        height: 56px;
+        margin-bottom: 12px;
+    }
+    
+    .survey-completion-modal__icon i {
+        font-size: 28px;
+    }
+    
+    .survey-completion-modal__title {
+        font-size: 20px;
+    }
+    
+    .survey-completion-modal__content {
+        padding: 20px 24px;
+    }
+    
+    .survey-completion-modal__message {
+        font-size: 15px;
+    }
+    
+    .survey-completion-modal__sub-message {
+        font-size: 13px;
+    }
+    
+    .survey-completion-modal__actions {
+        padding: 20px 24px 24px;
+    }
+    
+    .survey-completion-modal__close-btn {
+        padding: 10px 24px;
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .survey-completion-modal {
+        border-radius: 8px;
+        margin: 8px;
+    }
+    
+    .survey-completion-modal__header {
+        padding: 20px 20px 16px;
+    }
+    
+    .survey-completion-modal__content {
+        padding: 16px 20px;
+    }
+    
+    .survey-completion-modal__actions {
+        padding: 16px 20px 20px;
+    }
+} 

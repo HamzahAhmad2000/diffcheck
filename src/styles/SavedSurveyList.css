@@ -1,0 +1,1230 @@
+.saved-surveys-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f7;
+  font-family: 'Poppins', sans-serif;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px 80px;
+  max-width: 100%;
+  background-color: #f5f5f7;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px); /* Account for padding */
+}
+
+/* Remove the old sidebar space class */
+.sidebar-space {
+  display: none;
+}
+
+.header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.entries-control {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.entries-text {
+    color: #000;
+    font-family: "Clash Display";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.entries-select {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  width: 60px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 1px solid #000;
+  padding: 5px 24px 5px 8px;
+  margin: 0 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 4px center;
+  cursor: pointer;
+}
+
+.entries-select:focus {
+  outline: none;
+  border-color: #aa2eff;
+}
+
+.search-add-section {
+  display: flex;
+  gap: 1px;
+  align-items: center;
+}
+
+
+.search-container {
+  position: relative;
+  width: 240px;
+  margin-right: 10px;
+  margin-top: 17px;
+  padding: 2px;
+}
+
+.search-input {
+  width: 279px;
+  height: 42px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  padding: 2px 16px 0 46px;
+  color: #000;
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  background-color: #fff;
+  border: 1px solid #000;
+}
+
+.search-input::placeholder {
+  color: #000;
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;  
+  transition: opacity 0.2s ease;
+}
+
+.search-input:not(:placeholder-shown)::placeholder {
+  opacity: 0;
+}
+  
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 30%;
+  transform: translateY(-50%);
+  color: #000 !important;
+  width: 21px;
+  height: 21px;
+  flex-shrink: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.search-input:not(:placeholder-shown) + .search-icon {
+  opacity: 0;
+}
+
+.add-button {
+  width: 180px; 
+  height: 42px;
+  background-color: #aa2eff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #FFF;
+  font-family: "Clash Display";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #9020dd;
+  transform: translateY(-2px);
+}
+
+.surveys-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+  width: 100%;
+  flex: 1;
+}
+
+/* Survey Card Base Styles */
+.survey-card {
+  border-radius: 12px;
+  overflow: visible; /* Allow menu to overflow */
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 320px;
+  height: auto;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid transparent; /* Placeholder for hover border */
+}
+
+.survey-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  border: 1px solid #aa2eff;
+}
+
+/* Featured survey styling */
+.survey-card.newfeatured-card {
+  border: 2px solid #fbbf24;
+  background: linear-gradient(135deg, #fef3c7 0%, #ffffff 20%);
+  position: relative;
+}
+
+.survey-card.newfeatured-card::before {
+  content: "FEATURED";
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  z-index: 10;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.survey-card.newfeatured-card:hover {
+  border: 2px solid #f59e0b;
+  box-shadow: 0 8px 25px rgba(245, 158, 11, 0.2);
+}
+
+.survey-card.newfeatured-card .star-button i.ri-star-fill {
+  color: #f59e0b;
+}
+
+.survey-card.newfeatured-card .star-button i.ri-star-line {
+  color: #f59e0b;
+}
+
+.survey-image {
+  height: 120px; /* Adjusted height */
+  margin-top: 65px;
+  width: 70%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 10px 10px 0 0;
+}
+
+.survey-image img {
+  width: 70%;
+  height: 60%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+  display: block;
+}
+
+.survey-card:hover .survey-image img {
+  transform: scale(1.05);
+}
+
+.survey-content {
+  padding: 16px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.survey-title {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #aa2eff;
+  margin-bottom: 8px;
+  margin-top: 0; /* Reset margin */
+  line-height: 1.3;
+  /* Allow title to wrap if long */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+}
+
+.survey-description {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 12px 0; /* Adjusted margin */
+  line-height: 1.4;
+  flex-grow: 1; /* Allow description to take up space */
+   /* Allow description to wrap */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+}
+
+.survey-meta {
+  margin-top: auto; /* Pushes meta to bottom */
+  padding-top: 8px;
+  color: #666;
+  font-size: 12px; /* Slightly smaller */
+  display: flex;
+  flex-direction: column; /* Stack meta items */
+  gap: 4px;
+}
+
+.survey-responses,
+.survey-schedule-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.survey-responses i,
+.survey-schedule-info i {
+  font-size: 15px; /* Consistent icon size */
+  color: #aa2eff;
+  flex-shrink: 0; /* Prevent icon shrinking */
+}
+
+.survey-schedule-info {
+  color: #4b5563; /* Gray for schedule info */
+}
+.survey-schedule-info.scheduled-open i { color: #10b981; } /* Green icon */
+.survey-schedule-info.scheduled-close i { color: #f59e0b; } /* Amber icon */
+
+
+.nonew-surveys {
+  grid-column: 1 / span 3;
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+/* Improved Action Buttons */
+.survey-actions {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.98);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.top-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 8px;
+  width: 100%;
+}
+
+.action-button.analytics {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  grid-column: 1 / -1;
+  height: 38px;
+  font-size: 14px;
+}
+
+.survey-card:hover .survey-actions {
+  opacity: 1;
+}
+
+.action-button {
+  height: 34px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  gap: 6px;
+  padding: 0 12px;
+}
+
+.survey-card:hover .action-button {
+  font-size: 12px;
+}
+
+.action-button i {
+  font-size: 15px;
+}
+
+/* More subtle button colors */
+.action-button.publish { 
+  background: linear-gradient(135deg, #6366f1 0%, #818cf8 100%);
+}
+.action-button.edit { 
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+}
+.action-button.copy { 
+  background: linear-gradient(135deg, #aa2eff 0%, #c084fc 100%);
+}
+.action-button.delete { 
+  background: linear-gradient(135deg, #f43f5e 0%, #fb7185 100%);
+}
+
+.action-button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
+.survey-card:hover .action-button i {
+  margin-right: 4px;
+}
+
+
+
+/* Survey Status Banner */
+.survey-status-banner {
+  position: absolute;
+  top: 12px;
+  left: -40px;
+  transform: rotate(-45deg);
+  width: 160px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  padding: 4px 0;
+  z-index: 2;
+}
+
+.survey-status-banner.open {
+  background-color: #10b981; /* Green for open */
+}
+
+.survey-status-banner.closed {
+  background-color: #ef4444; /* Red for closed */
+}
+
+/* Survey Meta Information */
+.survey-meta {
+  margin: 12px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.survey-responses {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.survey-responses i {
+  font-size: 16px;
+  color: #aa2eff;
+}
+
+/* New Action Buttons Style */
+.action-icon-button {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin: 0 4px;
+}
+
+.action-icon-button.publish {
+  background: #aa2eff; /* Primary purple */
+}
+
+.action-icon-button.edit {
+  background: #4f46e5; /* Indigo */
+}
+
+.action-icon-button.copy {
+  background: #f59e0b; /* Amber */
+}
+
+.action-icon-button.delete {
+  background: #ef4444; /* Red */
+}
+
+.action-icon-button.analytics {
+  background: #10b981; /* Emerald */
+}
+
+.action-icon-button.unpublish {
+  background-color: #ff4d4f; /* Example: red background */
+  color: white;
+}
+
+.action-icon-button.unpublish:hover {
+  background-color: #d9363e;
+}
+
+.action-icon-button i {
+  font-size: 18px;
+  transition: transform 0.3s ease;
+  margin-right: 0;
+}
+
+.action-icon-button span {
+  position: absolute;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: translateX(20px);
+  pointer-events: none;
+}
+
+.action-icon-button:hover {
+  width: auto;
+  padding: 0 16px;
+}
+
+.action-icon-button:hover i {
+  margin-right: 8px;
+  transform: translateX(0);
+}
+
+.action-icon-button:hover span {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+  pointer-events: auto;
+}
+
+/* Hover effects */
+.action-icon-button.publish:hover {
+  background: #9020dd;
+}
+
+.action-icon-button.edit:hover {
+  background: #4338ca;
+}
+
+.action-icon-button.copy:hover {
+  background: #d97706;
+}
+
+.action-icon-button.delete:hover {
+  background: #dc2626;
+}
+
+.action-icon-button.analytics:hover {
+  background: #059669;
+}
+
+.survey-status-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  justify-content: flex-end;
+}
+
+.survey-status-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+}
+
+.survey-status-toggle input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.schedule-close-button {
+  background-color: #aa2eff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.schedule-close-button:hover {
+  background-color: #9020dd;
+}
+
+
+.status-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.status-modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.status-modal-content h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.status-modal-content button {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+}
+
+.status-modal-content button:first-of-type {
+  background-color: #10b981; /* Green for confirm */
+  color: white;
+}
+
+.status-modal-content button:first-of-type:hover {
+  background-color: #059669;
+}
+
+.status-modal-content button:last-of-type {
+  background-color: #e5e7eb; /* Gray for cancel */
+  color: #333;
+}
+
+.status-modal-content button:last-of-type:hover {
+  background-color: #d1d5db;
+}
+
+
+.card-top-controls {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10; /* Ensure controls are above image */
+}
+
+/* --- Toggle Switch --- */
+.toggle-switch-label {
+  position: relative;
+  display: inline-block;
+  width: 40px; /* Smaller toggle */
+  height: 22px;
+  cursor: pointer;
+}
+
+.toggle-switch-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-switch-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; /* Default off color */
+  transition: .3s;
+  border-radius: 22px;
+}
+
+.toggle-switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+.toggle-switch-input:checked + .toggle-switch-slider {
+  background-color: #10b981; /* Green for ON (Open) */
+}
+
+.toggle-switch-input:focus + .toggle-switch-slider {
+  box-shadow: 0 0 1px #10b981;
+}
+
+.toggle-switch-input:checked + .toggle-switch-slider:before {
+  transform: translateX(18px);
+}
+
+/* --- Icon Buttons (Calendar, Menu) --- */
+.icon-button {
+  background: rgba(255, 255, 255, 0.7); /* Semi-transparent white */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #555; /* Dark gray icon */
+  padding: 0;
+}
+
+.icon-button i {
+  font-size: 18px;
+}
+
+.icon-button:hover {
+  background-color: #aa2eff;
+  color: white;
+  border-color: #aa2eff;
+}
+
+/* --- Action Menu Dropdown --- */
+.card-action-menu {
+  position: absolute;
+  top: 45px; /* Position below the controls */
+  right: 12px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  z-index: 20; /* Above everything else */
+  width: 160px; /* Fixed width for the menu */
+  border: 1px solid #eee;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.menu-item i {
+  font-size: 16px;
+  color: #666; /* Default icon color */
+  transition: color 0.2s ease;
+}
+
+.menu-item:hover {
+  background-color: #f5f5f7; /* Light background on hover */
+}
+
+/* Specific hover colors for menu items */
+.menu-item:hover i.ri-edit-line { color: #4f46e5; } /* Indigo */
+.menu-item:hover i.ri-file-copy-line { color: #f59e0b; } /* Amber */
+.menu-item:hover i.ri-delete-bin-line { color: #ef4444; } /* Red */
+.menu-item:hover i.ri-bar-chart-line { color: #10b981; } /* Emerald */
+.menu-item:hover i.ri-lock-line,
+.menu-item:hover i.ri-send-plane-line { color: #aa2eff; } /* Primary Purple */
+
+
+/* --- Status Modal & Date Picker --- */
+.status-modal {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.5); display: flex; align-items: center; justify-content: center; z-index: 1000;
+}
+.status-modal-content { background: white; padding: 24px; border-radius: 12px; min-width: 350px; /* Slightly wider */ display: flex; flex-direction: column; gap: 16px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+.status-modal-content h3 { font-size: 18px; font-weight: 600; /* Medium weight */ margin-bottom: 4px; /* Reduced margin */ font-family: 'Clash Display', sans-serif; }
+
+.modal-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* Align buttons right */
+    margin-top: 10px;
+}
+
+/* Generic Modal Button Style */
+.status-modal-content button {
+  padding: 10px 16px; /* More padding */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500; /* Medium weight */
+  transition: background-color 0.2s ease, opacity 0.2s;
+  font-family: 'Poppins', sans-serif;
+}
+/* Specific Modal Buttons */
+.schedule-button.confirm { /* Schedule button */
+  background-color: #aa2eff;
+  color: white;
+}
+.schedule-button.confirm:hover:not(:disabled) {
+  background-color: #9020dd;
+}
+.schedule-button:disabled {
+    background-color: #d1d5db; /* Light gray when disabled */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+.cancel-button { /* Cancel button */
+  background-color: #e5e7eb;
+  color: #333;
+}
+.cancel-button:hover {
+  background-color: #d1d5db;
+}
+
+
+.styled-datepicker { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; font-family: 'Poppins', sans-serif; color: #333; background-color: #fff; transition: border-color 0.2s ease, box-shadow 0.2s ease; }
+.styled-datepicker:focus { border-color: #aa2eff; box-shadow: 0 0 0 2px rgba(170, 46, 255, 0.2); outline: none; }
+/* Ensure react-datepicker portal is styled if needed */
+.react-datepicker-popper { z-index: 1001 !important; /* Ensure datepicker is above modal backdrop */ }
+
+.paginationnew {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.paginationnew-info {
+  color: #000;
+  font-family: "Clash Display";  
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* Pagination Container */
+.paginationnew-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Prev and Next (Styled as Text but Clickable) */
+.paginationnew-prev,
+.paginationnew-next {
+  color: #000;
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer; /* Makes them clickable */
+  user-select: none; /* Prevents text selection */
+  transition: color 0.2s ease;
+}
+
+.paginationnew-prev:hover,
+.paginationnew-next:hover {
+  color: #aa2eff;
+}
+
+.paginationnew-prev.disabled,
+.paginationnew-next.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Active Button */
+.paginationnew-button.active {
+  width: 48px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  background: #AA2EFF;
+  color: #fff; /* White text for contrast */
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  cursor: pointer;
+}
+
+/* Inactive Button */
+.paginationnew-button.inactive {
+  width: 48px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  border: 1px solid #000;
+  background: transparent;
+  color: #000;
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.paginationnew-button.inactive:hover {
+  background-color: rgba(170, 46, 255, 0.1);
+  border-color: #aa2eff;
+}
+
+.paginationnew-ellipsis {
+  font-family: "Clash Display", sans-serif;
+  font-size: 20px;
+  color: #000;
+  margin: 0 4px;
+  user-select: none;
+  width: 48px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.styled-datepicker {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #aa2eff; /* Purple border */
+  border-radius: 6px;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.styled-datepicker:focus {
+  border-color: #9020dd; /* Darker purple */
+  box-shadow: 0 0 4px rgba(170, 46, 255, 0.5);
+  outline: none;
+}
+
+.schedule-button {
+  background-color: #3b82f6; /* Blue */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.schedule-button:hover {
+  background-color: #2563eb; /* Darker blue */
+  transform: translateY(-2px);
+}
+
+
+
+/* Large Desktop (default styles remain unchanged) */
+
+/* Medium Desktop/Laptop */
+@media screen and (max-width: 1440px) {
+  .surveys-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .main-content {
+    padding: 24px 40px;
+  }
+
+  .search-input {
+    width: 220px;
+  }
+
+  .add-button {
+    width: 150px;
+    font-size: 16px;
+  }
+}
+
+/* Tablet and Small Laptop */
+@media screen and (max-width: 1024px) {
+  .main-content {
+    margin-left: 0;
+    max-width: 100%;
+    padding: 20px;
+  }
+
+  .header-controls {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .search-add-section {
+    justify-content: space-between;
+  }
+
+  .search-container {
+    width: auto;
+    margin-right: 12px;
+  }
+
+  .search-input {
+    width: 180px;
+    height: 38px;
+    font-size: 16px;
+  }
+
+  .add-button {
+    width: 130px;
+    height: 38px;
+    font-size: 15px;
+    padding: 0 12px;
+  }
+
+  .entries-select {
+    height: 38px;
+  }
+
+  .survey-card {
+    height: 280px;
+  }
+
+  .survey-image {
+    height: 140px;
+  }
+
+  .survey-title {
+    font-size: 15px;
+  }
+
+  .survey-description {
+    font-size: 12px;
+  }
+}
+
+/* Tablet Portrait and Large Mobile */
+@media screen and (max-width: 768px) {
+  .surveys-grid {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 16px;
+  }
+
+  .entries-control {
+    justify-content: right;
+  }
+
+  .header-controls {
+    margin-bottom: 20px;
+  }
+
+  .entries-text {
+    font-size: 16px;
+  }
+
+  .search-add-section {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .search-container {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .add-button {
+    width: 100%;
+  }
+
+  .survey-card {
+    height: auto;
+    min-height: 260px;
+  }
+
+  /* Adjust pagination for mobile */
+  .paginationnew {
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .paginationnew-info {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .paginationnew-controls {
+    justify-content: center;
+  }
+
+  .paginationnew-button {
+    width: 40px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  /* Adjust action buttons for mobile */
+  .action-icon-button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .action-icon-button i {
+    font-size: 16px;
+  }
+
+  .action-icon-button:hover {
+    width: auto;
+    padding: 0 12px;
+  }
+}
+
+/* Small Mobile */
+@media screen and (max-width: 480px) {
+  .main-content {
+    padding: 16px;
+  }
+
+  .entries-control {
+    justify-content: right;
+  }
+
+  .survey-card {
+    min-height: 240px;
+  }
+
+  .survey-image {
+    height: 120px;
+  }
+
+  .survey-content {
+    padding: 12px;
+  }
+
+  .survey-title {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+
+  .survey-description {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .survey-meta {
+    font-size: 12px;
+  }
+
+  /* Adjust status modal for mobile */
+  .status-modal-content {
+    width: 90%;
+    max-width: 300px;
+    padding: 16px;
+  }
+
+  .styled-datepicker {
+    font-size: 13px;
+  }
+
+  /* Adjust action buttons layout for mobile */
+  .survey-actions {
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .action-icon-button {
+    flex: 1;
+    min-width: calc(50% - 4px);
+  }
+
+  /* Hide text on hover for mobile */
+  .action-icon-button:hover span {
+    display: none;
+  }
+
+  .action-icon-button:hover {
+    width: auto;
+    padding: 0;
+  }
+
+  /* Adjust pagination for small mobile */
+  .paginationnew-button {
+    width: 36px;
+    height: 34px;
+    font-size: 14px;
+  }
+
+  .paginationnew-ellipsis {
+    font-size: 14px;
+  }
+}
+
+/* Landscape orientation adjustments */
+@media screen and (max-height: 600px) and (orientation: landscape) {
+  .survey-card {
+    height: auto;
+    min-height: 220px;
+  }
+
+  .survey-image {
+    height: 100px;
+  }
+
+  .surveys-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

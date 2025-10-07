@@ -1,0 +1,432 @@
+/* QuestCard.css - Business Card Style for Quests */
+
+.quest-card {
+  position: relative;
+  width: 240px;
+  height: 276px;
+  background: #1e1e1e;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 1px solid #333;
+  overflow: hidden;
+}
+
+.quest-card:hover {
+  transform: translateY(-5px);
+  border-color: #aa2eff;
+  box-shadow: 0 4px 16px rgba(170, 46, 255, 0.2);
+}
+
+.quest-card.completed {
+  border-left: 4px solid #27ae60;
+}
+
+.quest-card.expired {
+  opacity: 0.7;
+  border-left: 4px solid #e74c3c;
+}
+
+.quest-card.not-started {
+  border-left: 4px solid #f39c12;
+}
+
+.quest-card.available {
+  border-left: 4px solid #aa2eff;
+}
+
+/* Quest Image Section */
+.quest-image {
+  position: relative;
+  width: 240px;
+  height: 149px;
+  background: rgba(30, 30, 30, 0.2);
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+}
+
+.quest-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.quest-card:hover .quest-image img {
+  transform: scale(1.05);
+}
+
+.default-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: linear-gradient(135deg, #aa2eff 0%, #8b1ecf 100%);
+}
+
+.quest-icon {
+  font-size: 3rem;
+  color: white;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Quest Icon Overlay - Similar to business logo */
+.quest-icon-overlay {
+  position: absolute;
+  width: 74px;
+  height: 74px;
+  top: 75px;
+  left: 10px;
+  background: #aa2eff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  z-index: 30;
+  border: 2px solid #fff;
+  box-shadow: 0 4px 12px rgba(170, 46, 255, 0.3);
+}
+
+/* Quest Badges */
+.quest-badges {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  z-index: 2;
+}
+
+.badge {
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.badge.featured {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  border: none;
+}
+
+.badge.raffle {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+  border: none;
+}
+
+.badge.status.completed {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+  border: none;
+}
+
+.badge.status.expired {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  border: none;
+}
+
+.badge.status.not-started {
+  background: linear-gradient(135deg, #f39c12 0%, #f1c40f 100%);
+  border: none;
+}
+
+.badge.status.available {
+  background: linear-gradient(135deg, #aa2eff 0%, #8b1ecf 100%);
+  border: none;
+}
+
+/* Quest Content Section */
+.quest-content {
+  position: relative;
+  padding: 10px;
+  height: calc(276px - 149px);
+}
+
+.quest-header {
+  margin-bottom: 8px;
+}
+
+.quest-title {
+  position: absolute;
+  height: 15px;
+  top: 151px;
+  left: 84px;
+  color: #ffffff;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14.76px;
+  text-align: left;
+  white-space: nowrap;
+  margin: 0;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quest-type {
+  background: #f8f9fa;
+  color: #aa2eff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid #e9ecef;
+  display: none; /* Hidden to match business card layout */
+}
+
+.quest-description {
+  display: none; /* Hidden to match business card layout */
+}
+
+/* Separator Line */
+.quest-line {
+  position: relative;
+  width: 220px;
+  height: 0.5px;
+  margin: 0.5px 0 0 9px;
+  background: #444;
+}
+
+/* Quest Details Row */
+.quest-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 105px;
+  height: 21px;
+  margin: 7px 0 0 68px;
+}
+
+.quest-reward {
+  flex-shrink: 0;
+  position: relative;
+  width: 38px;
+  height: 21px;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 7px;
+  font-weight: 300;
+  line-height: 10.5px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.xp-amount {
+  color: #ffffff;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
+  text-align: left;
+}
+
+.xp-label {
+  color: #4e4e4e;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 7px;
+  font-weight: 300;
+  line-height: 10.5px;
+  text-align: left;
+}
+
+.completion-count {
+  flex-shrink: 0;
+  position: relative;
+  width: 27px;
+  height: 21px;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 7px;
+  font-weight: 300;
+  line-height: 10.5px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.completion-number {
+  color: #ffffff;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 12px;
+  text-align: left;
+}
+
+.completion-label {
+  color: #4e4e4e;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 7px;
+  font-weight: 300;
+  line-height: 10.5px;
+  text-align: left;
+}
+
+/* Quest Timing - Hidden to match business card layout */
+.quest-timing {
+  display: none;
+}
+
+/* Raffle Info - Hidden to match business card layout */
+.raffle-info {
+  display: none;
+}
+
+/* Quest Actions */
+.quest-actions {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px 13px;
+  background: transparent;
+  display: flex;
+  gap: 10px;
+}
+
+.quest-actions button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 214px;
+  height: 26px;
+  background: #3a3a3a;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: none;
+  color: #ffffff;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  text-align: center;
+  flex: 1;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #aa2eff, #8b1ecf);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #9020d9, #7a1bb8);
+  transform: translateY(-1px);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+  color: white;
+}
+
+.btn-disabled {
+  background: #2a2a2a;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.btn-disabled:hover {
+  transform: none;
+}
+
+.view-details {
+  background: transparent;
+  color: #aa2eff;
+  border: 2px solid #aa2eff;
+}
+
+.view-details:hover {
+  background: #aa2eff;
+  color: white;
+}
+
+/* Make quest actions match business card button style */
+.quest-actions button:hover:not(.btn-disabled) {
+  background: #aa2eff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quest-card {
+    border-radius: 12px;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+
+  .quest-image {
+    height: 150px;
+    width: 100%;
+  }
+
+  .quest-content {
+    padding: 15px;
+  }
+
+  .quest-title {
+    font-size: 1.1rem;
+    position: relative;
+    top: auto;
+    left: auto;
+    white-space: normal;
+    max-width: none;
+  }
+
+  .quest-actions {
+    padding: 12px 15px;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .quest-actions button {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  .quest-actions button:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .quest-badges {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .badge {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .quest-title {
+    font-size: 1rem;
+  }
+
+  .quest-type {
+    font-size: 0.8rem;
+    padding: 3px 10px;
+  }
+
+  .xp-amount {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+  }
+} 

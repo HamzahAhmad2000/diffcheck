@@ -1,0 +1,422 @@
+/* src/components/admin/EditSplashPage.css */
+.edit-splash-form .image-preview {
+    max-width: 300px;
+    max-height: 200px;
+    border-radius: 8px;
+    margin-top: 0.75rem;
+    border: 1px solid #e5e7eb;
+    object-fit: cover;
+}
+
+.edit-splash-form .cover-preview {
+    max-height: 150px;
+    width: 100%;
+    object-fit: cover;
+}
+
+.edit-splash-form .logo-preview {
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: contain;
+}
+
+.color-theme-group {
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.color-theme-group legend {
+    font-weight: 600;
+    color: #374151;
+    padding: 0 0.5rem;
+}
+
+.color-picker-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.color-picker-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.color-picker-item label {
+    font-weight: 500;
+    font-size: 0.85rem;
+    color: #4b5563;
+}
+
+.color-picker-item input[type="color"] {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.color-picker-item input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+    border-radius: 6px;
+}
+
+.color-picker-item input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+.color-picker-item span {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #6b7280;
+    text-align: center;
+    background: #f9fafb;
+    padding: 0.25rem;
+    border-radius: 4px;
+}
+
+.color-theme-note {
+    color: #6b7280;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: #f8fafc;
+    border-radius: 6px;
+    border-left: 3px solid #6366f1;
+}
+
+.edit-splash-form input[type="file"] {
+    border: 2px dashed #d1d5db;
+    padding: 1rem;
+    background: #f9fafb;
+    cursor: pointer;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.edit-splash-form input[type="file"]:hover {
+    border-color: #6366f1;
+    background: #f0f7ff;
+}
+
+.edit-splash-form input[type="file"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.edit-splash-form input[type="file"]:disabled:hover {
+    border-color: #d1d5db;
+    background: #f9fafb;
+}
+
+/* Loading states */
+.edit-splash-form p {
+    margin: 0.5rem 0;
+    color: #6366f1;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+
+.back-to-dashboard-link { /* Style similar to back-to-list-link from BusinessSpecificDashboard.css */
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 15px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    transition: background-color 0.2s ease;
+}
+
+.back-to-dashboard-link:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.back-to-dashboard-link i {
+    font-size: 1.1em;
+} 
+
+/* EditSplashPage.css */
+
+.edit-splash-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* NEW: Template picker */
+.template-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+}
+.template-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    background: #fafafa;
+    min-width: 140px;
+}
+.template-card.selected {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
+}
+.template-label { text-align: center; font-size: 12px; color: #555; margin-top: 6px; }
+.tpl { display: grid; gap: 4px; height: 80px; }
+.tpl-col { display: grid; grid-template-rows: 1fr; gap: 4px; }
+.tpl-col .tpl-block { background: #e9ecef; border-radius: 4px; height: 100%; border: 1px dashed #c7cdd6; }
+.tpl-col .tpl-block.split { display: grid; grid-template-rows: repeat(2, 1fr); gap: 4px; }
+.tpl-col .tpl-block.split::before,
+.tpl-col .tpl-block.split::after { content: ""; display: block; background: #dfe3e8; border: 1px dashed #c7cdd6; border-radius: 3px; }
+
+/* NEW: Assignment (drag & drop) */
+.assignment-container { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 16px; align-items: start; width: 100%; box-sizing: border-box; }
+.palette { border: 1px solid #ddd; border-radius: 8px; padding: 8px; background: #fafafa; }
+.palette-title, .slots-title { font-weight: 600; font-size: 13px; margin-bottom: 8px; color: #333; }
+.palette-item { background: #fff; border: 1px solid #ddd; border-radius: 6px; padding: 8px; margin-bottom: 6px; cursor: grab; font-size: 13px; }
+.slots { border: 1px solid #ddd; border-radius: 8px; padding: 16px; background: #fff; overflow: auto; }
+.interactive-layout { display: grid; gap: 12px; width: 100%; box-sizing: border-box; }
+.interactive-col { display: grid; gap: 8px; }
+.interactive-slot { position: relative; border: 2px dashed #cbd5e1; background: #f8fafc; border-radius: 8px; min-height: 64px; display: flex; align-items: center; justify-content: center; padding: 10px; width: 100%; box-sizing: border-box; }
+.interactive-slot:hover { border-color: #94a3b8; }
+.slot-index { position: absolute; top: 6px; left: 8px; font-size: 10px; color: #94a3b8; }
+.slot-label { font-size: 12px; color: #475569; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90%; }
+.interactive-slot[draggable="true"] { cursor: grab; }
+.slot-clear { position: absolute; right: 6px; top: 6px; background: transparent; border: none; color: #999; font-size: 16px; cursor: pointer; }
+.interactive-slot.largest-panel { 
+    border-color: #10b981; 
+    background: #f0fdf4; 
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+}
+.interactive-slot.largest-panel .slot-label { 
+    color: #059669; 
+    font-weight: 600;
+}
+
+/* SimpleImageCropper Enhancements */
+.simple-image-cropper {
+    border: 1px solid #e1e5e9;
+    border-radius: 12px;
+    padding: 24px;
+    background: #fafbfc;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+
+.simple-image-cropper .crop-container {
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background: #f9f9f9;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+}
+
+.simple-image-cropper .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.simple-image-cropper .control-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.simple-image-cropper .control-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    min-width: 60px;
+}
+
+.simple-image-cropper .control-group input[type="range"] {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.simple-image-cropper .control-group input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.simple-image-cropper .control-group input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #667eea;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.simple-image-cropper .control-value {
+    font-size: 12px;
+    color: #666;
+    min-width: 40px;
+    text-align: right;
+}
+
+.simple-image-cropper .preview-container {
+    border: 2px solid #ddd;
+    border-radius: 8px; /* Changed from 50% to a subtle curve */
+    overflow: hidden;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.simple-image-cropper .preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.3s ease;
+}
+
+.simple-image-cropper .reset-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.simple-image-cropper .reset-btn {
+    padding: 8px 16px;
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.simple-image-cropper .reset-btn:hover {
+    background: #e0e0e0;
+    border-color: #ccc;
+}
+
+.simple-image-cropper .crop-info {
+    margin-top: 12px;
+    font-size: 12px;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* File input styling */
+.simple-image-cropper input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.simple-image-cropper input[type="file"]:hover {
+    border-color: #667eea;
+    background: #f8f9ff;
+}
+
+.simple-image-cropper input[type="file"]:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* ReactCrop overrides for better styling */
+.simple-image-cropper .ReactCrop {
+    max-width: 100%;
+    max-height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.simple-image-cropper .ReactCrop__crop-selection {
+    border: 2px solid #667eea;
+    box-shadow: 0 0 0 9999em rgba(0, 0, 0, 0.5);
+}
+
+/* Ensure circular crop is properly styled */
+.simple-image-cropper .ReactCrop--circular-crop .ReactCrop__crop-selection {
+    border-radius: 50%;
+}
+
+.simple-image-cropper .ReactCrop--circular-crop .ReactCrop__drag-handle {
+    border-radius: 50%;
+}
+
+.simple-image-cropper .ReactCrop__drag-handle {
+    background-color: #667eea;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.simple-image-cropper .ReactCrop__drag-handle:after {
+    background-color: #667eea;
+}
+
+/* Enable the overlay for the image area only */
+.simple-image-cropper .ReactCrop__overlay {
+    display: block !important;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .simple-image-cropper {
+        padding: 16px;
+    }
+    
+    .simple-image-cropper .control-group {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    
+    .simple-image-cropper .control-group label {
+        min-width: auto;
+    }
+    
+    .simple-image-cropper .control-value {
+        text-align: left;
+    }
+    
+    .simple-image-cropper .reset-buttons {
+        flex-direction: column;
+    }
+    
+    .simple-image-cropper .reset-btn {
+        width: 100%;
+    }
+} 

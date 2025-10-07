@@ -1,0 +1,677 @@
+/* QuestModal.css - User Interface Dark Theme */
+
+.quest-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.quest-modal {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 5px;
+  max-width: 700px;
+  max-height: 90vh;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s ease;
+  position: relative;
+  color: #ffffff;
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modal Header */
+.modal-header {
+  padding: 25px 30px;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(45deg, #aa2eff, #8b1ecf);
+  color: white;
+}
+
+.quest-title-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.quest-icon-large {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.quest-title-section h2 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.quest-type-label {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 4px;
+  display: inline-block;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* Modal Content */
+.modal-content {
+  padding: 0;
+  max-height: calc(90vh - 140px);
+  overflow-y: auto;
+  background: #1e1e1e;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #333;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: #aa2eff;
+  border-radius: 3px;
+}
+
+/* Quest Image Large */
+.quest-image-large {
+  width: 100%;
+  max-height: 300px;
+  overflow: hidden;
+  background: #2a2a2a;
+}
+
+.quest-image-large img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Quest Status Section */
+.quest-status-section {
+  padding: 20px 30px;
+  background: #2a2a2a;
+  border-bottom: 1px solid #333;
+}
+
+.status-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.status-badge {
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.status-badge.featured {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.status-badge.raffle {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.status-badge.completed {
+  background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+}
+
+.status-badge.expired {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+}
+
+.status-badge.not-started {
+  background: linear-gradient(135deg, #f39c12 0%, #f1c40f 100%);
+}
+
+/* Quest Description */
+.quest-description-full {
+  padding: 25px 30px;
+  border-bottom: 1px solid #333;
+  background: #1e1e1e;
+}
+
+.quest-description-full h3 {
+  margin: 0 0 15px 0;
+  color: #aa2eff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.quest-description-full p {
+  color: #ffffff;
+  line-height: 1.6;
+  margin: 0;
+  font-size: 1rem;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  opacity: 0.9;
+}
+
+/* Quest Details Grid */
+.quest-details-grid {
+  padding: 25px 30px;
+  border-bottom: 1px solid #333;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  background: #1e1e1e;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-item label {
+  font-weight: 600;
+  color: #aa2eff;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.detail-item span {
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.xp-value {
+  background: linear-gradient(45deg, #aa2eff, #8b1ecf);
+  color: white !important;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  display: inline-block;
+  width: fit-content;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Raffle Section */
+.raffle-section {
+  padding: 25px 30px;
+  border-bottom: 1px solid #333;
+  background: #1e1e1e;
+}
+
+.raffle-section h3 {
+  margin: 0 0 15px 0;
+  color: #aa2eff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.raffle-section p {
+  color: #ffffff;
+  line-height: 1.6;
+  margin: 10px 0;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  opacity: 0.9;
+}
+
+.raffle-deadline {
+  color: #4facfe !important;
+  font-weight: 600;
+}
+
+/* Target Section */
+.target-section {
+  padding: 25px 30px;
+  border-bottom: 1px solid #333;
+  background: #1e1e1e;
+}
+
+.target-section h3 {
+  margin: 0 0 20px 0;
+  color: #aa2eff;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.target-item {
+  margin-bottom: 15px;
+}
+
+.target-item label {
+  font-weight: 600;
+  color: #aa2eff;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.target-link {
+  color: #aa2eff;
+  text-decoration: none;
+  font-weight: 500;
+  word-break: break-all;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.target-link:hover {
+  text-decoration: underline;
+}
+
+.target-link.clicked {
+  background-color: #4caf50 !important;
+  border-color: #4caf50 !important;
+  color: white !important;
+}
+
+.target-link.clicked:hover {
+  background-color: #45a049 !important;
+  border-color: #45a049 !important;
+}
+
+.target-data {
+  background: #2a2a2a;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: #ffffff;
+  overflow-x: auto;
+  border: 1px solid #333;
+}
+
+/* Verification Section */
+.verification-section {
+  padding: 25px 30px;
+  border-bottom: 1px solid #333;
+  background: #1e1e1e;
+  margin-top: 20px;
+}
+
+.verification-section h4 {
+  margin: 0 0 20px 0;
+  color: #aa2eff;
+  font-size: 1.2rem;
+  font-weight: 600;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.target-action {
+  margin-bottom: 15px;
+}
+
+.target-action p {
+  margin-bottom: 10px;
+  font-weight: 500;
+  color: #495057;
+}
+
+.target-link {
+  background: linear-gradient(45deg, #aa2eff, #8b1ecf);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.target-link:hover {
+  background: linear-gradient(45deg, #9020d9, #7a1bb8);
+  transform: translateY(-2px);
+  color: white;
+  text-decoration: none;
+}
+
+.verification-input {
+  margin-bottom: 20px;
+}
+
+.verification-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #aa2eff;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.file-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px dashed #aa2eff;
+  border-radius: 8px;
+  background: #2a2a2a;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.file-input:hover {
+  border-color: #9020d9;
+  background: #333;
+}
+
+.file-selected {
+  color: #27ae60;
+  font-weight: 500;
+  margin-top: 8px;
+  display: block;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.verification-input textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+  background: #2a2a2a;
+  color: #ffffff;
+}
+
+.verification-input textarea:focus {
+  outline: none;
+  border-color: #aa2eff;
+  box-shadow: 0 0 0 3px rgba(170, 46, 255, 0.1);
+}
+
+.complete-btn {
+  background: linear-gradient(45deg, #56ab2f, #a8e6cf);
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.complete-btn:hover:not(:disabled) {
+  background: linear-gradient(45deg, #4e9929, #96d4b8);
+  transform: translateY(-2px);
+}
+
+.complete-btn:disabled {
+  background: #333;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+  opacity: 0.6;
+}
+
+.complete-btn:disabled:hover {
+  opacity: 0.6;
+}
+
+/* Other Sections */
+.login-prompt {
+  padding: 25px 30px;
+  text-align: center;
+  background: #1e1e1e;
+}
+
+.login-prompt p {
+  margin: 0 0 15px 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.login-prompt button {
+  background: linear-gradient(45deg, #aa2eff, #8b1ecf);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.login-prompt button:hover {
+  background: linear-gradient(45deg, #9020d9, #7a1bb8);
+  transform: translateY(-2px);
+}
+
+.completed-section {
+  padding: 25px 30px;
+  background: linear-gradient(135deg, rgba(86, 171, 47, 0.1) 0%, rgba(168, 230, 207, 0.1) 100%);
+}
+
+.completed-message {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.check-icon {
+  font-size: 2rem;
+  color: #27ae60;
+  background: #2a2a2a;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.completed-message h4 {
+  margin: 0 0 5px 0;
+  color: #27ae60;
+  font-size: 1.2rem;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.completed-message p {
+  margin: 0;
+  color: #ffffff;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  opacity: 0.9;
+}
+
+.expired-section, .not-started-section {
+  padding: 25px 30px;
+  text-align: center;
+  background: #2a2a2a;
+}
+
+.expired-section p, .not-started-section p {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, sans-serif;
+  opacity: 0.9;
+}
+
+/* Modal Footer */
+.modal-footer {
+  padding: 20px 30px;
+  border-top: 1px solid #333;
+  text-align: right;
+  background: #2a2a2a;
+}
+
+.modal-footer .btn-secondary {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  font-family: 'Clash Display', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.modal-footer .btn-secondary:hover {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .quest-modal-overlay {
+    padding: 10px;
+  }
+
+  .quest-modal {
+    border-radius: 5px;
+    max-height: 95vh;
+  }
+
+  .modal-header {
+    padding: 20px;
+  }
+
+  .quest-title-section {
+    gap: 10px;
+  }
+
+  .quest-icon-large {
+    font-size: 2rem;
+  }
+
+  .quest-title-section h2 {
+    font-size: 1.4rem;
+  }
+
+  .quest-description-full,
+  .quest-details-grid,
+  .raffle-section,
+  .target-section,
+  .verification-section,
+  .login-prompt,
+  .completed-section,
+  .expired-section,
+  .not-started-section {
+    padding: 20px;
+  }
+
+  .quest-details-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .modal-footer {
+    padding: 15px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-header {
+    padding: 15px;
+  }
+
+  .quest-title-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .quest-icon-large {
+    font-size: 1.75rem;
+  }
+
+  .quest-description-full,
+  .quest-details-grid,
+  .raffle-section,
+  .target-section,
+  .verification-section,
+  .login-prompt,
+  .completed-section,
+  .expired-section,
+  .not-started-section {
+    padding: 15px;
+  }
+
+  .complete-btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+
+  .target-link {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Quest Link Tracking Styles */
+.link-requirement-note {
+  color: #ff6b6b;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 500;
+} 

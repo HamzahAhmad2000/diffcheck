@@ -1,0 +1,408 @@
+/* Leaderboard Styles - Extending UserHomepage styling */
+
+.leaderboard-header-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.page-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.page-title i {
+    color: var(--color-primary);
+    font-size: 2.2rem;
+}
+
+.page-subtitle {
+    color: var(--color-text-muted);
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.leaderboard-last-updated {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--color-text-muted);
+    font-size: 0.875rem;
+    background: var(--color-background-secondary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+}
+
+.leaderboard-last-updated i {
+    font-size: 1rem;
+}
+
+/* Timeframe Selector */
+.timeframe-selector {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.timeframe-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: var(--color-background-secondary);
+    border: 2px solid var(--color-border);
+    border-radius: 12px;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 120px;
+    justify-content: center;
+}
+
+.timeframe-button:hover {
+    background: var(--color-background-tertiary);
+    border-color: var(--color-primary-light);
+    transform: translateY(-1px);
+}
+
+.timeframe-button.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+    box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.timeframe-icon {
+    font-size: 1.2rem;
+}
+
+.timeframe-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Current User Rank */
+.current-user-rank {
+    padding: 4px;
+}
+
+.user-rank-card {
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-primary));
+    border: none;
+    color: white;
+    box-shadow: 0 8px 24px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.user-rank-card .rank-username {
+    color: white;
+}
+
+.user-rank-card .rank-xp {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.user-rank-card .rank-badge span {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Leaderboard List */
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.rank-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px;
+    background: var(--color-background-secondary);
+    border: 2px solid var(--color-border);
+    border-radius: 16px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.rank-card:hover {
+    background: var(--color-background-tertiary);
+    border-color: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.rank-card.top-three {
+    border-width: 3px;
+}
+
+.rank-card.top-three:nth-child(1) {
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    border-color: #ffd700;
+    color: #333;
+}
+
+.rank-card.top-three:nth-child(2) {
+    background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
+    border-color: #c0c0c0;
+    color: #333;
+}
+
+.rank-card.top-three:nth-child(3) {
+    background: linear-gradient(135deg, #cd7f32, #daa520);
+    border-color: #cd7f32;
+    color: #333;
+}
+
+.rank-card.current-user {
+    background: linear-gradient(135deg, var(--color-success-light), var(--color-success));
+    border-color: var(--color-success);
+    color: white;
+    box-shadow: 0 8px 24px rgba(var(--color-success-rgb), 0.3);
+}
+
+.rank-card.current-user .rank-username {
+    color: white;
+}
+
+.rank-card.current-user .rank-xp {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.rank-card.current-user .rank-badge span {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.rank-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.rank-number {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.rank-user-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.rank-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: var(--color-background-tertiary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rank-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rank-avatar-fallback {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary);
+    color: white;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.rank-user-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+.rank-username {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.rank-stats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.rank-xp {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.rank-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.rank-badge .badge-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.leaderboard-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.timeframe-display {
+    background: var(--color-primary);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+    
+    .page-title i {
+        font-size: 1.7rem;
+    }
+    
+    .timeframe-selector {
+        gap: 8px;
+    }
+    
+    .timeframe-button {
+        min-width: 100px;
+        padding: 10px 16px;
+        font-size: 0.85rem;
+    }
+    
+    .rank-card {
+        padding: 16px;
+        gap: 12px;
+    }
+    
+    .rank-position {
+        min-width: 50px;
+        height: 50px;
+    }
+    
+    .rank-number {
+        font-size: 1.2rem;
+    }
+    
+    .rank-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .rank-user-info {
+        gap: 12px;
+    }
+    
+    .rank-stats {
+        gap: 12px;
+    }
+    
+    .surveys-header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+    
+    .surveys-header__right {
+        width: 100%;
+    }
+    
+    .leaderboard-last-updated {
+        width: fit-content;
+    }
+}
+
+@media (max-width: 480px) {
+    .timeframe-selector {
+        justify-content: center;
+    }
+    
+    .timeframe-button {
+        flex: 1;
+        min-width: 80px;
+        padding: 8px 12px;
+    }
+    
+    .rank-stats {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    
+    .rank-badge {
+        align-self: flex-start;
+    }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+    .rank-card.top-three:nth-child(1),
+    .rank-card.top-three:nth-child(2),
+    .rank-card.top-three:nth-child(3) {
+        color: #000;
+    }
+    
+    .rank-card.top-three:nth-child(1) .rank-username,
+    .rank-card.top-three:nth-child(2) .rank-username,
+    .rank-card.top-three:nth-child(3) .rank-username {
+        color: #000;
+    }
+    
+    .rank-card.top-three:nth-child(1) .rank-xp,
+    .rank-card.top-three:nth-child(2) .rank-xp,
+    .rank-card.top-three:nth-child(3) .rank-xp {
+        color: #333;
+    }
+}
+

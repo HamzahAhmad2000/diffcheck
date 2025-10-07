@@ -1,0 +1,215 @@
+/* SharePromptModal Component Styles */
+
+.share-prompt-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.share-prompt-modal {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.share-prompt-modal__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+}
+
+.share-prompt-modal__content {
+  padding: 3rem 2rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.share-prompt-modal__icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.share-prompt-modal__icon i {
+  font-size: 2.5rem;
+  color: white;
+}
+
+.share-prompt-modal__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 1rem 0;
+}
+
+.share-prompt-modal__message {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.share-prompt-modal__share-section {
+  width: 100%;
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.share-prompt-modal__share-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 1rem 0;
+  font-weight: 500;
+}
+
+.share-prompt-modal__share-button {
+  width: 100%;
+}
+
+.share-prompt-modal__skip {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.share-prompt-modal__skip:hover {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .share-prompt-modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .share-prompt-modal {
+    border-radius: 12px;
+  }
+
+  .share-prompt-modal__content {
+    padding: 2.5rem 1.5rem 1.5rem;
+  }
+
+  .share-prompt-modal__icon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .share-prompt-modal__icon i {
+    font-size: 2rem;
+  }
+
+  .share-prompt-modal__title {
+    font-size: 1.5rem;
+  }
+
+  .share-prompt-modal__message {
+    font-size: 0.9rem;
+  }
+
+  .share-prompt-modal__share-section {
+    padding: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .share-prompt-modal-overlay {
+    padding: 0.25rem;
+  }
+
+  .share-prompt-modal__content {
+    padding: 2rem 1rem 1rem;
+  }
+
+  .share-prompt-modal__icon {
+    width: 56px;
+    height: 56px;
+  }
+
+  .share-prompt-modal__icon i {
+    font-size: 1.75rem;
+  }
+
+  .share-prompt-modal__title {
+    font-size: calc(1.25rem - 3px);
+  }
+
+  .share-prompt-modal__message {
+    font-size: calc(0.85rem - 3px);
+  }
+
+  .share-prompt-modal__share-text {
+    font-size: calc(0.85rem - 3px);
+  }
+
+  .share-prompt-modal__skip {
+    font-size: calc(0.85rem - 3px);
+    padding: 0.6rem 1.2rem;
+  }
+}
+
