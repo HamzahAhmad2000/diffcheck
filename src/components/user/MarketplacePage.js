@@ -6,6 +6,7 @@ import { toast } from 'react-hot-toast';
 import UserXPBadgeDisplay from '../common/UserXPBadgeDisplay';
 import '../../styles/userStyles.css'; // General user styles
 import '../../styles/UserHomepage.css';
+import '../../styles/LegalComponents.css';
 
 // Default marketplace item image as data URL SVG
 const defaultItemImagePath = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjMkEyQTJBIi8+CjxwYXRoIGQ9Ik0xNTAgODBMMTc1IDEyMEgxMjVMMTUwIDgwWiIgZmlsbD0iIzZBNkE2QSIvPgo8Y2lyY2xlIGN4PSIxMzUiIGN5PSI3MCIgcj0iOCIgZmlsbD0iIzZBNkE2QSIvPgo8cmVjdCB4PSI4MCIgeT0iMTMwIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjgiIGZpbGw9IiM0QTRBNEEiLz4KPHJlY3QgeD0iODAiIHk9IjE0NSIgd2lkdGg9IjEwMCIgaGVpZ2h0PSI2IiBmaWxsPSIjNEE0QTRBIi8+Cjx0ZXh0IHg9IjE1MCIgeT0iMTc1IiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4QThBOEEiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk1hcmtldHBsYWNlIEl0ZW08L3RleHQ+Cjwvc3ZnPg==";
@@ -210,6 +211,8 @@ const MarketplacePage = () => {
     const [items, setItems] = useState([]);
     const [userXP, setUserXP] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [raffleModal, setRaffleModal] = useState({ show: false, item: null });
+    const [acceptRaffleTerms, setAcceptRaffleTerms] = useState(false);
 
     const fetchMarketplaceData = useCallback(async () => {
         setLoading(true);
@@ -256,14 +259,10 @@ const MarketplacePage = () => {
                     toast.error(error.response?.data?.error || `Failed to initiate purchase for ${itemTitle}.`);
                 }
             } else if (itemType === 'RAFFLE') {
-                // For raffle entries, handle directly
-                try {
-                    const response = await marketplaceAPI.enterRaffle(itemId);
-                    // Refresh marketplace data to update counts
-                    await fetchMarketplaceData();
-                } catch (error) {
-                    console.error('Error entering raffle:', error);
-                    toast.error(error.response?.data?.error || `Failed to enter raffle for ${itemTitle}.`);
+                // For raffle entries, show terms acceptance modal first
+                const raffleItem = items.find(item => item.id === itemId);
+                if (raffleItem) {
+                    setRaffleModal({ show: true, item: raffleItem });
                 }
             }
         } catch (error) {
@@ -278,6 +277,26 @@ const MarketplacePage = () => {
 
     const handleViewDetail = (itemId) => {
         navigate(`/user/marketplace/item/${itemId}`);
+    };
+
+    const handleRaffleModalClose = () => {
+        setRaffleModal({ show: false, item: null });
+        setAcceptRaffleTerms(false);
+    };
+
+    const handleEnterRaffle = async () => {
+        if (!acceptRaffleTerms || !raffleModal.item) return;
+
+        try {
+            const response = await marketplaceAPI.enterRaffle(raffleModal.item.id);
+            toast.success(`Successfully entered raffle for ${raffleModal.item.title}!`);
+            // Refresh marketplace data to update counts
+            await fetchMarketplaceData();
+            handleRaffleModalClose();
+        } catch (error) {
+            console.error('Error entering raffle:', error);
+            toast.error(error.response?.data?.error || `Failed to enter raffle for ${raffleModal.item.title}.`);
+        }
     };
 
     return (
@@ -316,6 +335,74 @@ const MarketplacePage = () => {
                     )}
                 </div>
             </main>
+
+            {/* Raffle Terms Acceptance Modal */}
+            {raffleModal.show && raffleModal.item && (
+                <div className="raffle-modal-overlay">
+                    <div className="raffle-modal-content">
+                        <div className="raffle-modal-header">
+                            <h3>Enter Raffle: {raffleModal.item.title}</h3>
+                            <button
+                                className="raffle-modal-close"
+                                onClick={handleRaffleModalClose}
+                            >
+                                ×
+                            </button>
+                        </div>
+
+                        <div className="raffle-modal-body">
+                            <div className="raffle-item-summary">
+                                <p><strong>Cost:</strong> {raffleModal.item.xp_cost} XP</p>
+                                <p><strong>Description:</strong> {raffleModal.item.description}</p>
+                                {raffleModal.item.raffle_end_date && (
+                                    <p><strong>Draw Date:</strong> {new Date(raffleModal.item.raffle_end_date).toLocaleDateString()}</p>
+                                )}
+                            </div>
+
+                            <div className="raffle-terms-acceptance">
+                                <label className="raffle-terms-label">
+                                    <input
+                                        type="checkbox"
+                                        checked={acceptRaffleTerms}
+                                        onChange={(e) => setAcceptRaffleTerms(e.target.checked)}
+                                        className="raffle-terms-checkbox"
+                                    />
+                                    <span className="raffle-terms-text">
+                                        ✅ I accept the{' '}
+                                        <a
+                                            href="/legal#rewards"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="raffle-terms-link"
+                                        >
+                                            Reward & Raffle Terms
+                                        </a>
+                                    </span>
+                                </label>
+                                {!acceptRaffleTerms && (
+                                    <p className="raffle-terms-error">Please accept the Reward & Raffle Terms to enter.</p>
+                                )}
+                            </div>
+                        </div>
+
+                        <div className="raffle-modal-footer">
+                            <button
+                                className="raffle-cancel-btn"
+                                onClick={handleRaffleModalClose}
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                className={`raffle-enter-btn ${acceptRaffleTerms ? 'enabled' : 'disabled'}`}
+                                onClick={handleEnterRaffle}
+                                disabled={!acceptRaffleTerms}
+                            >
+                                Enter Raffle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -609,3 +609,57 @@
   .summary-label { font-size: calc(0.9rem - 3px); }
   .summary-grid { grid-template-columns: 1fr; }
 }
+
+/* Badge Share Section */
+.badge-share-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+}
+
+.badge-share-button {
+  width: 100%;
+  max-width: 200px;
+}
+
+/* Latest Badge Indicator */
+.latest-badge {
+  position: relative;
+  border: 2px solid #10b981;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+}
+
+.latest-badge-indicator {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+  z-index: 2;
+}
+
+/* Responsive adjustments for badge share */
+@media (max-width: 768px) {
+  .badge-share-section {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+  }
+  
+  .badge-share-button {
+    max-width: 100%;
+  }
+  
+  .latest-badge-indicator {
+    font-size: 0.7rem;
+    padding: 3px 10px;
+  }
+}

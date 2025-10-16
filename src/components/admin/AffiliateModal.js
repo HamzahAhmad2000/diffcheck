@@ -168,7 +168,7 @@ const AffiliateModal = ({ affiliate, onClose, defaultSettings }) => {
 
     return (
         <div className="modal-overlay">
-            <div className="modal-container large-modal">
+            <div className="modal-container large-modal" style={{ maxWidth: '900px', width: '90%' }}>
                 <div className="modal-header">
                     <h2 className="modal-title">
                         {isEditing ? 'Edit Affiliate Link' : 'Create New Affiliate Link'}
@@ -182,8 +182,8 @@ const AffiliateModal = ({ affiliate, onClose, defaultSettings }) => {
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="modal-content">
-                    <div className="form-grid">
+                <form onSubmit={handleSubmit} className="modal-content" style={{ width: '100%' }}>
+                    <div className="form-grid" style={{ width: '100%' }}>
                         {/* Basic Information */}
                         <div className="form-section">
                             <h3 className="form-section-title">Basic Information</h3>

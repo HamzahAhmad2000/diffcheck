@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { notificationAPI } from '../../services/apiClient';
+import { notificationAPI, shareAPI } from '../../services/apiClient';
+import ShareButton from './share/ShareButton';
 import '../../styles/userStyles.css'; // Import global styles
 import './NotificationsScreen.css'; // Keep component-specific styles
 
@@ -9,9 +10,11 @@ const NotificationsScreen = () => {
   const [error, setError] = useState('');
   const [filter, setFilter] = useState('all'); // all, unread, read
   const [selectedNotifications, setSelectedNotifications] = useState([]);
+  const [sharedRaffles, setSharedRaffles] = useState(new Set());
 
   useEffect(() => {
     fetchNotifications();
+    checkSharedRaffles();
   }, []);
 
   const fetchNotifications = async () => {
@@ -24,6 +27,38 @@ const NotificationsScreen = () => {
       setError('Failed to load notifications');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const checkSharedRaffles = async () => {
+    try {
+      const response = await shareAPI.getAvailableRaffleShares();
+      if (response.data?.available_raffles) {
+        // Create a set of raffle IDs that have already been shared
+        const sharedIds = new Set();
+        response.data.available_raffles.forEach(raffle => {
+          if (raffle.already_shared) {
+            sharedIds.add(raffle.raffle_id);
+          }
+        });
+        setSharedRaffles(sharedIds);
+      }
+    } catch (error) {
+      console.error('Error checking shared raffles:', error);
+    }
+  };
+
+  const handleRaffleShareSuccess = (raffleId, shareData) => {
+    // Mark raffle as shared
+    setSharedRaffles(prev => new Set([...prev, raffleId]));
+    
+    // Update user's XP balance in localStorage
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+    if (userData && shareData.xp_awarded) {
+      userData.xp_balance = (userData.xp_balance || 0) + shareData.xp_awarded;
+      localStorage.setItem('user', JSON.stringify(userData));
+      window.dispatchEvent(new CustomEvent('userUpdated'));
+      window.dispatchEvent(new CustomEvent('xpGained', { detail: { amount: shareData.xp_awarded } }));
     }
   };
 
@@ -285,70 +320,93 @@ const NotificationsScreen = () => {
             </p>
           </div>
         ) : (
-          filteredNotifications.map(notification => (
-            <div 
-              key={notification.id} 
-              className={`notification-item ${notification.status === 'UNREAD' ? 'unread' : ''} ${selectedNotifications.includes(notification.id) ? 'selected' : ''}`}
-            >
-              <div className="notification-checkbox">
-                <input
-                  type="checkbox"
-                  checked={selectedNotifications.includes(notification.id)}
-                  onChange={() => toggleSelectNotification(notification.id)}
-                />
-              </div>
-              
-              <div className="notification-icon">
-                {getNotificationIcon(notification.type)}
-              </div>
-              
-              <div className="notification-content">
-                <div className="notification-header">
-                  <span className="notification-type">
-                    {getNotificationTypeLabel(notification.type)}
-                  </span>
-                  {notification.status === 'UNREAD' && (
-                    <span className="unread-indicator">●</span>
+          filteredNotifications.map(notification => {
+            const isRaffleWin = notification.type === 'RAFFLE_WINNER';
+            const raffleId = notification.related_object_id;
+            const hasShared = sharedRaffles.has(raffleId);
+            
+            return (
+              <div 
+                key={notification.id} 
+                className={`notification-item ${notification.status === 'UNREAD' ? 'unread' : ''} ${selectedNotifications.includes(notification.id) ? 'selected' : ''} ${isRaffleWin ? 'raffle-win' : ''}`}
+              >
+                <div className="notification-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={selectedNotifications.includes(notification.id)}
+                    onChange={() => toggleSelectNotification(notification.id)}
+                  />
+                </div>
+                
+                <div className="notification-icon">
+                  {getNotificationIcon(notification.type)}
+                </div>
+                
+                <div className="notification-content">
+                  <div className="notification-header">
+                    <span className="notification-type">
+                      {getNotificationTypeLabel(notification.type)}
+                    </span>
+                    {notification.status === 'UNREAD' && (
+                      <span className="unread-indicator">●</span>
+                    )}
+                  </div>
+                  
+                  <h4 className="notification-title">{notification.title}</h4>
+                  <p className="notification-message">{notification.message}</p>
+                  
+                  <div className="notification-meta">
+                    <span className="notification-date">
+                      {formatDate(notification.created_at)}
+                    </span>
+                  </div>
+                  
+                  {/* Share button for raffle wins */}
+                  {isRaffleWin && raffleId && (
+                    <div className="notification-share-section">
+                      <ShareButton
+                        shareType="raffle_win"
+                        entityId={raffleId}
+                        entityName={notification.title}
+                        variant="success"
+                        size="small"
+                        xpReward={50}
+                        hasShared={hasShared}
+                        onShareSuccess={(shareData) => handleRaffleShareSuccess(raffleId, shareData)}
+                        className="notification-share-button"
+                      />
+                    </div>
                   )}
                 </div>
                 
-                <h4 className="notification-title">{notification.title}</h4>
-                <p className="notification-message">{notification.message}</p>
-                
-                <div className="notification-meta">
-                  <span className="notification-date">
-                    {formatDate(notification.created_at)}
-                  </span>
+                <div className="notification-actions">
+                  {notification.status === 'UNREAD' && (
+                    <button 
+                      onClick={() => markAsRead(notification.id)}
+                      className="action-btn read-btn"
+                      title="Mark as read"
+                    >
+                      ✓
+                    </button>
+                  )}
+                  <button 
+                    onClick={() => dismissNotification(notification.id)}
+                    className="action-btn dismiss-btn"
+                    title="Dismiss"
+                  >
+                    ⊗
+                  </button>
+                  <button 
+                    onClick={() => deleteNotification(notification.id)}
+                    className="action-btn delete-btn"
+                    title="Delete"
+                  >
+                    🗑
+                  </button>
                 </div>
               </div>
-              
-              <div className="notification-actions">
-                {notification.status === 'UNREAD' && (
-                  <button 
-                    onClick={() => markAsRead(notification.id)}
-                    className="action-btn read-btn"
-                    title="Mark as read"
-                  >
-                    ✓
-                  </button>
-                )}
-                <button 
-                  onClick={() => dismissNotification(notification.id)}
-                  className="action-btn dismiss-btn"
-                  title="Dismiss"
-                >
-                  ⊗
-                </button>
-                <button 
-                  onClick={() => deleteNotification(notification.id)}
-                  className="action-btn delete-btn"
-                  title="Delete"
-                >
-                  🗑
-                </button>
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
 

@@ -417,7 +417,7 @@ const Sidebar = () => {
             {
               path: `/admin/business/${businessContext.businessId}/splash-page/edit`,
               icon: 'ri-corner-down-right-line',
-              label: 'Brand Page Customization',
+              label: 'Customize Brand Page',
             },
             {
               path: `/admin/business/${businessContext.businessId}/audience`,
@@ -673,6 +673,13 @@ const Sidebar = () => {
               label: 'Referral Analytics',
             }
           ]
+        },
+        {
+          label: 'AI Usage Analytics',
+          icon: 'ri-robot-line',
+          key: 'ai-analytics',
+          path: '/admin/ai-usage-analytics',
+          description: 'AI operations tracking and cost analysis'
         },
         {
           path: '/admin/share-to-earn',

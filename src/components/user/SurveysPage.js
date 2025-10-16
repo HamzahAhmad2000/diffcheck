@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { baseURL, discordAPI, surveyAPI } from '../../services/apiClient';
 import { toast } from 'react-hot-toast';
+import XPDisplay from '../common/XPDisplay';
 
 import '../../styles/userStyles.css';
 import '../../styles/UserHomepage.css';
@@ -30,7 +31,7 @@ const SurveyCard = ({ survey, onStart, discordStatus, isCompleted = false }) => 
                 <p className="card-subtitle">{survey.business_name}</p>
                 <div className="card-info">
                     <span><i className="ri-time-line"></i> {estimatedTimeMinutes} min</span>
-                    <span className="xp-highlight">✨ {xpReward} XP</span>
+                    <XPDisplay baseXP={xpReward} className="xp-highlight" />
                     {requiresDiscord && (
                         <span style={{ 
                             display: 'flex', 

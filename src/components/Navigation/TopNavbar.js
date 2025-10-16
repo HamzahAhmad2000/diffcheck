@@ -10,6 +10,7 @@ import UserEditTags from '../user/UserEditTags';
 import UserBadges from '../user/UserBadges';
 import UserRewardsHistory from '../user/UserRewardsHistory';
 import UserReferrals from '../user/UserReferrals';
+import DailyRewards from '../user/DailyRewards';
 
 const TopNavbar = () => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const TopNavbar = () => {
     const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
     const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
     const [isProfileOverlayOpen, setIsProfileOverlayOpen] = useState(false);
-    const [overlayView, setOverlayView] = useState('overview'); // 'overview' | 'edit-profile' | 'tags' | 'badges' | 'rewards' | 'referrals'
+    const [overlayView, setOverlayView] = useState('overview'); // 'overview' | 'edit-profile' | 'tags' | 'badges' | 'rewards' | 'referrals' | 'daily-rewards'
     const userMenuRef = useRef(null);
     const hamburgerRef = useRef(null);
     const overlayRef = useRef(null);
@@ -502,6 +503,9 @@ const TopNavbar = () => {
                         )}
                         {overlayView === 'referrals' && (
                             <UserReferrals />
+                        )}
+                        {overlayView === 'daily-rewards' && (
+                            <DailyRewards />
                         )}
                     </div>
                 </div>

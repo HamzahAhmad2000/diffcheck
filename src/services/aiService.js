@@ -302,7 +302,8 @@ export const aiService = {
         industry: surveyData.industry,
         goal: mapGoalToApiFormat(surveyData.goal),
         description: surveyData.subject,
-        tone_length: mapToneLength(surveyData.surveyLength)
+        tone_length: mapToneLength(surveyData.surveyLength),
+        business_id: surveyData.metadata?.business_id  // Include business_id for analytics
       };
 
       console.log('[AI DEBUG] Sending request with body:', requestBody);
@@ -450,6 +451,129 @@ export const aiService = {
       if (error.response) {
         console.error('[AI DEBUG] Quick survey generation error data:', error.response.data);
         throw new Error(error.response.data?.error || 'Failed to generate survey');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  // AI Usage Analytics methods
+  async getAIUsageDashboardStats() {
+    console.log('[AI DEBUG] Getting AI usage dashboard stats');
+    const url = `${API_BASE_URL}/analytics/dashboard_stats`;
+    
+    try {
+      const response = await axios.get(url, {
+        headers: getAuthHeaders(),
+      });
+      console.log('[AI DEBUG] AI usage dashboard stats:', response.data);
+      return response;
+    } catch (error) {
+      console.error('[AI DEBUG] Error getting AI usage dashboard stats:', error);
+      if (error.response) {
+        throw new Error(error.response.data?.error || 'Failed to get AI usage statistics');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  async getAIUsageDetailedLogs(page = 1, perPage = 50, filters = {}) {
+    console.log('[AI DEBUG] Getting AI usage detailed logs', { page, perPage, filters });
+    const url = `${API_BASE_URL}/analytics/detailed_logs`;
+    
+    try {
+      const params = { page, per_page: perPage, ...filters };
+      const response = await axios.get(url, {
+        headers: getAuthHeaders(),
+        params
+      });
+      console.log('[AI DEBUG] AI usage detailed logs:', response.data);
+      return response;
+    } catch (error) {
+      console.error('[AI DEBUG] Error getting AI usage detailed logs:', error);
+      if (error.response) {
+        throw new Error(error.response.data?.error || 'Failed to get AI usage logs');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  async getAIUsageChartsData() {
+    console.log('[AI DEBUG] Getting AI usage charts data');
+    const url = `${API_BASE_URL}/analytics/charts_data`;
+    
+    try {
+      const response = await axios.get(url, {
+        headers: getAuthHeaders(),
+      });
+      console.log('[AI DEBUG] AI usage charts data:', response.data);
+      return response;
+    } catch (error) {
+      console.error('[AI DEBUG] Error getting AI usage charts data:', error);
+      if (error.response) {
+        throw new Error(error.response.data?.error || 'Failed to get AI usage charts data');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  async getBusinessAIUsageSummary() {
+    console.log('[AI DEBUG] Getting business AI usage summary');
+    const url = `${API_BASE_URL}/analytics/business_summary`;
+    
+    try {
+      const response = await axios.get(url, {
+        headers: getAuthHeaders(),
+      });
+      console.log('[AI DEBUG] Business AI usage summary:', response.data);
+      return response;
+    } catch (error) {
+      console.error('[AI DEBUG] Error getting business AI usage summary:', error);
+      if (error.response) {
+        throw new Error(error.response.data?.error || 'Failed to get business AI usage summary');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  async markSurveySaved(surveyId) {
+    console.log(`[AI DEBUG] Marking survey ${surveyId} as saved`);
+    const url = `${API_BASE_URL}/analytics/mark_survey_saved`;
+    
+    try {
+      const response = await axios.post(url, { survey_id: surveyId }, {
+        headers: getAuthHeaders(),
+      });
+      console.log('[AI DEBUG] Survey marked as saved:', response.data);
+      return response;
+    } catch (error) {
+      console.error('[AI DEBUG] Error marking survey as saved:', error);
+      if (error.response) {
+        throw new Error(error.response.data?.error || 'Failed to mark survey as saved');
+      } else {
+        throw error;
+      }
+    }
+  },
+
+  async getOpenAICostBreakdown() {
+    console.log('[AI DEBUG] Getting OpenAI cost breakdown');
+    const url = `${API_BASE_URL}/analytics/openai_cost_breakdown`;
+    
+    try {
+      const response = await axios.get(url, {
+        headers: getAuthHeaders(),
+      });
+      console.log('[AI DEBUG] OpenAI cost breakdown retrieved:', response.data);
+      return response;
+    } catch (error) {
+      console.error('[AI DEBUG] Error getting OpenAI cost breakdown:', error);
+      if (error.response) {
+        throw new Error(error.response.data?.error || 'Failed to get OpenAI cost breakdown');
       } else {
         throw error;
       }

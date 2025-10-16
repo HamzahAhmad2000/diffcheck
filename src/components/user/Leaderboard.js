@@ -28,19 +28,34 @@ const Leaderboard = () => {
             console.log('[LEADERBOARD] Fetching leaderboard data for timeframe:', selectedTimeframe);
             const response = await leaderboardAPI.getLeaderboard();
             
-            if (response.data) {
-                setLeaderboardData(response.data);
-                console.log('[LEADERBOARD] Data loaded:', response.data);
+            console.log('[LEADERBOARD] Raw response:', response);
+
+            // Handle different response structures
+            const data = response?.data?.data || response?.data || response;
+
+            if (data && (data.leaderboard || data.top_users || data.users)) {
+                // Handle new paginated structure with 'users' key
+                if (data.users) {
+                    setLeaderboardData({
+                        ...data,
+                        top_users: data.users  // Map 'users' to 'top_users' for compatibility
+                    });
+                } else {
+                    setLeaderboardData(data);
+                }
+                console.log('[LEADERBOARD] Data loaded:', data);
                 
                 // If user is logged in, also fetch their rank for the selected timeframe
                 if (currentUser) {
                     try {
                         const rankResponse = await leaderboardAPI.getMyRank(selectedTimeframe);
-                        if (rankResponse.data?.user_rank) {
+                        const rankData = rankResponse?.data?.user_rank || rankResponse?.data;
+                        
+                        if (rankData) {
                             // Update the current user rank in the leaderboard data
                             setLeaderboardData(prev => ({
                                 ...prev,
-                                current_user_rank: rankResponse.data.user_rank
+                                current_user_rank: rankData
                             }));
                         }
                     } catch (rankError) {
@@ -48,11 +63,49 @@ const Leaderboard = () => {
                         // Not a critical error, continue without user rank
                     }
                 }
+            } else {
+                console.warn('[LEADERBOARD] No leaderboard data in response:', response);
+                
+                // Check if it's an empty leaderboard (no users with XP yet)
+                if (data?.cache_status === 'empty_after_refresh') {
+                    toast.info('No users on the leaderboard yet. Be the first to earn XP!');
+                    setLeaderboardData({
+                        users: [],  // Also set users array for new API structure
+                        top_users: [],
+                        current_user_rank: null,
+                        total_users_ranked: 0,
+                        is_enabled: true
+                    });
+                } else {
+                    toast.error('No leaderboard data available');
+                }
             }
         } catch (error) {
-            console.error('Error fetching leaderboard:', error);
+            console.error('[LEADERBOARD] Error fetching leaderboard:', error);
+            console.error('[LEADERBOARD] Error details:', {
+                message: error.message,
+                response: error.response?.data,
+                status: error.response?.status
+            });
+            
+            // Handle specific cache statuses
+            const cacheStatus = error.response?.data?.cache_status;
+            
             if (error.response?.data?.is_enabled === false) {
                 toast.error('Leaderboard is currently disabled');
+            } else if (cacheStatus === 'empty_after_refresh') {
+                toast.info('No users on the leaderboard yet. Be the first to earn XP!');
+                setLeaderboardData({
+                    users: [],  // Also set users array for new API structure
+                    top_users: [],
+                    current_user_rank: null,
+                    total_users_ranked: 0,
+                    is_enabled: true
+                });
+            } else if (cacheStatus === 'refresh_error' || cacheStatus === 'refresh_failed') {
+                toast.error('Leaderboard is being updated. Please try again in a moment.');
+            } else if (error.response?.status === 404) {
+                toast.error('Leaderboard endpoint not found');
             } else {
                 toast.error('Failed to load leaderboard data');
             }
@@ -191,23 +244,23 @@ const Leaderboard = () => {
                     <div className="surveys-separator"></div>
 
                     {/* Timeframe Selection */}
-                    <div className="dashboard-section" style={{ marginBottom: '24px' }}>
-                        <div className="dashboard-section__header">
-                            <div className="dashboard-section__title">
+                    <div className="leaderboard-dashboard-section" style={{ marginBottom: '24px' }}>
+                        <div className="leaderboard-dashboard-section__header">
+                            <div className="leaderboard-dashboard-section__title">
                                 <i className="ri-calendar-line"></i>
                                 <h3>Timeframe</h3>
                             </div>
                         </div>
-                        <div className="dashboard-section__content">
-                            <div className="timeframe-selector">
+                        <div className="leaderboard-dashboard-section__content">
+                            <div className="leaderboard-timeframe-selector">
                                 {timeframeOptions.map((option) => (
                                     <button
                                         key={option.value}
-                                        className={`timeframe-button ${selectedTimeframe === option.value ? 'active' : ''}`}
+                                        className={`leaderboard-timeframe-button ${selectedTimeframe === option.value ? 'active' : ''}`}
                                         onClick={() => setSelectedTimeframe(option.value)}
                                     >
-                                        <span className="timeframe-icon">{option.icon}</span>
-                                        <span className="timeframe-label">{option.label}</span>
+                                        <span className="leaderboard-timeframe-icon">{option.icon}</span>
+                                        <span className="leaderboard-timeframe-label">{option.label}</span>
                                     </button>
                                 ))}
                             </div>
@@ -216,43 +269,43 @@ const Leaderboard = () => {
 
                     {/* Current User Rank (if available) */}
                     {current_user_rank && (
-                        <div className="dashboard-section" style={{ marginBottom: '24px' }}>
-                            <div className="dashboard-section__header">
-                                <div className="dashboard-section__title">
+                        <div className="leaderboard-dashboard-section" style={{ marginBottom: '24px' }}>
+                            <div className="leaderboard-dashboard-section__header">
+                                <div className="leaderboard-dashboard-section__title">
                                     <i className="ri-user-star-line"></i>
                                     <h3>Your Rank</h3>
                                 </div>
                             </div>
-                            <div className="dashboard-section__content">
-                                <div className="current-user-rank">
-                                    <div className="rank-card user-rank-card">
-                                        <div className="rank-position">
-                                            <span className="rank-number">{getRankIcon(current_user_rank.rank)}</span>
+                            <div className="leaderboard-dashboard-section__content">
+                                <div className="leaderboard-current-user-rank">
+                                    <div className="leaderboard-rank-card leaderboard-user-rank-card">
+                                        <div className="leaderboard-rank-position">
+                                            <span className="leaderboard-rank-number">{getRankIcon(current_user_rank.rank)}</span>
                                         </div>
-                                        <div className="rank-user-info">
-                                            <div className="rank-avatar">
+                                        <div className="leaderboard-rank-user-info">
+                                            <div className="leaderboard-rank-avatar">
                                                 {current_user_rank.user.profile_image_url ? (
-                                                    <img 
-                                                        src={getFullImageUrl(current_user_rank.user.profile_image_url)} 
+                                                    <img
+                                                        src={getFullImageUrl(current_user_rank.user.profile_image_url)}
                                                         alt={current_user_rank.user.name || current_user_rank.user.username}
                                                         onError={(e) => {
                                                             e.target.src = getFullImageUrl(null);
                                                         }}
                                                     />
                                                 ) : (
-                                                    <div className="rank-avatar-fallback">
+                                                    <div className="leaderboard-rank-avatar-fallback">
                                                         {(current_user_rank.user.name || current_user_rank.user.username || 'U')[0].toUpperCase()}
                                                     </div>
                                                 )}
                                             </div>
-                                            <div className="rank-user-details">
-                                                <h4 className="rank-username">{current_user_rank.user.name || current_user_rank.user.username}</h4>
-                                                <div className="rank-stats">
-                                                    <span className="rank-xp">✨ {current_user_rank.total_xp.toLocaleString()} XP</span>
+                                            <div className="leaderboard-rank-user-details">
+                                                <h4 className="leaderboard-rank-username">{current_user_rank.user.name || current_user_rank.user.username}</h4>
+                                                <div className="leaderboard-rank-stats">
+                                                    <span className="leaderboard-rank-xp">✨ {current_user_rank.total_xp.toLocaleString()} XP</span>
                                                     {current_user_rank.user.highest_badge && (
-                                                        <div className="rank-badge">
-                                                            <img 
-                                                                src={getFullImageUrl(current_user_rank.user.highest_badge.image_url)} 
+                                                        <div className="leaderboard-rank-badge">
+                                                            <img
+                                                                src={getFullImageUrl(current_user_rank.user.highest_badge.image_url)}
                                                                 alt={current_user_rank.user.highest_badge.name}
                                                                 className="badge-icon"
                                                                 onError={(e) => {
@@ -272,50 +325,50 @@ const Leaderboard = () => {
                     )}
 
                     {/* Top Users Leaderboard */}
-                    <div className="dashboard-section">
-                        <div className="dashboard-section__header">
-                            <div className="dashboard-section__title">
+                    <div className="leaderboard-dashboard-section">
+                        <div className="leaderboard-dashboard-section__header">
+                            <div className="leaderboard-dashboard-section__title">
                                 <i className="ri-trophy-line"></i>
                                 <h3>Top Users</h3>
                             </div>
                             <div className="leaderboard-info">
-                                <span className="timeframe-display">
+                                <span className="leaderboard-timeframe-display">
                                     {timeframeOptions.find(opt => opt.value === timeframe)?.label || timeframe}
                                 </span>
                             </div>
                         </div>
-                        <div className="dashboard-section__content">
+                        <div className="leaderboard-dashboard-section__content">
                             {top_users && top_users.length > 0 ? (
                                 <div className="leaderboard-list">
                                     {top_users.map((entry, index) => (
-                                        <div key={entry.user.id} className={`rank-card ${index < 3 ? 'top-three' : ''} ${entry.user.id === currentUser?.id ? 'current-user' : ''}`}>
-                                            <div className="rank-position">
-                                                <span className="rank-number">{getRankIcon(entry.rank)}</span>
+                                        <div key={entry.user.id} className={`leaderboard-rank-card ${index < 3 ? 'top-three' : ''} ${entry.user.id === currentUser?.id ? 'current-user' : ''}`}>
+                                            <div className="leaderboard-rank-position">
+                                                <span className="leaderboard-rank-number">{getRankIcon(entry.rank)}</span>
                                             </div>
-                                            <div className="rank-user-info">
-                                                <div className="rank-avatar">
+                                            <div className="leaderboard-rank-user-info">
+                                                <div className="leaderboard-rank-avatar">
                                                     {entry.user.profile_image_url ? (
-                                                        <img 
-                                                            src={getFullImageUrl(entry.user.profile_image_url)} 
+                                                        <img
+                                                            src={getFullImageUrl(entry.user.profile_image_url)}
                                                             alt={entry.user.name || entry.user.username}
                                                             onError={(e) => {
                                                                 e.target.src = getFullImageUrl(null);
                                                             }}
                                                         />
                                                     ) : (
-                                                        <div className="rank-avatar-fallback">
+                                                        <div className="leaderboard-rank-avatar-fallback">
                                                             {(entry.user.name || entry.user.username || 'U')[0].toUpperCase()}
                                                         </div>
                                                     )}
                                                 </div>
-                                                <div className="rank-user-details">
-                                                    <h4 className="rank-username">{entry.user.name || entry.user.username}</h4>
-                                                    <div className="rank-stats">
-                                                        <span className="rank-xp">✨ {entry.total_xp.toLocaleString()} XP</span>
+                                                <div className="leaderboard-rank-user-details">
+                                                    <h4 className="leaderboard-rank-username">{entry.user.name || entry.user.username}</h4>
+                                                    <div className="leaderboard-rank-stats">
+                                                        <span className="leaderboard-rank-xp">✨ {entry.total_xp.toLocaleString()} XP</span>
                                                         {entry.user.highest_badge && (
-                                                            <div className="rank-badge">
-                                                                <img 
-                                                                    src={getFullImageUrl(entry.user.highest_badge.image_url)} 
+                                                            <div className="leaderboard-rank-badge">
+                                                                <img
+                                                                    src={getFullImageUrl(entry.user.highest_badge.image_url)}
                                                                     alt={entry.user.highest_badge.name}
                                                                     className="badge-icon"
                                                                     onError={(e) => {
@@ -332,7 +385,7 @@ const Leaderboard = () => {
                                     ))}
                                 </div>
                             ) : (
-                                <div className="dashboard-section__empty">
+                                <div className="leaderboard-dashboard-section__empty">
                                     <i className="ri-trophy-line"></i>
                                     <p>No leaderboard data available for this timeframe</p>
                                 </div>

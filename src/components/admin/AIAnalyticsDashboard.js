@@ -26,6 +26,7 @@ const AIAnalyticsDashboard = () => {
     business_id: ''
   });
 
+
   // Fetch analytics summary
   const fetchSummary = async () => {
     try {
@@ -302,6 +303,7 @@ const AIAnalyticsDashboard = () => {
       toast.error('Failed to export data');
     }
   };
+
 
   useEffect(() => {
     loadData();

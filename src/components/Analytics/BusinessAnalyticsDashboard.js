@@ -157,9 +157,16 @@ const BusinessAnalyticsDashboard = () => {
               </div>
             </div>
 
-            
+
           </div>
         </div>
+      </div>
+
+      {/* AI Policy Footer */}
+      <div className="analytics-footer">
+        <a href="/legal#ai" target="_blank" rel="noopener noreferrer" className="ai-policy-footer-link">
+          AI Use Policy
+        </a>
       </div>
     </div>
   );

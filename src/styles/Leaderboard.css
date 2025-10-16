@@ -150,16 +150,34 @@
     color: #333;
 }
 
+.rank-card.top-three:nth-child(1) .rank-username,
+.rank-card.top-three:nth-child(1) .rank-xp,
+.rank-card.top-three:nth-child(1) .rank-badge {
+    color: #000 !important;
+}
+
 .rank-card.top-three:nth-child(2) {
     background: linear-gradient(135deg, #c0c0c0, #e8e8e8);
     border-color: #c0c0c0;
     color: #333;
 }
 
+.rank-card.top-three:nth-child(2) .rank-username,
+.rank-card.top-three:nth-child(2) .rank-xp,
+.rank-card.top-three:nth-child(2) .rank-badge {
+    color: #000 !important;
+}
+
 .rank-card.top-three:nth-child(3) {
     background: linear-gradient(135deg, #cd7f32, #daa520);
     border-color: #cd7f32;
     color: #333;
+}
+
+.rank-card.top-three:nth-child(3) .rank-username,
+.rank-card.top-three:nth-child(3) .rank-xp,
+.rank-card.top-three:nth-child(3) .rank-badge {
+    color: #000 !important;
 }
 
 .rank-card.current-user {
@@ -383,6 +401,259 @@
     .rank-badge {
         align-self: flex-start;
     }
+}
+
+/* Leaderboard Dashboard Sections - Override generic dashboard-section styles */
+.leaderboard-dashboard-section {
+    margin: 24px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #1c1c1e 0%, #2c2c2e 100%);
+    border-radius: 20px;
+    border: 1px solid #3a3a3c;
+    overflow: visible; /* Changed from hidden to visible to prevent collapsing */
+    display: flex;
+    flex-direction: column;
+    min-height: auto; /* Override the min-height: 0 that was causing collapse */
+}
+
+.leaderboard-dashboard-section__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #3a3a3c;
+    margin-bottom: 1rem;
+}
+
+.leaderboard-dashboard-section__title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.leaderboard-dashboard-section__title i {
+    color: var(--color-primary);
+    font-size: 1.25rem;
+}
+
+.leaderboard-dashboard-section__title h3 {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.leaderboard-dashboard-section__content {
+    flex: 1;
+    padding: 0 1rem 1rem 1rem;
+}
+
+.leaderboard-dashboard-section__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.leaderboard-dashboard-section__empty i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+.leaderboard-dashboard-section__empty p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Timeframe selector specific to leaderboard */
+.leaderboard-timeframe-selector {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.leaderboard-timeframe-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    border: 1px solid #3a3a3c;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-secondary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.leaderboard-timeframe-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--color-primary);
+}
+
+.leaderboard-timeframe-button.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+}
+
+.leaderboard-timeframe-icon {
+    font-size: 1rem;
+}
+
+.leaderboard-timeframe-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Current user rank specific to leaderboard */
+.leaderboard-current-user-rank {
+    margin-top: 1rem;
+}
+
+.leaderboard-rank-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid #3a3a3c;
+    transition: all 0.2s ease;
+}
+
+.leaderboard-rank-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--color-primary);
+}
+
+.leaderboard-rank-card.current-user {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 20px rgba(170, 46, 255, 0.2);
+}
+
+.leaderboard-rank-position {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.leaderboard-rank-user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.leaderboard-rank-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.leaderboard-rank-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.leaderboard-rank-avatar-fallback {
+    width: 100%;
+    height: 100%;
+    background: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.leaderboard-rank-user-details {
+    flex: 1;
+    min-width: 0;
+}
+
+.leaderboard-rank-username {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin: 0 0 4px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.leaderboard-rank-stats {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.leaderboard-rank-xp {
+    font-size: 0.875rem;
+    color: var(--color-primary);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.leaderboard-rank-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+}
+
+.leaderboard-rank-badge .badge-icon {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Leaderboard list */
+.leaderboard-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Leaderboard info */
+.leaderboard-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.leaderboard-timeframe-display {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 4px 8px;
+    border-radius: 6px;
+    border: 1px solid #3a3a3c;
 }
 
 /* Dark mode adjustments */

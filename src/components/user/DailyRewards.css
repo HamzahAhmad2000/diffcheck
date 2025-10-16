@@ -585,6 +585,13 @@
   font-weight: 700;
   margin: 0;
   color: #FFD700;
+  display: flex;
+  align-items: center;
+}
+
+.modal-header h3 i {
+  font-size: 1.3rem;
+  margin-right: 8px;
 }
 
 .modal-close {
@@ -605,6 +612,32 @@
 
 .modal-content {
   margin-bottom: 25px;
+}
+
+.modal-content p {
+  color: #ccc;
+  line-height: 1.5;
+  margin: 0 0 15px 0;
+}
+
+.modal-content p:last-child {
+  margin-bottom: 0;
+}
+
+.modal-content strong {
+  color: #FFD700;
+  font-weight: 700;
+}
+
+.modal-content span {
+  color: #ccc;
+}
+
+/* Ensure all text in streak update section is properly colored */
+.streak-update .streak-info-modal span,
+.streak-update .xp-balance-modal span {
+  color: white;
+  font-weight: 600;
 }
 
 /* Reward Animation */

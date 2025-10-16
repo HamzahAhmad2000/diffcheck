@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { userProfileAPI } from '../../services/apiClient';
+import { userProfileAPI, shareAPI } from '../../services/apiClient';
 import { toast } from 'react-hot-toast';
+import ShareButton from './share/ShareButton';
 import '../../styles/WelcomePopup.css';
 
 const WelcomePopup = ({ onClose }) => {
     const navigate = useNavigate();
     const [currentStep, setCurrentStep] = useState(0);
+    const [hasSharedJoin, setHasSharedJoin] = useState(false);
 
     const welcomeSteps = [
         {
@@ -81,6 +83,14 @@ const WelcomePopup = ({ onClose }) => {
                 text: 'Link Accounts',
                 onClick: () => navigate('/user/profile')
             }
+        },
+        {
+            id: 'share-join',
+            title: 'Share Your Journey! 🎉',
+            description: 'Earn 500 XP by sharing on X',
+            icon: '🚀',
+            content: 'Share your Eclipseer journey on X (Twitter) and earn 500 XP instantly! Let your friends know about this amazing platform.',
+            isShareStep: true
         }
     ];
 
@@ -107,6 +117,18 @@ const WelcomePopup = ({ onClose }) => {
             console.error('Error marking welcome popup as seen:', error);
             // Still close the popup even if the API call fails
             onClose();
+        }
+    };
+
+    const handleShareSuccess = (shareData) => {
+        setHasSharedJoin(true);
+        // Update user's XP balance in localStorage
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        if (userData && shareData.xp_awarded) {
+            userData.xp_balance = (userData.xp_balance || 0) + shareData.xp_awarded;
+            localStorage.setItem('user', JSON.stringify(userData));
+            window.dispatchEvent(new CustomEvent('userUpdated'));
+            window.dispatchEvent(new CustomEvent('xpGained', { detail: { amount: shareData.xp_awarded } }));
         }
     };
 
@@ -158,7 +180,22 @@ const WelcomePopup = ({ onClose }) => {
                             {currentStepData.content}
                         </div>
                         
-                        {currentStepData.action && (
+                        {currentStepData.isShareStep ? (
+                            <div className="welcome-share-section">
+                                <ShareButton
+                                    shareType="join_share"
+                                    variant="success"
+                                    size="large"
+                                    xpReward={500}
+                                    hasShared={hasSharedJoin}
+                                    onShareSuccess={handleShareSuccess}
+                                    className="welcome-share-button"
+                                />
+                                <p className="welcome-share-note">
+                                    {hasSharedJoin ? '✅ Thank you for sharing!' : 'Optional: Share to earn 500 XP bonus'}
+                                </p>
+                            </div>
+                        ) : currentStepData.action && (
                             <button 
                                 className="welcome-card-action"
                                 onClick={() => {

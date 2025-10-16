@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from '../common/Sidebar';
 import AudienceSelection from '../common/AudienceSelection';
+import BusinessAdminFooter from './BusinessAdminFooter';
 import { businessAPI, authAPI, userProfileAPI } from '../../services/apiClient';
 import apiClient from '../../services/apiClient';
 import { toast } from 'react-hot-toast';
@@ -45,7 +46,7 @@ const BusinessAdminDashboard = () => {
     
     // Local copy of user that we can update
     const [localUser, setLocalUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
-    
+
     // Business audience modal states
     const [showBusinessAudienceModal, setShowBusinessAudienceModal] = useState(false);
     const [businessAudienceSettings, setBusinessAudienceSettings] = useState(null);
@@ -290,7 +291,7 @@ const BusinessAdminDashboard = () => {
         {
             groupTitle: "Brand Wall",
             items: [
-                { label: "Brand Logo", icon: "ri-palette-line", path: `/admin/business/${businessId}/splash-page/edit`, actionKey: "can_edit_splash_page" },
+                { label: "Customize Brand Page", icon: "ri-palette-line", path: `/admin/business/${businessId}/splash-page/edit`, actionKey: "can_edit_splash_page" },
                 { label: "Audience Selection", icon: "ri-group-line", action: "manage_audience", actionKey: "can_edit_splash_page" },
             ]
         },
@@ -587,6 +588,9 @@ const BusinessAdminDashboard = () => {
                         </div>
                     </div>
                 )}
+
+                {/* Business Admin Footer */}
+                <BusinessAdminFooter />
             </div>
         </div>
     );

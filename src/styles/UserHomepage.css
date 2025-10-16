@@ -2197,4 +2197,122 @@
     .reward-tier {
         font-size: 0.7rem;
     }
+}
+
+/* Join Share Prompt Banner */
+.join-share-prompt {
+    position: relative;
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(52, 211, 153, 0.1) 100%);
+    border: 2px solid rgba(16, 185, 129, 0.3);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.join-share-prompt__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: all 0.2s ease;
+}
+
+.join-share-prompt__close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--color-text);
+}
+
+.join-share-prompt__content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.join-share-prompt__icon {
+    font-size: 48px;
+    flex-shrink: 0;
+}
+
+.join-share-prompt__text {
+    flex: 1;
+}
+
+.join-share-prompt__text h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 8px 0;
+}
+
+.join-share-prompt__text p {
+    font-size: 15px;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.join-share-prompt__text strong {
+    color: #10b981;
+    font-weight: 700;
+}
+
+.join-share-prompt__button {
+    flex-shrink: 0;
+}
+
+/* Responsive adjustments for join share prompt */
+@media (max-width: 768px) {
+    .join-share-prompt {
+        padding: 16px 20px;
+        margin-bottom: 16px;
+    }
+    
+    .join-share-prompt__content {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    
+    .join-share-prompt__icon {
+        font-size: 40px;
+    }
+    
+    .join-share-prompt__text h3 {
+        font-size: 18px;
+    }
+    
+    .join-share-prompt__text p {
+        font-size: 14px;
+    }
+    
+    .join-share-prompt__button {
+        width: 100%;
+    }
+    
+    .join-share-prompt__close {
+        width: 28px;
+        height: 28px;
+        top: 8px;
+        right: 8px;
+    }
 } 

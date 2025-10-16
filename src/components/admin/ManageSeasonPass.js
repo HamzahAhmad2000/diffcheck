@@ -25,6 +25,15 @@ import './AdminTables.css';
 import './ManageSeasonPass.css';
 import '../../styles/b_admin_styling.css';
 
+// Helper function to construct proper image URLs
+const getImageUrl = (imageUrl) => {
+    if (!imageUrl) return '/default-badge-placeholder.png';
+    if (imageUrl.startsWith('http')) return imageUrl;
+    if (imageUrl.startsWith('/uploads/')) return imageUrl;
+    // If it's just a filename, assume it's in the uploads/badges folder
+    return `/uploads/badges/${imageUrl}`;
+};
+
 // Custom Badge Dropdown Component
 const BadgeDropdown = ({ badges, selectedBadgeId, onSelect }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -74,22 +83,25 @@ const BadgeDropdown = ({ badges, selectedBadgeId, onSelect }) => {
     }, [isOpen, updateMenuPosition]);
 
     const selectedBadge = badges.find(badge => badge.id === parseInt(selectedBadgeId));
-    const filteredBadges = badges.filter(badge => 
+    const filteredBadges = badges.filter(badge =>
         badge.name && badge.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return (
         <div className="custom-dropdown" ref={triggerRef}>
-            <div 
+            <div
                 className="dropdown-trigger"
                 onClick={() => setIsOpen(prev => !prev)}
             >
                 {selectedBadge ? (
                     <div className="selected-item">
-                        <img 
-                            src={selectedBadge.image_url || '/default-badge-placeholder.png'} 
+                        <img
+                            src={getImageUrl(selectedBadge.image_url)}
                             alt={selectedBadge.name}
                             className="item-image"
+                            onError={(e) => {
+                                e.target.src = '/default-badge-placeholder.png';
+                            }}
                         />
                         <div className="item-details">
                             <span className="item-name">{selectedBadge.name}</span>
@@ -134,10 +146,13 @@ const BadgeDropdown = ({ badges, selectedBadgeId, onSelect }) => {
                                     setSearchTerm('');
                                 }}
                             >
-                                <img 
-                                    src={badge.image_url || '/default-badge-placeholder.png'} 
+                                <img
+                                    src={getImageUrl(badge.image_url)}
                                     alt={badge.name || 'Badge'}
                                     className="item-image"
+                                    onError={(e) => {
+                                        e.target.src = '/default-badge-placeholder.png';
+                                    }}
                                 />
                                 <div className="item-details">
                                     <span className="item-name">{badge.name || 'Unnamed Badge'}</span>
@@ -148,16 +163,56 @@ const BadgeDropdown = ({ badges, selectedBadgeId, onSelect }) => {
                                 </div>
                             </div>
                         )) : (
-                            <div className="no-results">
-                                {badges.length === 0 ? 'No badges available' : 'No badges match your search'}
-                            </div>
-                        )}
+                                <div className="no-results">
+                                    {badges.length === 0 ? 'No badges available' : 'No badges match your search'}
+                                </div>
+                            )}
                     </div>
                 </div>,
                 document.body
             )}
         </div>
     );
+};
+
+// Helper function to construct proper marketplace image URLs
+const getMarketplaceImageUrl = (imageUrl) => {
+    if (!imageUrl) return '/default-item-placeholder.png';
+    if (imageUrl.startsWith('http')) return imageUrl;
+    if (imageUrl.startsWith('/uploads/')) return imageUrl;
+    // If it's just a filename, assume it's in the uploads/marketplace_images folder
+    return `/uploads/marketplace_images/${imageUrl}`;
+};
+
+const getMarketplaceItemName = (item) => {
+    if (!item) return 'Unnamed Item';
+    return item.displayName || item.title || item.name || item.display_name || 'Unnamed Item';
+};
+
+const getMarketplaceItemType = (item) => {
+    if (!item) return 'Item';
+    return item.type || item.item_type || item.itemType || 'Item';
+};
+
+const normalizeMarketplaceItems = (items = []) => {
+    return items
+        .map((item, index) => {
+            const normalizedId = item.id ?? item.item_id ?? item.pk ?? index;
+
+            if (normalizedId === undefined || normalizedId === null) {
+                return null;
+            }
+
+            return {
+                ...item,
+                id: normalizedId,
+                displayName: item.display_name || item.displayName || item.title || item.name || `Marketplace Item ${normalizedId}`,
+                image_url: item.image_url || item.imageUrl || item.image || null,
+                type: item.item_type || item.type || item.itemType || 'Item',
+                xp_cost: item.xp_cost ?? item.cost ?? item.price ?? 0,
+            };
+        })
+        .filter(Boolean);
 };
 
 // Custom Marketplace Item Dropdown Component
@@ -204,27 +259,32 @@ const MarketplaceDropdown = ({ items, selectedItemId, onSelect }) => {
         };
     }, [isOpen, updateMenuPosition]);
 
-    const selectedItem = items.find(item => item.id === parseInt(selectedItemId));
-    const filteredItems = items.filter(item => 
-        item.name && item.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    const normalizedItems = normalizeMarketplaceItems(items);
+    const selectedItem = normalizedItems.find(item => item.id === parseInt(selectedItemId));
+    const filteredItems = normalizedItems.filter(item => {
+        const name = getMarketplaceItemName(item).toLowerCase();
+        return name.includes(searchTerm.toLowerCase());
+    });
 
     return (
         <div className="custom-dropdown" ref={triggerRef}>
-            <div 
+            <div
                 className="dropdown-trigger"
                 onClick={() => setIsOpen(prev => !prev)}
             >
                 {selectedItem ? (
                     <div className="selected-item">
-                        <img 
-                            src={selectedItem.image_url || '/default-item-placeholder.png'} 
-                            alt={selectedItem.name}
+                        <img
+                            src={getMarketplaceImageUrl(selectedItem.image_url)}
+                            alt={selectedItem.title}
                             className="item-image"
+                            onError={(e) => {
+                                e.target.src = '/default-item-placeholder.png';
+                            }}
                         />
                         <div className="item-details">
-                            <span className="item-name">{selectedItem.name}</span>
-                            <span className="item-subtitle">{selectedItem.xp_cost} XP • {selectedItem.item_type}</span>
+                            <span className="item-name">{getMarketplaceItemName(selectedItem)}</span>
+                            <span className="item-subtitle">{selectedItem.xp_cost} XP • {getMarketplaceItemType(selectedItem)}</span>
                         </div>
                     </div>
                 ) : (
@@ -255,30 +315,35 @@ const MarketplaceDropdown = ({ items, selectedItemId, onSelect }) => {
                         />
                     </div>
                     <div className="dropdown-list">
-                        {filteredItems.length > 0 ? filteredItems.map(item => (
-                            <div
-                                key={item.id}
-                                className={`dropdown-item ${parseInt(selectedItemId) === item.id ? 'selected' : ''}`}
-                                onClick={() => {
-                                    onSelect(item.id);
-                                    setIsOpen(false);
-                                    setSearchTerm('');
-                                }}
-                            >
-                                <img 
-                                    src={item.image_url || '/default-item-placeholder.png'} 
-                                    alt={item.name || 'Item'}
-                                    className="item-image"
-                                />
-                                <div className="item-details">
-                                    <span className="item-name">{item.name || 'Unnamed Item'}</span>
-                                    <span className="item-subtitle">{item.xp_cost || 0} XP • {item.item_type || 'Item'}</span>
-                                    {item.description && (
-                                        <span className="item-description">{item.description}</span>
-                                    )}
+                        {filteredItems.length > 0 ? (
+                            filteredItems.map(item => (
+                                <div
+                                    key={item.id}
+                                    className={`dropdown-item ${parseInt(selectedItemId) === item.id ? 'selected' : ''}`}
+                                    onClick={() => {
+                                        onSelect(item.id);
+                                        setIsOpen(false);
+                                        setSearchTerm('');
+                                    }}
+                                >
+                                    <img
+                                        src={getMarketplaceImageUrl(item.image_url)}
+                                        alt={getMarketplaceItemName(item)}
+                                        className="item-image"
+                                        onError={(e) => {
+                                            e.target.src = '/default-item-placeholder.png';
+                                        }}
+                                    />
+                                    <div className="item-details">
+                                        <span className="item-name">{getMarketplaceItemName(item)}</span>
+                                        <span className="item-subtitle">{item.xp_cost || 0} XP • {getMarketplaceItemType(item)}</span>
+                                        {item.description && (
+                                            <span className="item-description">{item.description}</span>
+                                        )}
+                                    </div>
                                 </div>
-                            </div>
-                        )) : (
+                            ))
+                        ) : (
                             <div className="no-results">
                                 {items.length === 0 ? 'No marketplace items available' : 'No items match your search'}
                             </div>
@@ -356,7 +421,8 @@ const ManageSeasonPass = () => {
 
             // Fetch all marketplace items
             const itemsResponse = await marketplaceAPI.adminGetItems();
-            setAvailableMarketplaceItems(itemsResponse.data?.items || []);
+            const normalizedItems = normalizeMarketplaceItems(itemsResponse.data?.items || itemsResponse.data || []);
+            setAvailableMarketplaceItems(normalizedItems);
         } catch (error) {
             console.error('Error fetching dropdown data:', error);
             toast.error('Failed to load badges and marketplace items');
@@ -1517,7 +1583,11 @@ const ManageSeasonPass = () => {
                                         {loadingDropdownData ? (
                                             <div className="loading-dropdown">Loading marketplace items...</div>
                                         ) : availableMarketplaceItems.length === 0 ? (
-                                            <div className="loading-dropdown">No marketplace items available. Please create items first.</div>
+                                            <div className="loading-dropdown">
+                                                {itemsResponse?.data?.items?.length === 0 ?
+                                                    'No marketplace items available. Please create items first.' :
+                                                    'Failed to load marketplace items. Please try again.'}
+                                            </div>
                                         ) : (
                                             <MarketplaceDropdown
                                                 items={availableMarketplaceItems}
@@ -1753,554 +1823,6 @@ const ManageSeasonPass = () => {
                 )}
             </div>
 
-            <style jsx>{`
-                /* Analytics Dashboard Styles */
-                .header-actions {
-                    display: flex;
-                    gap: 12px;
-                    align-items: center;
-                }
-
-                .analytics-dashboard {
-                    background: var(--color-surface);
-                    border: 1px solid var(--color-border);
-                    border-radius: 12px;
-                    margin-bottom: 30px;
-                    overflow: hidden;
-                }
-
-                .analytics-header {
-                    padding: 24px 24px 0 24px;
-                    border-bottom: 1px solid var(--color-border);
-                }
-
-                .analytics-header h2 {
-                    color: var(--color-text-light);
-                    margin: 0 0 20px 0;
-                    font-size: 1.5rem;
-                    font-weight: 600;
-                }
-
-                .analytics-tabs {
-                    display: flex;
-                    gap: 4px;
-                    margin-bottom: -1px;
-                }
-
-                .analytics-tab {
-                    background: transparent;
-                    border: 1px solid var(--color-border);
-                    border-bottom: none;
-                    color: var(--color-text-muted);
-                    padding: 12px 20px;
-                    border-radius: 8px 8px 0 0;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                    font-size: 0.9rem;
-                    font-weight: 500;
-                }
-
-                .analytics-tab:hover {
-                    background: var(--color-surface-alt);
-                    color: var(--color-text-light);
-                }
-
-                .analytics-tab.active {
-                    background: var(--color-primary);
-                    color: white;
-                    border-color: var(--color-primary);
-                }
-
-                .analytics-content {
-                    padding: 24px;
-                }
-
-                .analytics-empty {
-                    text-align: center;
-                    padding: 60px 24px;
-                    color: var(--color-text-muted);
-                }
-
-                .analytics-empty i {
-                    font-size: 3rem;
-                    margin-bottom: 16px;
-                    opacity: 0.5;
-                }
-
-                /* Overview Analytics */
-                .metrics-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 20px;
-                    margin-bottom: 30px;
-                }
-
-                .metric-card {
-                    background: var(--color-background);
-                    border: 1px solid var(--color-border);
-                    border-radius: 8px;
-                    padding: 20px;
-                    display: flex;
-                    align-items: center;
-                    gap: 16px;
-                }
-
-                .metric-icon {
-                    background: var(--color-primary);
-                    color: white;
-                    width: 48px;
-                    height: 48px;
-                    border-radius: 8px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    font-size: 1.5rem;
-                }
-
-                .metric-content h3 {
-                    color: var(--color-text-light);
-                    font-size: 1.8rem;
-                    font-weight: 700;
-                    margin: 0 0 4px 0;
-                }
-
-                .metric-content p {
-                    color: var(--color-text-muted);
-                    font-size: 0.9rem;
-                    margin: 0;
-                }
-
-                /* Season Comparisons */
-                .season-comparisons {
-                    margin-top: 30px;
-                }
-
-                .season-comparisons h3 {
-                    color: var(--color-text-light);
-                    margin: 0 0 20px 0;
-                    font-size: 1.3rem;
-                }
-
-                .seasons-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-                    gap: 20px;
-                }
-
-                .season-analytics-card {
-                    background: var(--color-background);
-                    border: 1px solid var(--color-border);
-                    border-radius: 8px;
-                    padding: 20px;
-                }
-
-                .season-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 16px;
-                    padding-bottom: 12px;
-                    border-bottom: 1px solid var(--color-border);
-                }
-
-                .season-header h4 {
-                    color: var(--color-text-light);
-                    margin: 0;
-                    font-size: 1.1rem;
-                }
-
-                .season-status {
-                    padding: 4px 8px;
-                    border-radius: 4px;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                    text-transform: uppercase;
-                }
-
-                .season-status.active {
-                    background: #10b981;
-                    color: white;
-                }
-
-                .season-status.inactive {
-                    background: var(--color-border);
-                    color: var(--color-text-muted);
-                }
-
-                .season-metrics {
-                    margin-bottom: 16px;
-                }
-
-                .metric-row {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 8px;
-                    font-size: 0.9rem;
-                }
-
-                .metric-label {
-                    color: var(--color-text-muted);
-                }
-
-                .metric-value {
-                    color: var(--color-text-light);
-                    font-weight: 600;
-                }
-
-                .metric-value.new-users {
-                    color: #10b981;
-                }
-
-                .metric-value.returning-users {
-                    color: #3b82f6;
-                }
-
-                .metric-value.retention-rate {
-                    color: #10b981;
-                }
-
-                .metric-value.churn-rate {
-                    color: #ef4444;
-                }
-
-                /* Tier Distribution */
-                .tier-distribution h5 {
-                    color: var(--color-text-light);
-                    margin: 0 0 12px 0;
-                    font-size: 1rem;
-                }
-
-                .tier-bar {
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    margin-bottom: 8px;
-                }
-
-                .tier-label {
-                    min-width: 80px;
-                    font-size: 0.9rem;
-                    color: var(--color-text-light);
-                }
-
-                .tier-progress {
-                    flex: 1;
-                    height: 8px;
-                    background: var(--color-border);
-                    border-radius: 4px;
-                    overflow: hidden;
-                }
-
-                .tier-fill {
-                    height: 100%;
-                    transition: width 0.3s ease;
-                }
-
-                .tier-fill.lunar {
-                    background: #4a90e2;
-                }
-
-                .tier-fill.totality {
-                    background: #ffd700;
-                }
-
-                .tier-percentage {
-                    min-width: 40px;
-                    text-align: right;
-                    font-size: 0.8rem;
-                    color: var(--color-text-muted);
-                    font-weight: 600;
-                }
-
-                /* Retention Analytics */
-                .retention-overview {
-                    margin-bottom: 30px;
-                }
-
-                .retention-metrics {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 20px;
-                }
-
-                .retention-metric-card {
-                    background: var(--color-background);
-                    border: 1px solid var(--color-border);
-                    border-radius: 8px;
-                    padding: 24px;
-                    text-align: center;
-                }
-
-                .retention-metric-card h3 {
-                    color: #10b981;
-                    font-size: 2rem;
-                    font-weight: 700;
-                    margin: 0 0 8px 0;
-                }
-
-                .retention-metric-card p {
-                    color: var(--color-text-muted);
-                    margin: 0;
-                    font-size: 0.9rem;
-                }
-
-                .retention-table, .churn-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    background: var(--color-background);
-                    border-radius: 8px;
-                    overflow: hidden;
-                    border: 1px solid var(--color-border);
-                }
-
-                .retention-table th, .churn-table th {
-                    background: var(--color-surface-alt);
-                    color: var(--color-text-light);
-                    padding: 12px;
-                    text-align: left;
-                    font-weight: 600;
-                    font-size: 0.9rem;
-                }
-
-                .retention-table td, .churn-table td {
-                    padding: 12px;
-                    border-top: 1px solid var(--color-border);
-                    color: var(--color-text-light);
-                    font-size: 0.9rem;
-                }
-
-                .retention-rate.good, .churn-rate.good {
-                    color: #10b981;
-                    font-weight: 600;
-                }
-
-                .retention-rate.medium, .churn-rate.medium {
-                    color: #f59e0b;
-                    font-weight: 600;
-                }
-
-                .retention-rate.poor, .churn-rate.poor {
-                    color: #ef4444;
-                    font-weight: 600;
-                }
-
-                /* Churn Analytics */
-                .churn-metrics {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                    gap: 20px;
-                    margin-bottom: 30px;
-                }
-
-                .churn-metric-card {
-                    background: var(--color-background);
-                    border: 1px solid var(--color-border);
-                    border-radius: 8px;
-                    padding: 20px;
-                    text-align: center;
-                }
-
-                .churn-metric-card h3 {
-                    color: #ef4444;
-                    font-size: 1.8rem;
-                    font-weight: 700;
-                    margin: 0 0 8px 0;
-                }
-
-                .churn-metric-card p {
-                    color: var(--color-text-muted);
-                    margin: 0;
-                    font-size: 0.85rem;
-                }
-
-                .tier-changes {
-                    display: flex;
-                    gap: 8px;
-                    justify-content: center;
-                }
-
-                .tier-changes .upgrade {
-                    color: #10b981;
-                    font-weight: 600;
-                }
-
-                .tier-changes .downgrade {
-                    color: #ef4444;
-                    font-weight: 600;
-                }
-
-                /* Growth Analytics */
-                .growth-metrics {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                    gap: 20px;
-                    margin-bottom: 30px;
-                }
-
-                .growth-metric-card {
-                    background: var(--color-background);
-                    border: 1px solid var(--color-border);
-                    border-radius: 8px;
-                    padding: 20px;
-                    text-align: center;
-                }
-
-                .growth-metric-card.highlight {
-                    border-color: var(--color-primary);
-                    background: linear-gradient(135deg, var(--color-background) 0%, rgba(170, 46, 255, 0.1) 100%);
-                }
-
-                .growth-metric-card h3 {
-                    color: var(--color-primary);
-                    font-size: 1.6rem;
-                    font-weight: 700;
-                    margin: 0 0 8px 0;
-                }
-
-                .growth-metric-card p {
-                    color: var(--color-text-muted);
-                    margin: 0;
-                    font-size: 0.9rem;
-                }
-
-                .growth-charts {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-                    gap: 30px;
-                }
-
-                .growth-chart h3 {
-                    color: var(--color-text-light);
-                    margin: 0 0 20px 0;
-                    font-size: 1.2rem;
-                }
-
-                .growth-bars {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 12px;
-                }
-
-                .growth-bar-item {
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                }
-
-                .growth-bar-label {
-                    min-width: 120px;
-                    font-size: 0.9rem;
-                    color: var(--color-text-light);
-                    font-weight: 500;
-                }
-
-                .growth-bar-container {
-                    flex: 1;
-                    height: 20px;
-                    background: var(--color-border);
-                    border-radius: 10px;
-                    overflow: hidden;
-                    position: relative;
-                }
-
-                .growth-bar {
-                    height: 100%;
-                    border-radius: 10px;
-                    transition: width 0.3s ease;
-                }
-
-                .growth-bar.positive {
-                    background: linear-gradient(90deg, #10b981, #059669);
-                }
-
-                .growth-bar.negative {
-                    background: linear-gradient(90deg, #ef4444, #dc2626);
-                }
-
-                .growth-bar-value {
-                    min-width: 60px;
-                    text-align: right;
-                    font-size: 0.9rem;
-                    font-weight: 600;
-                    color: var(--color-text-light);
-                }
-
-                /* Table Container Overflow Fix for Kebab Menu */
-                .b_admin_styling-table-container {
-                    overflow: visible !important;
-                    position: relative;
-                }
-
-                .b_admin_styling-table {
-                    overflow: visible;
-                }
-
-                .b_admin_styling-table__actions {
-                    overflow: visible;
-                    position: relative;
-                }
-
-                /* Responsive Design for Analytics */
-                @media (max-width: 768px) {
-                    .analytics-tabs {
-                        flex-wrap: wrap;
-                        gap: 8px;
-                    }
-
-                    .analytics-tab {
-                        font-size: 0.8rem;
-                        padding: 10px 16px;
-                    }
-
-                    .metrics-grid {
-                        grid-template-columns: 1fr;
-                        gap: 16px;
-                    }
-
-                    .seasons-grid {
-                        grid-template-columns: 1fr;
-                    }
-
-                    .retention-metrics, .churn-metrics, .growth-metrics {
-                        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                        gap: 16px;
-                    }
-
-                    .growth-charts {
-                        grid-template-columns: 1fr;
-                        gap: 20px;
-                    }
-
-                    .growth-bar-item {
-                        flex-direction: column;
-                        align-items: stretch;
-                        gap: 8px;
-                    }
-
-                    .growth-bar-label {
-                        min-width: auto;
-                        text-align: center;
-                    }
-
-                    .growth-bar-value {
-                        text-align: center;
-                        min-width: auto;
-                    }
-
-                    .retention-table, .churn-table {
-                        font-size: 0.8rem;
-                    }
-
-                    .retention-table th, .churn-table th,
-                    .retention-table td, .churn-table td {
-                        padding: 8px;
-                    }
-                }
-            `}</style>
         </div>
     );
 };

@@ -269,27 +269,27 @@
 
 .status-pending {
     background: #f1f5f9;
-    color: #64748b;
+    color: #000000;
 }
 
 .status-under-review {
     background: #fef3c7;
-    color: #92400e;
+    color: #000000;
 }
 
 .status-planned {
     background: #dbeafe;
-    color: #1e40af;
+    color: #000000;
 }
 
 .status-completed {
     background: #dcfce7;
-    color: #166534;
+    color: #000000;
 }
 
 .status-rejected {
     background: #fecaca;
-    color: #991b1b;
+    color: #000000;
 }
 
 .business-feedback-page .item-title {

@@ -15,6 +15,7 @@ import {
 } from "chart.js";
 import "./AISummaryReport.css"; // new compact styles
 import { aiAPI, surveyAPI } from "../../services/apiClient";
+import LegalAcceptanceModal from '../admin/LegalAcceptanceModal';
 import toast from "react-hot-toast";
 import jsPDF from "jspdf";
 
@@ -140,6 +141,10 @@ const AISummaryReport = () => {
   const [surveyTitle, setSurveyTitle] = useState("");
   const [generatingReport, setGeneratingReport] = useState(false);
 
+  // Legal acceptance modal state
+  const [showLegalModal, setShowLegalModal] = useState(false);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') || '{}'));
+
   // Excluded question types
   const excludedTypes = new Set([
     "signature",
@@ -207,6 +212,13 @@ const AISummaryReport = () => {
     fetchSampleSize();
   }, [fetchSampleSize]);
 
+  // Check legal acceptance on component mount
+  useEffect(() => {
+    if (user && !user.has_accepted_legal_terms) {
+      setShowLegalModal(true);
+    }
+  }, [user]);
+
   // --- Event Handlers ---
   const handleStartAnalysis = () => setStep(1);
   
@@ -268,6 +280,14 @@ const AISummaryReport = () => {
         ? prev.filter((s) => s !== segment)
         : [...prev, segment]
     );
+  };
+
+  const handleLegalAccepted = () => {
+    setShowLegalModal(false);
+    // Update local user state to reflect acceptance
+    const updatedUser = { ...user, has_accepted_legal_terms: true };
+    setUser(updatedUser);
+    localStorage.setItem('user', JSON.stringify(updatedUser));
   };
 
   const handleEditToggle = () => {
@@ -1571,6 +1591,14 @@ const AISummaryReport = () => {
         {step === 3 && renderComparisonStep()}
         {step === 4 && renderFinalReport()}
       </div>
+
+      {/* Legal Acceptance Modal */}
+      {showLegalModal && (
+        <LegalAcceptanceModal
+          onAccepted={handleLegalAccepted}
+          user={user}
+        />
+      )}
     </div>
   );
 };

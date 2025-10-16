@@ -18,6 +18,77 @@ const apiClient = axios.create({
 // Prevent multiple parallel 401 handlers from racing
 let isHandlingUnauthorized = false;
 
+// Season Pass Tier Management
+export const SeasonPassTierManager = {
+  // Storage keys
+  TIER_KEY: 'user_season_pass_tier',
+  MULTIPLIER_KEY: 'user_season_pass_multiplier',
+
+  // Set user's current tier and multiplier
+  setTier(tierType, multiplier = null) {
+    if (tierType) {
+      localStorage.setItem(this.TIER_KEY, tierType);
+      console.log(`[SeasonPassTierManager] Set tier to: ${tierType}`);
+    }
+
+    if (multiplier !== null) {
+      localStorage.setItem(this.MULTIPLIER_KEY, multiplier.toString());
+      console.log(`[SeasonPassTierManager] Set multiplier to: ${multiplier}`);
+    }
+  },
+
+  // Get user's current tier
+  getTier() {
+    return localStorage.getItem(this.TIER_KEY) || null;
+  },
+
+  // Get user's current multiplier
+  getMultiplier() {
+    const multiplier = localStorage.getItem(this.MULTIPLIER_KEY);
+    return multiplier ? parseFloat(multiplier) : 1.0;
+  },
+
+  // Check if user has a season pass
+  hasSeasonPass() {
+    return this.getTier() !== null;
+  },
+
+  // Clear tier data (logout, etc.)
+  clearTier() {
+    localStorage.removeItem(this.TIER_KEY);
+    localStorage.removeItem(this.MULTIPLIER_KEY);
+    console.log('[SeasonPassTierManager] Cleared tier data');
+  },
+
+  // Update tier from API response
+  updateFromAPIResponse(apiResponse) {
+    try {
+      const userData = apiResponse?.data?.data;
+      if (userData?.user_pass) {
+        const tierType = userData.user_pass.tier_type;
+        const seasonInfo = userData.season_info;
+
+        let multiplier = 1.0;
+        if (tierType === 'LUNAR' && seasonInfo?.lunar_xp_multiplier) {
+          multiplier = seasonInfo.lunar_xp_multiplier;
+        } else if (tierType === 'TOTALITY' && seasonInfo?.totality_xp_multiplier) {
+          multiplier = seasonInfo.totality_xp_multiplier;
+        }
+
+        this.setTier(tierType, multiplier);
+        return { tier: tierType, multiplier };
+      } else {
+        // No season pass
+        this.setTier(null, 1.0);
+        return { tier: null, multiplier: 1.0 };
+      }
+    } catch (error) {
+      console.error('[SeasonPassTierManager] Error updating from API response:', error);
+      return { tier: null, multiplier: 1.0 };
+    }
+  }
+};
+
 // Add request interceptor to add auth token
 apiClient.interceptors.request.use(
   config => {
@@ -143,6 +214,11 @@ verifySecurityAnswers: (answersData) => apiClient.post('/auth/forgot-password/ve
   setSecurityQuestions: (questionsDataWithToken) => apiClient.post('/auth/security/questions/set', questionsDataWithToken),
   generatePasskeys: (dataWithToken) => apiClient.post('/auth/security/passkeys/generate', dataWithToken),
   verifyMfaLogin: (data) => apiClient.post('/auth/verify-mfa-login', data),
+
+  // Legal Compliance endpoints
+  acceptLegalTerms: () => apiClient.post('/auth/accept-legal-terms'),
+  acceptAIPolicy: () => apiClient.post('/auth/accept-ai-policy'),
+  getLegalStatus: () => apiClient.get('/auth/legal-status'),
 };
 
 // User Profile & Gamification API
@@ -158,6 +234,7 @@ export const userProfileAPI = {
       }
     });
   },
+  markWelcomePopupSeen: () => apiClient.post('/api/profile/welcome-popup-seen'),
   // New method for changing password
   changePassword: (passwordData) => apiClient.post('/api/profile/change-password', passwordData),
   // New method for getting linked accounts
@@ -187,12 +264,6 @@ export const userProfileAPI = {
   getAvailableSecurityQuestions: () => apiClient.get('/auth/security/questions/available'),
   setSecurityQuestions: (data) => apiClient.post('/auth/security/questions/set', data),
   generatePasskeys: () => apiClient.post('/auth/security/passkeys/generate'),
-  
-  // Welcome popup tracking
-  markWelcomePopupSeen: () => apiClient.post('/api/profile/welcome-popup-seen'),
-  
-  // Admin user management
-  adminGetAllUsers: (params = {}) => apiClient.get('/api/admin/users', { params }),
 };
 
 // Badge API endpoints
@@ -625,6 +696,10 @@ export const businessAPI = {
   simulateResponsePayment: (paymentIntentId) => apiClient.post('/api/stripe/response/simulate_payment', { payment_intent_id: paymentIntentId }),
   getTransactionHistory: (businessId, params = {}) => apiClient.get(`/api/businesses/${businessId}/transactions`, { params }),
   
+  // New Stripe Checkout APIs
+  createStripeCheckoutSession: (checkoutData) => apiClient.post('/api/stripe/create-checkout-session', checkoutData),
+  getStripeSessionStatus: (sessionId) => apiClient.get(`/api/stripe/session-status/${sessionId}`),
+  
   // Business Permissions Management
   getBusinessPermissions: (businessId) => apiClient.get(`/api/businesses/${businessId}/permissions`),
   updateBusinessPermissions: (businessId, permissions) => apiClient.put(`/api/businesses/${businessId}/permissions`, permissions),
@@ -977,7 +1052,7 @@ const enhancedFetch = async (url, options = {}) => {
     ...(options.headers || {})
   };
 
-  // Add auth token if available (same logic as apiClient interceptor)
+  // Add auth token if available (same logic as axios interceptor)
   const token = localStorage.getItem('token');
   if (token) {
     const tokenParts = token.split('.');
@@ -1398,6 +1473,10 @@ export const seasonPassAPI = {
     console.log(`[SEASON_PASS_API] Claiming reward ${seasonRewardId}`);
     return apiClient.post('/api/season-pass/claim-reward', { season_reward_id: seasonRewardId });
   },
+  redeemMarketplaceItem: (marketplaceItemId) => {
+    console.log(`[SEASON_PASS_API] Redeeming marketplace item ${marketplaceItemId}`);
+    return apiClient.post('/api/season-pass/redeem-marketplace-item', { marketplace_item_id: marketplaceItemId });
+  },
   getPreview: () => {
     console.log('[SEASON_PASS_API] Getting season preview');
     return apiClient.get('/api/season-pass/preview');
@@ -1420,9 +1499,12 @@ export const seasonPassAPI = {
     console.log(`[SEASON_PASS_API] Confirming Stripe payment ${paymentIntentId}`);
     return apiClient.post('/api/season-pass/payment/stripe/confirm', { payment_intent_id: paymentIntentId });
   },
-  createCryptoSession: (tierType) => {
-    console.log(`[SEASON_PASS_API] Creating crypto payment session for ${tierType}`);
-    return apiClient.post('/api/season-pass/payment/crypto/create-session', { tier_type: tierType });
+  createCryptoSession: (tierType, priceUsd) => {
+    console.log(`[SEASON_PASS_API] Creating crypto payment session for ${tierType}, price: $${priceUsd}`);
+    return apiClient.post('/api/season-pass/payment/crypto/create-session', {
+      tier_type: tierType,
+      price_usd: priceUsd
+    });
   },
   
   // Direct purchase (for testing/manual processing)
@@ -1635,7 +1717,7 @@ export const shareAPI = {
     
     // Update share configuration
     updateConfig: (configData) => 
-      enhancedFetch('/api/admin/shares/config/bulk-update', {
+      enhancedFetch('/api/admin/shares/config', {
         method: 'PUT',
         body: JSON.stringify(configData)
       }),
@@ -1766,52 +1848,56 @@ export const handleShareFlow = async (shareType, relatedObjectId = null, options
 
 // Co-Create / Ideas API
 export const ideaAPI = {
-  // Public idea endpoints
-  getTopIdeas: async (businessId, limit = 5) => {
-      const response = await enhancedFetch(`/api/businesses/${businessId}/ideas/top?limit=${limit}`);
-      return response;
-  },
-  
-  getPublicIdeas: async (businessId, params = {}) => {
-      const queryString = new URLSearchParams(params).toString();
-      return enhancedFetch(`/api/businesses/${businessId}/ideas/public?${queryString}`);
-  },
-  
-  getIdeaDetails: async (ideaId) => 
-      enhancedFetch(`/api/ideas/${ideaId}`),
-  
-  // User actions
-  createIdea: (businessId, ideaData) => 
-      enhancedFetch(`/api/businesses/${businessId}/ideas`, {
-          method: 'POST',
-          body: JSON.stringify(ideaData)
-      }),
-  
-  likeIdea: async (ideaId) => 
-      enhancedFetch(`/api/ideas/${ideaId}/like`, { method: 'POST' }),
-  
-  // Comments
-  getIdeaComments: (ideaId) => 
-      enhancedFetch(`/api/ideas/${ideaId}/comments`),
-  
-  addComment: (ideaId, commentData) => 
-      enhancedFetch(`/api/ideas/${ideaId}/comments`, {
-          method: 'POST',
-          body: JSON.stringify(commentData)
-      }),
-  
-  // Admin endpoints
-  getAdminIdeas: (businessId, params = {}) => {
-      const queryString = new URLSearchParams(params).toString();
-      return enhancedFetch(`/api/admin/businesses/${businessId}/ideas?${queryString}`);
-  },
-  
-  reviewIdea: (ideaId, reviewData) => 
-      enhancedFetch(`/api/admin/ideas/${ideaId}/review`, {
-          method: 'PUT',
-          body: JSON.stringify(reviewData)
-      })
+    // Public idea endpoints
+    getTopIdeas: async (businessId, limit = 5) => {
+        const response = await enhancedFetch(`/api/businesses/${businessId}/ideas/top?limit=${limit}`);
+        return response;
+    },
+    
+    getPublicIdeas: async (businessId, params = {}) => {
+        const queryString = new URLSearchParams(params).toString();
+        return enhancedFetch(`/api/businesses/${businessId}/ideas/public?${queryString}`);
+    },
+    
+    getIdeaDetails: async (ideaId) => 
+        enhancedFetch(`/api/ideas/${ideaId}`),
+    
+    // User actions
+    createIdea: (businessId, ideaData) => 
+        enhancedFetch(`/api/businesses/${businessId}/ideas`, {
+            method: 'POST',
+            body: JSON.stringify(ideaData)
+        }),
+    
+    likeIdea: async (ideaId) => 
+        enhancedFetch(`/api/ideas/${ideaId}/like`, { method: 'POST' }),
+    
+    // Comments
+    getIdeaComments: (ideaId) => 
+        enhancedFetch(`/api/ideas/${ideaId}/comments`),
+    
+    addComment: (ideaId, commentData) => 
+        enhancedFetch(`/api/ideas/${ideaId}/comments`, {
+            method: 'POST',
+            body: JSON.stringify(commentData)
+        }),
+    
+    // Admin endpoints
+    getAdminIdeas: (businessId, params = {}) => {
+        const queryString = new URLSearchParams(params).toString();
+        return enhancedFetch(`/api/admin/businesses/${businessId}/ideas?${queryString}`);
+    },
+    
+    reviewIdea: (ideaId, reviewData) => 
+        enhancedFetch(`/api/admin/ideas/${ideaId}/review`, {
+            method: 'PUT',
+            body: JSON.stringify(reviewData)
+        })
 };
 
+// --- Coinbase Crypto Payments ---
+export const cryptoAPI = {
+  createCharge: (data) => apiClient.post('/coinbase/create_charge', data),
+};
 
 export default apiClient;

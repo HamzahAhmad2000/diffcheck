@@ -95,6 +95,25 @@ const Footer = () => {
         </div>
       </div>
       <div className="footer_bottom">
+        <div className="footer_legal_links">
+          <a href="/legal#terms" target="_blank" rel="noopener noreferrer">Terms & Conditions</a>
+          <span className="footer_separator">|</span>
+          <a href="/legal#privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <span className="footer_separator">|</span>
+          <a href="/legal#cookies" target="_blank" rel="noopener noreferrer">Cookie Policy</a>
+          <span className="footer_separator">|</span>
+          <a href="/legal#community" target="_blank" rel="noopener noreferrer">Community Guidelines</a>
+          <span className="footer_separator">|</span>
+          <a href="/legal#dpa" target="_blank" rel="noopener noreferrer">Data Processing Agreement</a>
+          <span className="footer_separator">|</span>
+          <a href="/legal#eula" target="_blank" rel="noopener noreferrer">EULA</a>
+          <span className="footer_separator">|</span>
+          <a href="/legal#rewards" target="_blank" rel="noopener noreferrer">Reward & Raffle Terms</a>
+          <span className="footer_separator">|</span>
+          <a href="/legal#sla" target="_blank" rel="noopener noreferrer">Service Level Agreement</a>
+          <span className="footer_separator">|</span>
+          <a href="/legal#ai" target="_blank" rel="noopener noreferrer">AI Use Policy</a>
+        </div>
         <p className="primaryfont">Eclipseer - © 2025</p>
         <button className="footer_bottom_btn" onClick={handleScrollToTop}>
           <i className="ri-arrow-up-line"></i>

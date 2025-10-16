@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { questAPI, userProfileAPI } from '../../services/apiClient';
 import ScreenshotQuestInterface from './ScreenshotQuestInterface';
 import { toast } from 'react-hot-toast';
+import XPDisplay from '../common/XPDisplay';
 
 import '../../styles/userStyles.css';
 import '../../styles/UserHomepage.css';
@@ -205,7 +206,7 @@ const QuestCard = ({ quest, onStart, onStartScreenshot, isCompleted, isPending }
                     )}
 
                     <div className="card-info">
-                        <span className="xp-highlight">✨ {xpReward} XP</span>
+                        <XPDisplay baseXP={xpReward} className="xp-highlight" />
                     </div>
 
                     {/* Deadline Display */}

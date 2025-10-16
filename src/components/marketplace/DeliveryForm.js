@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import '../marketplace/MarketplacePage.css'; // Using marketplace styles
 import './DeliveryForm.css'; // Custom delivery form styles
 import '../../styles/userStyles.css';
+import '../../styles/LegalComponents.css';
 
 const DeliveryForm = () => {
     const navigate = useNavigate();
@@ -29,6 +30,7 @@ const DeliveryForm = () => {
         delivery_notes: ''
     });
     const [imageError, setImageError] = useState(false);
+    const [acceptRewardTerms, setAcceptRewardTerms] = useState(false);
 
     const getFullImageUrl = (relativeOrAbsoluteUrl) => {
         if (!relativeOrAbsoluteUrl) return '';
@@ -411,10 +413,36 @@ const DeliveryForm = () => {
                                     </div>
                                     
                                     <div className="settings-section__actions">
+                                        <div className="reward-terms-acceptance">
+                                            <label className="reward-terms-label">
+                                                <input
+                                                    type="checkbox"
+                                                    checked={acceptRewardTerms}
+                                                    onChange={(e) => setAcceptRewardTerms(e.target.checked)}
+                                                    className="reward-terms-checkbox"
+                                                    required
+                                                />
+                                                <span className="reward-terms-text">
+                                                    ✅ I accept the{' '}
+                                                    <a
+                                                        href="/legal#rewards"
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="reward-terms-link"
+                                                    >
+                                                        Reward & Raffle Terms
+                                                    </a>
+                                                </span>
+                                            </label>
+                                            {!acceptRewardTerms && (
+                                                <p className="reward-terms-error">Please accept the Reward & Raffle Terms to continue.</p>
+                                            )}
+                                        </div>
+
                                         <button
                                             type="submit"
                                             className="settings-button settings-button--primary"
-                                            disabled={loading}
+                                            disabled={loading || !acceptRewardTerms}
                                         >
                                             {loading ? (
                                                 <>

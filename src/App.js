@@ -4,6 +4,8 @@ import { Toaster } from 'react-hot-toast';
 // import { HelmetProvider } from 'react-helmet-async';
 
 // Survey & Analytics
+import LegalPages from "./components/LegalPages";
+import CookieBanner from "./components/common/CookieBanner";
 import SurveyDashboard from "./components/SurveyDashboard";
 import SurveyResponse from "./components/SurveyResponse";
 import AnalyticsDashboard from "./components/AnalyticsDashboard";
@@ -78,6 +80,7 @@ import UserEditProfile from './components/user/UserEditProfile';
 import UserProfileOverview from './components/user/UserProfileOverview';
 import UserHomepage from './components/user/UserHomepage';
 import UserReferrals from './components/user/UserReferrals';
+import ReferralLanding from './components/referral/ReferralLanding';
 import UserLayout from './components/layouts/UserLayout'; // Import the new layout
 
 // Import Share-to-Earn User Components
@@ -109,6 +112,7 @@ import AdminRaffleManagement from './components/admin/AdminRaffleManagement';
 import AdminDeliveryManagement from './components/admin/AdminDeliveryManagement';
 import AdminNotificationSender from './components/admin/AdminNotificationSender';
 import SuperAdminNotificationsDashboard from './components/admin/SuperAdminNotificationsDashboard';
+import AIUsageAnalytics from './components/admin/AIUsageAnalytics';
 
 // Import Badge Components
 import ManageBadges from './components/admin/ManageBadges';
@@ -184,6 +188,8 @@ import DailyRewards from './components/user/DailyRewards';
 import CoCreatePage from './components/user/CoCreatePage';
 import IdeaDetailPage from './components/user/IdeaDetailPage';
 
+// Import User Components
+
 // Import Quest Components
 import QuestDashboard from './components/quests/QuestDashboard';
 
@@ -195,8 +201,10 @@ import Leaderboard from './components/user/Leaderboard';
 // Import UpdatePassword
 import UpdatePassword from './components/user/UpdatePassword';
 
-// Import PurchaseSubscriptionTier
+// Import PurchaseSubscriptionTier and Checkout Components
 import PurchaseSubscriptionTier from './components/admin/PurchaseSubscriptionTier';
+import CheckoutSuccess from './components/common/CheckoutSuccess';
+import CheckoutCancel from './components/common/CheckoutCancel';
 
 // Import ManageBusinessAudience
 import ManageBusinessAudience from './components/admin/ManageBusinessAudience';
@@ -402,6 +410,7 @@ function App() {
   return (
     <>
       <Toaster position="top-right" />
+      <CookieBanner />
       <Routes>
         {/* ========== PUBLIC BUSINESS ROUTES ========== */}
         <Route path="/businesses" element={<Navigate to="/user/surveys" replace />} />
@@ -428,6 +437,8 @@ function App() {
           </ProtectedRoute>
         } />
         
+        {/* Co-Create pages - moved to user layout */}
+        
         {/* Brand detail page - new layout with surveys, quests, and bug reporting */}
         <Route path="/brand/:businessId" element={
           <ProtectedRoute allowedRoles={["user", "admin", "business_admin", "super_admin"]}>
@@ -436,6 +447,18 @@ function App() {
         } />
         
         <Route path="/home" element={<Home/>}/>
+
+        {/* ========== STRIPE CHECKOUT HANDLERS ========== */}
+        <Route path="/checkout/success" element={
+          <ProtectedRoute allowedRoles={["user", "admin", "business_admin", "super_admin"]}>
+            <CheckoutSuccess />
+          </ProtectedRoute>
+        } />
+        <Route path="/checkout/cancel" element={
+          <ProtectedRoute allowedRoles={["user", "admin", "business_admin", "super_admin"]}>
+            <CheckoutCancel />
+          </ProtectedRoute>
+        } />
 
         {/* ========== AUTH ========== */}
         <Route path="/login" element={
@@ -449,6 +472,9 @@ function App() {
           </PublicOnlyRoute>
         } />
         <Route path="/signup" element={<Navigate to="/register/step1" replace />} />
+
+        {/* ========== REFERRAL LANDING PAGE ========== */}
+        <Route path="/join" element={<ReferralLanding />} />
 
         {/* ========== FORGOT PASSWORD FLOW ========== */}
         <Route path="/forgot-password" element={
@@ -531,7 +557,17 @@ function App() {
         </Route>
         
         {/* Standalone routes without the main UserLayout */}
-
+        <Route path="/legal" element={<LegalPages />} />
+        <Route path="/terms-and-conditions" element={<Navigate to="/legal#terms" replace />} />
+        <Route path="/privacy-policy" element={<Navigate to="/legal#privacy" replace />} />
+        <Route path="/privacypolicy" element={<Navigate to="/legal#privacy" replace />} />
+        <Route path="/cookie-policy" element={<Navigate to="/legal#cookies" replace />} />
+        <Route path="/community-guidelines" element={<Navigate to="/legal#community" replace />} />
+        <Route path="/data-processing-agreement" element={<Navigate to="/legal#dpa" replace />} />
+        <Route path="/eula" element={<Navigate to="/legal#eula" replace />} />
+        <Route path="/reward-and-raffle-terms" element={<Navigate to="/legal#rewards" replace />} />
+        <Route path="/service-level-agreement" element={<Navigate to="/legal#sla" replace />} />
+        <Route path="/ai-use-policy" element={<Navigate to="/legal#ai" replace />} />
         {/* ========== ADMIN CREATE NEW ADMIN ========== */}
         <Route
           path="/admin/register"
@@ -975,6 +1011,14 @@ function App() {
             </AdminRoute>
           }
         />
+        <Route
+          path="/admin/ai-usage-analytics"
+          element={
+            <AdminRoute>
+              <AdminLayout><AIUsageAnalytics /></AdminLayout>
+            </AdminRoute>
+          }
+        />
 
         {/* ========== BADGE MANAGEMENT ROUTES (SUPER ADMIN) ========== */}
         <Route
@@ -1214,6 +1258,16 @@ function App() {
             <ProtectedRoute allowedRoles={["super_admin", "business_admin"]}>
               <BusinessProvider>
                 <BusinessFeedbackManagement type="all" />
+              </BusinessProvider>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/business/:businessId/ideas"
+          element={
+            <ProtectedRoute allowedRoles={["super_admin", "business_admin"]}>
+              <BusinessProvider>
+                <BusinessIdeasManagement />
               </BusinessProvider>
             </ProtectedRoute>
           }

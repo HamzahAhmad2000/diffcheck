@@ -324,3 +324,23 @@
         transform: translateX(0);
     }
 }
+
+/* Welcome Share Section */
+.welcome-share-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.welcome-share-button {
+    min-width: 250px;
+}
+
+.welcome-share-note {
+    font-size: 13px;
+    color: var(--color-text-muted);
+    margin: 0;
+    font-style: italic;
+}

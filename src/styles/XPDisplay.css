@@ -1,0 +1,47 @@
+/* XPDisplay Component Styles - Season Pass XP Display */
+
+.xp-display-season-pass {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.xp-display-season-pass--boosted {
+    flex-wrap: wrap;
+}
+
+.xp-display-season-pass-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.xp-display-season-pass-inline--boosted {
+    flex-wrap: nowrap;
+}
+
+/* Ensure XP displays work well in card-info contexts */
+.card-info .xp-display-season-pass,
+.card-info .xp-display-season-pass-inline,
+.dashboard-item__details .xp-display-season-pass,
+.dashboard-item__details .xp-display-season-pass-inline {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Maintain existing xp-highlight styling */
+.xp-highlight.xp-display-season-pass,
+.xp-highlight.xp-display-season-pass-inline {
+    color: inherit;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .xp-display-season-pass--boosted,
+    .xp-display-season-pass-inline--boosted {
+        font-size: 0.9em;
+    }
+}
+

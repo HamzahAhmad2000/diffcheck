@@ -23,6 +23,17 @@ const VerifyEmailPage = () => {
       toast.error('Session expired or invalid. Please start from Step 1.');
       navigate('/register/step1');
     }
+
+    // Check for referrer information and log it for debugging
+    const referralCode = localStorage.getItem('referral_code');
+    const referrerInfo = localStorage.getItem('referrer_info');
+
+    if (referralCode) {
+      console.log('Referral code found in VerifyEmailPage:', referralCode);
+    }
+    if (referrerInfo) {
+      console.log('Referrer info found in VerifyEmailPage:', JSON.parse(referrerInfo));
+    }
   }, [email, tempAuthToken, navigate]);
 
   const handleSubmit = async (e) => {
@@ -43,9 +54,6 @@ const VerifyEmailPage = () => {
         email,
         pin: otp
       });
-
-      // Mark email as verified in localStorage for security
-      localStorage.setItem('reg_email_verified', 'true');
 
       toast.success('Email verified successfully! Redirecting to Step 2...');
       // 4) Navigate to Step 2 after a brief delay so user sees the success message

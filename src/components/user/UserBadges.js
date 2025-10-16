@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { userProfileAPI, baseURL } from '../../services/apiClient';
+import { userProfileAPI, baseURL, shareAPI } from '../../services/apiClient';
 import { toast } from 'react-hot-toast';
+import ShareButton from './share/ShareButton';
 import './UserBadges.css';
 import '../../styles/userStyles.css';
 
@@ -11,9 +12,11 @@ const UserBadges = () => {
   const [badgeData, setBadgeData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('earned'); // 'earned' or 'upcoming'
+  const [sharedBadges, setSharedBadges] = useState(new Set());
 
   useEffect(() => {
     fetchBadgeOverview();
+    checkSharedBadges();
     const onResize = () => setIsMobile(window.innerWidth < 769);
     window.addEventListener('resize', onResize);
     return () => window.removeEventListener('resize', onResize);
@@ -31,6 +34,38 @@ const UserBadges = () => {
       toast.error('Failed to load badge information');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const checkSharedBadges = async () => {
+    try {
+      const response = await shareAPI.getAvailableBadgeShares();
+      if (response.data?.available_badges) {
+        // Create a set of badge IDs that have already been shared
+        const sharedIds = new Set();
+        response.data.available_badges.forEach(badge => {
+          if (badge.already_shared) {
+            sharedIds.add(badge.badge_id);
+          }
+        });
+        setSharedBadges(sharedIds);
+      }
+    } catch (error) {
+      console.error('Error checking shared badges:', error);
+    }
+  };
+
+  const handleBadgeShareSuccess = (badgeId, shareData) => {
+    // Mark badge as shared
+    setSharedBadges(prev => new Set([...prev, badgeId]));
+    
+    // Update user's XP balance in localStorage
+    const userData = JSON.parse(localStorage.getItem('user') || '{}');
+    if (userData && shareData.xp_awarded) {
+      userData.xp_balance = (userData.xp_balance || 0) + shareData.xp_awarded;
+      localStorage.setItem('user', JSON.stringify(userData));
+      window.dispatchEvent(new CustomEvent('userUpdated'));
+      window.dispatchEvent(new CustomEvent('xpGained', { detail: { amount: shareData.xp_awarded } }));
     }
   };
 
@@ -251,37 +286,62 @@ const UserBadges = () => {
               <div className="earned-badges-section">
                 {earned_badges.length > 0 ? (
                   <div className="badges-grid">
-                    {earned_badges.map((item, index) => (
-                      <div key={item.badge.id} className="badge-card earned-badge">
-                        <div className="badge-image-container">
-                          <img 
-                            src={getFullImageUrl(item.badge.image_url)} 
-                            alt={item.badge.name}
-                            className="badge-image"
-                            onError={(e) => { 
-                              e.target.src = getFullImageUrl(null); // Use default badge image on error
-                            }}
-                          />
-                          <div className="earned-overlay">
-                            <i className="ri-check-line"></i>
+                    {earned_badges.map((item, index) => {
+                      const isLatestBadge = index === 0; // First badge is the latest
+                      const hasShared = sharedBadges.has(item.badge.id);
+                      
+                      return (
+                        <div key={item.badge.id} className={`badge-card earned-badge ${isLatestBadge ? 'latest-badge' : ''}`}>
+                          <div className="badge-image-container">
+                            <img 
+                              src={getFullImageUrl(item.badge.image_url)} 
+                              alt={item.badge.name}
+                              className="badge-image"
+                              onError={(e) => { 
+                                e.target.src = getFullImageUrl(null); // Use default badge image on error
+                              }}
+                            />
+                            <div className="earned-overlay">
+                              <i className="ri-check-line"></i>
+                            </div>
+                            {isLatestBadge && !hasShared && (
+                              <div className="latest-badge-indicator">
+                                <span>Latest</span>
+                              </div>
+                            )}
+                          </div>
+                          <div className="badge-info">
+                            <h3 className="badge-name">{item.badge.name}</h3>
+                            <p className="badge-description">{item.badge.description}</p>
+                            <div className="badge-meta">
+                              <div className="badge-xp">
+                                <i className="ri-flashlight-line"></i>
+                                {item.badge.xp_threshold} XP Required
+                              </div>
+                              <div className="earned-date">
+                                <i className="ri-calendar-check-line"></i>
+                                Earned {formatDate(item.earned_at)}
+                              </div>
+                            </div>
+                            {isLatestBadge && (
+                              <div className="badge-share-section">
+                                <ShareButton
+                                  shareType="badge_share"
+                                  entityId={item.badge.id}
+                                  entityName={item.badge.name}
+                                  variant="primary"
+                                  size="small"
+                                  xpReward={50}
+                                  hasShared={hasShared}
+                                  onShareSuccess={(shareData) => handleBadgeShareSuccess(item.badge.id, shareData)}
+                                  className="badge-share-button"
+                                />
+                              </div>
+                            )}
                           </div>
                         </div>
-                        <div className="badge-info">
-                          <h3 className="badge-name">{item.badge.name}</h3>
-                          <p className="badge-description">{item.badge.description}</p>
-                          <div className="badge-meta">
-                            <div className="badge-xp">
-                              <i className="ri-flashlight-line"></i>
-                              {item.badge.xp_threshold} XP Required
-                            </div>
-                            <div className="earned-date">
-                              <i className="ri-calendar-check-line"></i>
-                              Earned {formatDate(item.earned_at)}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 ) : (
                   <div className="empty-state">

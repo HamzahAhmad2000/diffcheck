@@ -150,9 +150,11 @@ const DailyRewards = () => {
   if (loading) {
     return (
       <div className="main-content12">
-        <div className="user-loading-indicator">
-          <div className="user-loading-spinner"></div>
-          <p>Loading your daily rewards...</p>
+        <div className="page-inner-container">
+          <div className="user-loading-indicator">
+            <div className="user-loading-spinner"></div>
+            <p>Loading your daily rewards...</p>
+          </div>
         </div>
       </div>
     );
@@ -161,43 +163,45 @@ const DailyRewards = () => {
   if (!calendarState) {
     return (
       <div className="main-content12">
-        <div className="daily-rewards-container">
-          <div className="daily-rewards-header">
-            <div className="header-content">
-              <div className="header-left">
-                <h1 className="page-title">
-                  <i className="ri-calendar-check-line"></i>
-                  Daily Rewards
-                </h1>
-                <p className="page-subtitle">
-                  Daily login calendar system
-                </p>
+        <div className="page-inner-container">
+          <div className="daily-rewards-container">
+            <div className="daily-rewards-header">
+              <div className="header-content">
+                <div className="header-left">
+                  <h1 className="page-title">
+                    <i className="ri-calendar-check-line"></i>
+                    Daily Rewards
+                  </h1>
+                  <p className="page-subtitle">
+                    Daily login calendar system
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-          
-          <div className="error-state-container">
-            <div className="error-icon">
-              <i className="ri-error-warning-line"></i>
-            </div>
-            <h3>Daily Rewards Not Available</h3>
-            <p>The daily rewards system is not currently configured or available.</p>
-            
-            <div className="error-actions">
-              <button onClick={fetchCalendarState} className="button button--primary">
-                <i className="ri-refresh-line"></i>
-                Try Again
-              </button>
-            </div>
-            
-            <div className="setup-info">
-              <h4>For Administrators:</h4>
-              <p>To enable the daily rewards system, please:</p>
-              <ol>
-                <li>Ensure the backend daily reward routes are registered</li>
-                <li>Run the database setup script for daily rewards</li>
-                <li>Create initial week configurations</li>
-              </ol>
+
+            <div className="error-state-container">
+              <div className="error-icon">
+                <i className="ri-error-warning-line"></i>
+              </div>
+              <h3>Daily Rewards Not Available</h3>
+              <p>The daily rewards system is not currently configured or available.</p>
+
+              <div className="error-actions">
+                <button onClick={fetchCalendarState} className="button button--primary">
+                  <i className="ri-refresh-line"></i>
+                  Try Again
+                </button>
+              </div>
+
+              <div className="setup-info">
+                <h4>For Administrators:</h4>
+                <p>To enable the daily rewards system, please:</p>
+                <ol>
+                  <li>Ensure the backend daily reward routes are registered</li>
+                  <li>Run the database setup script for daily rewards</li>
+                  <li>Create initial week configurations</li>
+                </ol>
+              </div>
             </div>
           </div>
         </div>
@@ -210,7 +214,8 @@ const DailyRewards = () => {
 
   return (
     <div className="main-content12">
-      <div className="daily-rewards-container">
+      <div className="page-inner-container">
+        <div className="daily-rewards-container">
         
         {/* Header Section with Streak Info */}
         <div className="daily-rewards-header">
@@ -407,7 +412,7 @@ const DailyRewards = () => {
         <div className="modal-overlay" onClick={() => setShowRewardModal(false)}>
           <div className="reward-modal" onClick={(e) => e.stopPropagation()}>
             <div className="modal-header">
-              <h3>🎉 Reward Claimed!</h3>
+              <h3><i className="ri-gift-line"></i>Reward Claimed!</h3>
               <button 
                 className="modal-close"
                 onClick={() => setShowRewardModal(false)}
@@ -513,6 +518,7 @@ const DailyRewards = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };

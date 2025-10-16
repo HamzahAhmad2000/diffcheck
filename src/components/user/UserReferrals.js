@@ -157,7 +157,7 @@ const UserReferrals = () => {
             <div className="referral-overview">
               {/* Stats Cards */}
               <div className="referral-stats-grid">
-                <div className="stat-card">
+                <div className="referral-stat-card">
                   <div className="stat-icon">
                     <i className="ri-user-add-line"></i>
                   </div>
@@ -166,8 +166,8 @@ const UserReferrals = () => {
                     <p>Total Referrals</p>
                   </div>
                 </div>
-                
-                <div className="stat-card">
+
+                <div className="referral-stat-card">
                   <div className="stat-icon">
                     <i className="ri-copper-coin-line"></i>
                   </div>
@@ -176,8 +176,8 @@ const UserReferrals = () => {
                     <p>XP Earned</p>
                   </div>
                 </div>
-                
-                <div className="stat-card">
+
+                <div className="referral-stat-card">
                   <div className="stat-icon">
                     <i className="ri-calendar-line"></i>
                   </div>
@@ -186,8 +186,8 @@ const UserReferrals = () => {
                     <p>This Month</p>
                   </div>
                 </div>
-                
-                <div className="stat-card">
+
+                <div className="referral-stat-card">
                   <div className="stat-icon">
                     <i className="ri-bar-chart-line"></i>
                   </div>

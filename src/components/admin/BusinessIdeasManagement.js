@@ -581,8 +581,8 @@ const IdeaManagementModal = ({ idea, type, onClose, onStatusUpdate, isLoading })
                                         <p><strong>Likes:</strong> {idea.likes_count || 0} | <strong>Comments:</strong> {idea.comments_count || 0}</p>
                                     </div>
 
-                            {!isMilestoneManager && (
-                                <>
+                                    {!isMilestoneManager && (
+                                        <>
                                             <div className="mb-3">
                                                 <label className="form-label">New Status</label>
                                                 <select
@@ -608,7 +608,6 @@ const IdeaManagementModal = ({ idea, type, onClose, onStatusUpdate, isLoading })
                                                 ></textarea>
                                             </div>
 
-                            {/* Always show support period control for admins */}
                             <div className="mb-3">
                                 <label className="form-label">Support Period (Days)</label>
                                 <input

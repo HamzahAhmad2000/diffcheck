@@ -1,0 +1,139 @@
+/* ReCaptcha Component Styles - Matching Auth.css design */
+.recaptcha-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  padding: 12px;
+  border-radius: 12px;
+  background: transparent;
+  width: 100%;
+}
+
+.recaptcha-container .g-recaptcha {
+  transform-origin: center;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.recaptcha-container .g-recaptcha:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Error state styling - Matching Auth.css error styles */
+.recaptcha-error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid #dc3545;
+  border-radius: 12px;
+  color: #dc3545;
+  font-size: 14px;
+  text-align: center;
+  margin: 16px 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.recaptcha-error p {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 768px) {
+  .recaptcha-container {
+    margin: 12px 0;
+    padding: 4px;
+  }
+  
+  .recaptcha-container .g-recaptcha {
+    transform: scale(0.9);
+    transform-origin: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .recaptcha-container .g-recaptcha {
+    transform: scale(0.8);
+  }
+}
+
+/* Dark theme support */
+.recaptcha-container.dark-theme {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+/* Compact size adjustments */
+.recaptcha-container .g-recaptcha[data-size="compact"] {
+  transform: scale(1);
+}
+
+/* Loading state */
+.recaptcha-container.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Focus styles for accessibility */
+.recaptcha-container .g-recaptcha:focus-within {
+  outline: 2px solid #4285f4;
+  outline-offset: 2px;
+}
+
+/* Integration with existing form styles - Matching Auth.css */
+.form-group .recaptcha-container {
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: #eaeaea;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Error state for form integration - Matching Auth.css error styles */
+.form-group.captcha-error .recaptcha-container {
+  border: 2px solid #dc3545;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: rgba(220, 53, 69, 0.05);
+  transition: all 0.3s ease;
+}
+
+.form-group.captcha-error .recaptcha-container .g-recaptcha {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.2);
+}
+
+/* Success state - Matching Auth.css success styles */
+.form-group.captcha-success .recaptcha-container {
+  border: 2px solid #28a745;
+  border-radius: 12px;
+  padding: 16px;
+  background-color: rgba(40, 167, 69, 0.05);
+  transition: all 0.3s ease;
+}
+
+.form-group.captcha-success .recaptcha-container .g-recaptcha {
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.2);
+}
+
+/* Dark theme integration */
+.auth-container .recaptcha-container {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.auth-container .recaptcha-container:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}

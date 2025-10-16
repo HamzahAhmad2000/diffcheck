@@ -499,4 +499,40 @@
   .filter-btn { padding: 0.6rem 1.1rem; font-size: calc(0.9rem - 3px); }
   .bulk-action-btn { padding: 0.4rem 0.8rem; font-size: calc(0.8rem - 3px); }
   .action-btn { width: 28px; height: 28px; font-size: 0.8rem; }
+}
+
+/* Notification Share Section */
+.notification-share-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.notification-share-button {
+  min-width: 160px;
+}
+
+/* Raffle Win Notification Styling */
+.notification-item.raffle-win {
+  border-left: 4px solid #10b981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(52, 211, 153, 0.05) 100%);
+}
+
+.notification-item.raffle-win:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(52, 211, 153, 0.1) 100%);
+}
+
+/* Responsive adjustments for notification share */
+@media (max-width: 768px) {
+  .notification-share-section {
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
+  }
+  
+  .notification-share-button {
+    width: 100%;
+    min-width: auto;
+  }
 } 

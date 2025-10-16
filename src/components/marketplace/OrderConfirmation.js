@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import apiClient from '../../services/apiClient';
+import apiClient, { shareAPI } from '../../services/apiClient';
 import { toast } from 'react-hot-toast';
+import ShareButton from '../user/share/ShareButton';
 import '../marketplace/MarketplacePage.css';
 import './DeliveryForm.css';
 import '../../styles/userStyles.css';
@@ -12,10 +13,12 @@ const OrderConfirmation = () => {
     const [loading, setLoading] = useState(true);
     const [purchaseDetails, setPurchaseDetails] = useState(null);
     const [autoRedirectCountdown, setAutoRedirectCountdown] = useState(10);
+    const [hasShared, setHasShared] = useState(false);
 
     useEffect(() => {
         if (purchaseId) {
             fetchPurchaseDetails();
+            checkShareStatus();
         }
     }, [purchaseId]);
 
@@ -41,6 +44,30 @@ const OrderConfirmation = () => {
             navigate('/marketplace');
         } finally {
             setLoading(false);
+        }
+    };
+
+    const checkShareStatus = async () => {
+        try {
+            const response = await shareAPI.checkShareStatus('reward_redemption', purchaseId);
+            if (response.data?.already_shared) {
+                setHasShared(true);
+            }
+        } catch (error) {
+            console.error('Error checking share status:', error);
+        }
+    };
+
+    const handleShareSuccess = (shareData) => {
+        setHasShared(true);
+        
+        // Update user's XP balance in localStorage
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        if (userData && shareData.xp_awarded) {
+            userData.xp_balance = (userData.xp_balance || 0) + shareData.xp_awarded;
+            localStorage.setItem('user', JSON.stringify(userData));
+            window.dispatchEvent(new CustomEvent('userUpdated'));
+            window.dispatchEvent(new CustomEvent('xpGained', { detail: { amount: shareData.xp_awarded } }));
         }
     };
 
@@ -249,6 +276,29 @@ const OrderConfirmation = () => {
                                         <h4>Delivery</h4>
                                         <p>Your item will be delivered to the address you provided.</p>
                                     </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Share Your Redemption */}
+                        <section className="form-section order-share-section">
+                            <h3 className="section-title">Share Your Redemption! 🎉</h3>
+                            <div className="share-redemption-content">
+                                <p className="share-description">
+                                    Share your awesome redemption on X and earn <strong>50 XP</strong>! Let your friends know about the amazing rewards on Eclipseer.
+                                </p>
+                                <div className="share-button-container">
+                                    <ShareButton
+                                        shareType="reward_redemption"
+                                        entityId={purchaseDetails.id}
+                                        entityName={purchaseDetails.item_title}
+                                        variant="success"
+                                        size="large"
+                                        xpReward={50}
+                                        hasShared={hasShared}
+                                        onShareSuccess={handleShareSuccess}
+                                        className="order-share-button"
+                                    />
                                 </div>
                             </div>
                         </section>

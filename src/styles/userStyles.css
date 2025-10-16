@@ -2501,8 +2501,14 @@
   box-shadow: none;
 }
 
-.button i.spinning {
+.button i.spinning,
+i.spinning {
   animation: userSpin 1s linear infinite;
+}
+
+@keyframes userSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* === INFO SECTION STYLES === */

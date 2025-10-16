@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { publicBusinessAPI, baseURL, userProfileAPI, marketplaceAPI, surveyAPI, questAPI, seasonPassAPI } from '../../services/apiClient';
+import { publicBusinessAPI, baseURL, userProfileAPI, marketplaceAPI, surveyAPI, questAPI, seasonPassAPI, authAPI, SeasonPassTierManager, shareAPI } from '../../services/apiClient';
 import { toast } from 'react-hot-toast';
 import QuestModal from '../quests/QuestModal';
 import ScreenshotQuestInterface from '../quests/ScreenshotQuestInterface';
 import WelcomePopup from './WelcomePopup';
+import XPDisplay from '../common/XPDisplay';
+import ShareButton from './share/ShareButton';
 import '../../styles/userStyles.css';
 import '../../styles/UserHomepage.css';
 import '../../styles/SeasonPass.css';
@@ -38,7 +40,7 @@ const BusinessCard = ({ business, onNavigate }) => {
 
             <div className="dashboard-item__info">
                 <h4>{business.name}</h4>
-                <span className="xp-highlight">✨ {stats.totalEarnableXP.toLocaleString()} XP Available</span>
+                <XPDisplay baseXP={stats.totalEarnableXP} className="xp-highlight" />
             </div>
 
             <button 
@@ -300,6 +302,10 @@ const UserHomepage = () => {
     
     // Welcome popup state
     const [showWelcomePopup, setShowWelcomePopup] = useState(false);
+    
+    // Join share prompt state
+    const [showJoinSharePrompt, setShowJoinSharePrompt] = useState(false);
+    const [hasSharedJoin, setHasSharedJoin] = useState(false);
 
     // Determine if this is dashboard or brands page
     const isDashboard = location.pathname === '/user/home';
@@ -314,30 +320,63 @@ const UserHomepage = () => {
 
     // Force reload dashboard data every time the component mounts or path changes
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem('user'));
-        setUser(userData);
-        
         console.log('[USERHOMEPAGE] useEffect triggered, path:', location.pathname);
         console.log('[USERHOMEPAGE] isDashboard:', isDashboard, 'isBrands:', isBrands);
         
-        // Check if user should see welcome popup (only for dashboard and logged in users)
-        if (isDashboard && userData && !userData.has_seen_welcome_popup) {
-            console.log('[USERHOMEPAGE] User has not seen welcome popup, showing it');
-            setShowWelcomePopup(true);
-        }
-        
-        if (isDashboard) {
-            console.log('[USERHOMEPAGE] Loading dashboard data...');
-            fetchDashboardData();
-            fetchSeasonPassData(); // Always fetch season pass for dashboard
-            // Fetch user quest completions for dashboard
-            if (userData?.id) {
-                fetchUserCompletions(userData.id);
+        // Fetch fresh user data from backend to get accurate has_seen_welcome_popup status
+        const fetchUserData = async () => {
+            try {
+                const response = await authAPI.getCurrentUserDetails();
+                const freshUserData = response.data.user;
+                localStorage.setItem('user', JSON.stringify(freshUserData));
+                setUser(freshUserData);
+                
+                console.log('[USERHOMEPAGE] Fresh user data loaded, has_seen_welcome_popup:', freshUserData.has_seen_welcome_popup);
+                
+                // Check if user should see welcome popup (only for dashboard and logged in users)
+                if (isDashboard && freshUserData && !freshUserData.has_seen_welcome_popup) {
+                    console.log('[USERHOMEPAGE] User has not seen welcome popup, showing it');
+                    setShowWelcomePopup(true);
+                }
+                
+                // Load dashboard/brands data after user data is loaded
+                if (isDashboard) {
+                    console.log('[USERHOMEPAGE] Loading dashboard data...');
+                    fetchDashboardData();
+                    fetchSeasonPassData();
+                    if (freshUserData?.id) {
+                        fetchUserCompletions(freshUserData.id);
+                        checkJoinShareEligibility(freshUserData);
+                    }
+                } else if (isBrands) {
+                    console.log('[USERHOMEPAGE] Loading brands data...');
+                    fetchBusinesses();
+                }
+            } catch (error) {
+                console.error('[USERHOMEPAGE] Error fetching user data:', error);
+                // Fallback to localStorage
+                const localUserData = JSON.parse(localStorage.getItem('user'));
+                setUser(localUserData);
+                
+                if (isDashboard && localUserData && !localUserData.has_seen_welcome_popup) {
+                    setShowWelcomePopup(true);
+                }
+                
+                // Load dashboard/brands data even if user fetch fails
+                if (isDashboard) {
+                    fetchDashboardData();
+                    fetchSeasonPassData();
+                    if (localUserData?.id) {
+                        fetchUserCompletions(localUserData.id);
+                        checkJoinShareEligibility(localUserData);
+                    }
+                } else if (isBrands) {
+                    fetchBusinesses();
+                }
             }
-        } else if (isBrands) {
-            console.log('[USERHOMEPAGE] Loading brands data...');
-            fetchBusinesses();
-        }
+        };
+        
+        fetchUserData();
     }, [location.pathname, isDashboard, isBrands]); // Include computed values as dependencies for reliability
 
     // Cleanup effect to ensure fresh data on every visit
@@ -479,11 +518,19 @@ const UserHomepage = () => {
                 console.log('[SEASON_PASS] Fetching authenticated user state...');
                 const response = await seasonPassAPI.getState();
                 console.log('[SEASON_PASS] Authenticated response:', response);
+                
+                // Update SeasonPassTierManager with the response
+                SeasonPassTierManager.updateFromAPIResponse(response);
+                
                 setSeasonPassData(response.data?.data || null);
             } else {
                 console.log('[SEASON_PASS] Fetching public preview...');
                 const response = await seasonPassAPI.getPreview();
                 console.log('[SEASON_PASS] Public preview response:', response);
+                
+                // Clear tier data for non-authenticated users
+                SeasonPassTierManager.clearTier();
+                
                 setSeasonPassData(response.data?.data || null);
             }
         } catch (err) {
@@ -632,14 +679,63 @@ const UserHomepage = () => {
         return userCompletedSurveys.includes(surveyId);
     };
 
-    const handleCloseWelcomePopup = () => {
-        setShowWelcomePopup(false);
-        // Update user data in localStorage to reflect that they've seen the popup
-        const userData = JSON.parse(localStorage.getItem('user'));
-        if (userData) {
-            userData.has_seen_welcome_popup = true;
+    const checkJoinShareEligibility = async (userData) => {
+        try {
+            // Check if user joined within last 72 hours and hasn't shared yet
+            const joinDate = new Date(userData.created_at);
+            const now = new Date();
+            const hoursSinceJoin = (now - joinDate) / (1000 * 60 * 60);
+            
+            if (hoursSinceJoin <= 72) {
+                // Check if user has already shared
+                const response = await shareAPI.checkShareStatus('join_share');
+                if (!response.data.already_shared) {
+                    setShowJoinSharePrompt(true);
+                }
+            }
+        } catch (error) {
+            console.error('[USERHOMEPAGE] Error checking join share eligibility:', error);
+        }
+    };
+
+    const handleJoinShareSuccess = (shareData) => {
+        setHasSharedJoin(true);
+        setShowJoinSharePrompt(false);
+        
+        // Update user's XP balance in localStorage
+        const userData = JSON.parse(localStorage.getItem('user') || '{}');
+        if (userData && shareData.xp_awarded) {
+            userData.xp_balance = (userData.xp_balance || 0) + shareData.xp_awarded;
             localStorage.setItem('user', JSON.stringify(userData));
-            setUser(userData);
+            window.dispatchEvent(new CustomEvent('userUpdated'));
+            window.dispatchEvent(new CustomEvent('xpGained', { detail: { amount: shareData.xp_awarded } }));
+        }
+    };
+
+    const handleCloseWelcomePopup = async () => {
+        setShowWelcomePopup(false);
+        
+        try {
+            // Call backend API to mark popup as seen
+            await userProfileAPI.markWelcomePopupSeen();
+            console.log('[USERHOMEPAGE] Successfully marked welcome popup as seen on backend');
+            
+            // Fetch fresh user data from backend to ensure consistency
+            const response = await authAPI.getCurrentUserDetails();
+            const freshUserData = response.data.user;
+            localStorage.setItem('user', JSON.stringify(freshUserData));
+            setUser(freshUserData);
+            
+            console.log('[USERHOMEPAGE] User data refreshed, has_seen_welcome_popup:', freshUserData.has_seen_welcome_popup);
+        } catch (error) {
+            console.error('[USERHOMEPAGE] Error marking welcome popup as seen:', error);
+            // Still update localStorage even if API call fails
+            const userData = JSON.parse(localStorage.getItem('user'));
+            if (userData) {
+                userData.has_seen_welcome_popup = true;
+                localStorage.setItem('user', JSON.stringify(userData));
+                setUser(userData);
+            }
         }
     };
 
@@ -680,6 +776,35 @@ const UserHomepage = () => {
                             </div>
                         ) : (
                             <div className="dashboard-content">
+                                {/* Join Share Prompt Banner - Above Season Pass */}
+                                {showJoinSharePrompt && !hasSharedJoin && (
+                                    <div className="join-share-prompt">
+                                        <button 
+                                            className="join-share-prompt__close"
+                                            onClick={() => setShowJoinSharePrompt(false)}
+                                            aria-label="Close"
+                                        >
+                                            <i className="ri-close-line"></i>
+                                        </button>
+                                        <div className="join-share-prompt__content">
+                                            <div className="join-share-prompt__icon">🎉</div>
+                                            <div className="join-share-prompt__text">
+                                                <h3>Welcome to Eclipseer!</h3>
+                                                <p>Share your journey on X and earn <strong>500 XP</strong> instantly!</p>
+                                            </div>
+                                            <ShareButton
+                                                shareType="join_share"
+                                                variant="success"
+                                                size="medium"
+                                                xpReward={500}
+                                                hasShared={hasSharedJoin}
+                                                onShareSuccess={handleJoinShareSuccess}
+                                                className="join-share-prompt__button"
+                                            />
+                                        </div>
+                                    </div>
+                                )}
+                                
                                 {/* Season Pass - First thing visible */}
                                 <SeasonPassSection 
                                     seasonPassData={seasonPassData}
@@ -720,9 +845,7 @@ const UserHomepage = () => {
                                             </div>
                                             <div className="dashboard-item__info">
                                                 <h4>{business.name}</h4>
-                                                <span className="xp-highlight">✨ {totalEarnableXP.toLocaleString()} XP Available</span>
-
-                                                
+                                                <XPDisplay baseXP={totalEarnableXP} className="xp-highlight" />
                                             </div>
 
                                             <button 
@@ -757,7 +880,7 @@ const UserHomepage = () => {
                                                     <h4>{survey.title}</h4>
                                                     <div className="dashboard-item__details">
                                                         <span><i className="ri-time-line"></i> {estimatedTimeMinutes} min</span>
-                                                        <span className="xp-highlight">✨ {xpReward} XP</span>
+                                                        <XPDisplay baseXP={xpReward} className="xp-highlight" />
                                                     </div>
                                                 </div>
                                                 <button 
@@ -809,7 +932,7 @@ const UserHomepage = () => {
                                             <div className="dashboard-item__info">
                                                 <h4>{quest.title}</h4>
                                                 <div className="dashboard-item__details">
-                                                    <span className="xp-highlight">✨ {quest.xp_reward || quest.reward} XP</span>
+                                                    <XPDisplay baseXP={quest.xp_reward || quest.reward} className="xp-highlight" />
                                                 </div>
                                                 {quest.progress !== undefined && (
                                                     <div className="dashboard-item__progress">
@@ -870,7 +993,7 @@ const UserHomepage = () => {
                                                         <div className="dashboard-item__info">
                                                             <h4 style={{ marginTop: '-5px', marginBottom: '-15px' }}>{item.title}</h4>
                                                             <div className="dashboard-item__details" >
-                                                                <span className="xp-highlight" style={{ marginTop: '-35px' }}>✨ {item.xp_cost} XP</span>
+                                                                <span className="xp-highlight" style={{ marginTop: '-35px' }}>💎 {item.xp_cost} XP</span>
                                                             </div>
                                                         </div>
                                                         <button className="dashboard-item__cta" onClick={() => navigate(`/user/marketplace`)} style={{ marginTop: '-15px' }}>

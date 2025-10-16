@@ -1022,7 +1022,7 @@
     font-size: 16px;
 }
 
-.points-balance i.ri-cpu-line {
+.points-balance i {
     font-size: 24px;
     color: #ffd700;
 }
@@ -1679,4 +1679,39 @@
     border-top: 1px solid #aa2eff;
     border-left: 1px solid #aa2eff;
     z-index: 10001;
+}
+
+/* ===== LEGAL FOOTER STYLES ===== */
+.dashboard-legal-footer {
+    margin-top: 40px;
+    padding: 24px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.dashboard-legal-footer h3 {
+    margin: 0 0 16px 0;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.legal-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 8px;
+}
+
+.legal-links-grid a {
+    color: #aa2eff;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+}
+
+.legal-links-grid a:hover {
+    color: #c28bff;
+    text-decoration: underline;
 } 

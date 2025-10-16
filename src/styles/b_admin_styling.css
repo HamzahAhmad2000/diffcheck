@@ -1597,3 +1597,68 @@
   font-size: 14px;
   margin: -8px 0 16px 0;
 }
+
+/* ============================= */
+/* Business Admin Footer         */
+/* ============================= */
+.b_admin_styling-footer {
+  background: var(--b-admin-surface);
+  border-top: 1px solid var(--b-admin-border);
+  padding: 32px 0;
+  margin-top: 220px; /* Adjusted margin to prevent overlap with Discord integration */
+}
+
+.b_admin_styling-footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--b-admin-page-gutter);
+}
+
+.b_admin_styling-footer-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Exactly 3 items per line */
+  gap: 16px;
+  justify-items: start;
+}
+
+.b_admin_styling-footer-link {
+  color: var(--b-admin-primary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+.b_admin_styling-footer-link:hover {
+  color: var(--b-admin-primary-dark);
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .b_admin_styling-footer {
+    margin-top: 140px; /* Adjusted margin on mobile to prevent overlap */
+    padding: 24px 0;
+  }
+
+  .b_admin_styling-footer-content {
+    padding: 0 var(--b-admin-page-gutter);
+  }
+
+  .b_admin_styling-footer-links {
+    grid-template-columns: repeat(2, 1fr); /* 2 items per line on mobile */
+    gap: 12px;
+  }
+
+  .b_admin_styling-footer-link {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .b_admin_styling-footer-links {
+    grid-template-columns: 1fr; /* Single column on very small screens */
+    gap: 8px;
+  }
+}

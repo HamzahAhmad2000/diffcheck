@@ -35,18 +35,23 @@ const SignupStep2Profile = ({ initialData = {}, onPrev = () => {console.warn("on
   useEffect(() => {
     const token = localStorage.getItem('reg_temp_auth_token');
     const email = localStorage.getItem('reg_user_email');
-    const emailVerified = localStorage.getItem('reg_email_verified');
-    
     if (!token) {
       toast.error('Email verification incomplete. Please start from Step 1.');
       navigate('/register/step1');
-    } else if (emailVerified !== 'true') {
-      // Security check: redirect to OTP verification if email not verified
-      toast.error('Please verify your email before completing your profile.');
-      navigate('/verify-email');
     } else {
       setLocalTempAuthToken(token);
       setUserEmailForDisplay(email || 'Email not found');
+    }
+
+    // Check for referrer information and log it for debugging
+    const referralCode = localStorage.getItem('referral_code');
+    const referrerInfo = localStorage.getItem('referrer_info');
+
+    if (referralCode) {
+      console.log('Referral code found in SignupStep2_Profile:', referralCode);
+    }
+    if (referrerInfo) {
+      console.log('Referrer info found in SignupStep2_Profile:', JSON.parse(referrerInfo));
     }
   }, [navigate]);
 
@@ -125,7 +130,8 @@ const SignupStep2Profile = ({ initialData = {}, onPrev = () => {console.warn("on
         localStorage.removeItem('reg_temp_auth_token');
         localStorage.removeItem('reg_user_email');
         localStorage.removeItem('reg_tags');
-        localStorage.removeItem('reg_email_verified');
+        localStorage.removeItem('referral_code');
+        localStorage.removeItem('referrer_info');
 
         navigate('/user/home'); // Navigate to the main dashboard
       } catch (error) {

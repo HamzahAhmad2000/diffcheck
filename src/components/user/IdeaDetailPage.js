@@ -136,7 +136,15 @@ const IdeaDetailPage = () => {
 
         setIsSubmittingComment(true);
         try {
-            await ideaAPI.addComment(ideaId, { body: newComment.trim() });
+            // Get user info from localStorage to ensure proper attribution
+            const userData = JSON.parse(localStorage.getItem('user') || '{}');
+            const commentData = { 
+                body: newComment.trim(),
+                // Include user info as fallback in case backend doesn't extract it properly
+                user_name: userData.name || userData.username || userData.email || 'Anonymous'
+            };
+            
+            await ideaAPI.addComment(ideaId, commentData);
             setNewComment('');
             setShowCommentForm(false);
             // Refresh comments
@@ -217,7 +225,7 @@ const IdeaDetailPage = () => {
         <div className={`brand-detail-page ${themeClass}`}>
             {/* Back Button - Consistent styling */}
             <button 
-                className="page-header__back-button--primary"
+                className="page-header__back-button page-header__back-button--primary"
                 onClick={() => navigate(`/user/brand/${idea.business_id}`)}
                 title="Back to Ideas Hub"
                 style={{ 

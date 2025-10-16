@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { seasonPassAPI } from '../../services/apiClient';
+import { seasonPassAPI, SeasonPassTierManager } from '../../services/apiClient';
 import '../../styles/userStyles.css';
 import '../../styles/UserHomepage.css';
+import PaymentScreen from '../payments/PaymentScreen';
 
 const SeasonPassActivation = () => {
     const navigate = useNavigate();
@@ -12,6 +13,8 @@ const SeasonPassActivation = () => {
     const [selectedTier, setSelectedTier] = useState('LUNAR');
     const [paymentMethod, setPaymentMethod] = useState('STRIPE');
     const [purchasing, setPurchasing] = useState(false);
+    const [showPaymentModal, setShowPaymentModal] = useState(false);
+    const [stripePaymentData, setStripePaymentData] = useState(null);
     const [isUpgrade, setIsUpgrade] = useState(false);
     const [currentPass, setCurrentPass] = useState(null);
 
@@ -26,19 +29,19 @@ const SeasonPassActivation = () => {
             let response;
             try {
                 response = await seasonPassAPI.getState();
-                
+
                 // Check if user already has a season pass
                 const userData = response.data?.data;
                 if (userData?.user_pass) {
                     if (userData.user_pass.tier_type === 'TOTALITY') {
-                        toast.info('You already have the highest tier Season Pass!');
+                        toast.success('You already have the highest tier Season Pass!');
                         setTimeout(() => {
                             navigate('/user/season-pass/rewards');
                         }, 2000);
                         return;
                     } else if (userData.user_pass.tier_type === 'LUNAR') {
                         // User has Lunar pass, allow upgrade to Totality
-                        toast.info('You have a Lunar Pass. You can upgrade to Totality!');
+                        toast.success('You have a Lunar Pass. You can upgrade to Totality!');
                         setSelectedTier('TOTALITY'); // Pre-select Totality for upgrade
                         setIsUpgrade(true);
                         setCurrentPass(userData.user_pass);
@@ -50,12 +53,54 @@ const SeasonPassActivation = () => {
                     toast.error('Please log in to activate a Season Pass');
                     navigate('/auth/login');
                     return;
+                } else if (error.response?.status === 404 && error.response?.data?.error === 'No active season found') {
+                    // No active season, but check if user has existing pass for upgrade
+                    try {
+                        // Try to get user profile to check for existing pass
+                        const profileResponse = await fetch('/api/profile', {
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+                            }
+                        });
+                        const profileData = await profileResponse.json();
+
+                        if (profileData?.data?.season_pass) {
+                            const existingPass = profileData.data.season_pass;
+                            if (existingPass.tier_type === 'TOTALITY') {
+                                toast.success('You already have the highest tier Season Pass!');
+                                setTimeout(() => {
+                                    navigate('/user/season-pass/rewards');
+                                }, 2000);
+                                return;
+                            } else if (existingPass.tier_type === 'LUNAR') {
+                                // Allow upgrade even without active season
+                                toast.success('You have a Lunar Pass. You can upgrade to Totality!');
+                                setSelectedTier('TOTALITY');
+                                setIsUpgrade(true);
+                                setCurrentPass(existingPass);
+                                // Create minimal season data for upgrade
+                                setSeasonData({
+                                    season_info: {
+                                        lunar_pass_price: 9.99,
+                                        totality_pass_price: 19.99
+                                    }
+                                });
+                                return;
+                            }
+                        }
+                    } catch (profileError) {
+                        console.error('Error checking user profile:', profileError);
+                    }
+                    throw error;
                 } else {
                     throw error;
                 }
             }
             
             setSeasonData(response.data?.data || null);
+
+            // Update localStorage with user's tier information
+            SeasonPassTierManager.updateFromAPIResponse(response);
         } catch (error) {
             console.error('Error fetching season data:', error);
             toast.error('Failed to load Season Pass information');
@@ -64,35 +109,104 @@ const SeasonPassActivation = () => {
         }
     };
 
-    const handlePurchase = async () => {
+    const openStripePayment = async () => {
         try {
             setPurchasing(true);
-            
-            let purchaseResponse;
-            
-            if (paymentMethod === 'STRIPE') {
-                // Create Stripe payment intent
-                const paymentIntentResponse = await seasonPassAPI.createStripeIntent(selectedTier);
-                const { client_secret, payment_intent_id } = paymentIntentResponse.data?.data || {};
-                
-                if (!client_secret) {
-                    throw new Error('Failed to create payment intent');
+
+            const paymentIntentResponse = await seasonPassAPI.createStripeIntent(selectedTier);
+            const intentData = paymentIntentResponse.data?.data;
+
+            if (!intentData?.client_secret || !intentData?.payment_intent_id) {
+                throw new Error('Failed to initialize Stripe payment');
+            }
+
+            setStripePaymentData({
+                amount: intentData.amount,
+                currency: intentData.currency,
+                paymentIntentId: intentData.payment_intent_id,
+                clientSecret: intentData.client_secret,
+                season: intentData.season
+            });
+            setShowPaymentModal(true);
+        } catch (error) {
+            console.error('Stripe payment initialization error:', error);
+            const errorMessage = error.response?.data?.error || error.message || 'Failed to start Stripe payment';
+            toast.error(errorMessage);
+        } finally {
+            setPurchasing(false);
+        }
+    };
+
+    const handleStripeSuccess = async () => {
+        try {
+            if (!stripePaymentData?.paymentIntentId) {
+                throw new Error('Missing payment intent');
+            }
+
+            const purchaseResponse = await seasonPassAPI.confirmStripePayment(stripePaymentData.paymentIntentId);
+
+            if (purchaseResponse?.data?.success) {
+                // Update tier in localStorage
+                const userPass = purchaseResponse.data?.data?.user_pass;
+                if (userPass) {
+                    SeasonPassTierManager.setTier(userPass.tier_type);
+                    console.log(`[SeasonPassActivation] Updated tier to ${userPass.tier_type} after purchase`);
                 }
 
-                // For demo purposes, we'll directly confirm the payment
-                // In production, this would integrate with Stripe Elements
-                purchaseResponse = await seasonPassAPI.confirmStripePayment(payment_intent_id);
-                
-            } else if (paymentMethod === 'CRYPTO') {
-                // Create crypto payment session
-                const cryptoResponse = await seasonPassAPI.createCryptoSession(selectedTier);
-                
+                window.dispatchEvent(new CustomEvent('userUpdated'));
+                toast.success(`🎉 ${selectedTier} Season Pass activated successfully!`);
+                toast.success(`You now have a ${selectedTier === 'LUNAR' ? '1.25x' : '2x'} XP multiplier!`);
+
+                setTimeout(() => {
+                    navigate('/user/season-pass/rewards');
+                }, 1500);
+            }
+        } catch (error) {
+            console.error('Stripe purchase confirmation error:', error);
+            const errorMessage = error.response?.data?.error || error.message || 'Failed to confirm Stripe payment';
+            toast.error(errorMessage);
+        } finally {
+            setShowPaymentModal(false);
+            setStripePaymentData(null);
+        }
+    };
+
+    const handleStripeCancel = () => {
+        setShowPaymentModal(false);
+        setStripePaymentData(null);
+    };
+
+    const handlePurchase = async () => {
+        try {
+            if (paymentMethod === 'STRIPE') {
+                await openStripePayment();
+                return;
+            }
+
+            setPurchasing(true);
+            let purchaseResponse;
+            
+            if (paymentMethod === 'CRYPTO') {
+                // Get the price for the selected tier
+                const priceUsd = selectedTier === 'LUNAR' ? lunarPrice / 100 : totalityPrice / 100;
+
+                // Create Coinbase Commerce charge
+                const cryptoResponse = await seasonPassAPI.createCryptoSession(selectedTier, priceUsd);
+
                 if (cryptoResponse.data?.success) {
-                    // For demo purposes, we'll use direct purchase
-                    // In production, this would redirect to crypto payment gateway
-                    purchaseResponse = await seasonPassAPI.purchaseDirect(selectedTier, 'CRYPTO', 'demo_crypto_txn');
+                    const { hosted_url, charge_id } = cryptoResponse.data;
+
+                    // Store charge ID for potential polling/fallback verification
+                    localStorage.setItem('pending_crypto_charge', charge_id);
+
+                    // Redirect to Coinbase hosted payment page
+                    toast.success('Redirecting to Coinbase payment...');
+                    window.location.href = hosted_url;
+
+                    // Don't set purchaseResponse - the redirect will handle the payment
+                    return;
                 } else {
-                    throw new Error('Failed to create crypto payment session');
+                    throw new Error(cryptoResponse.data?.error || 'Failed to create crypto payment session');
                 }
             } else {
                 // Direct purchase for testing
@@ -100,17 +214,14 @@ const SeasonPassActivation = () => {
             }
             
             if (purchaseResponse?.data?.success) {
-                // Update user data in localStorage to reflect the new season pass
                 const userData = JSON.parse(localStorage.getItem('user') || '{}');
                 if (userData) {
-                    // Trigger user data refresh
                     window.dispatchEvent(new CustomEvent('userUpdated'));
                 }
-                
+
                 toast.success(`🎉 ${selectedTier} Season Pass activated successfully!`);
                 toast.success(`You now have a ${selectedTier === 'LUNAR' ? '1.25x' : '2x'} XP multiplier!`);
-                
-                // Navigate to rewards page to show the activated pass
+
                 setTimeout(() => {
                     navigate('/user/season-pass/rewards');
                 }, 2000);
@@ -211,13 +322,6 @@ const SeasonPassActivation = () => {
             <main className="main-content12 full-height">
                 <div className="page-inner-container">
                     <div className="activation-header">
-                        <button 
-                            className="back-button"
-                            onClick={() => navigate(-1)}
-                        >
-                            <i className="ri-arrow-left-line"></i>
-                            Back
-                        </button>
                         <div className="header-content">
                             <h1 className="page-title">
                                 <i className="ri-vip-crown-line" style={{ color: 'var(--color-primary)' }}></i>
@@ -1175,6 +1279,23 @@ const SeasonPassActivation = () => {
                     }
                 }
             `}</style>
+            {showPaymentModal && stripePaymentData && (
+                <PaymentScreen
+                    productType="season_pass"
+                    productName={`${selectedTier === 'LUNAR' ? 'Lunar' : 'Totality'} Season Pass`}
+                    amount={stripePaymentData.amount}
+                    currency={(stripePaymentData.currency || 'usd').toUpperCase()}
+                    metadata={{
+                        tier_type: selectedTier,
+                        payment_intent_id: stripePaymentData.paymentIntentId
+                    }}
+                    tierType={selectedTier}
+                    clientSecret={stripePaymentData.clientSecret}
+                    paymentIntentId={stripePaymentData.paymentIntentId}
+                    onSuccess={handleStripeSuccess}
+                    onCancel={handleStripeCancel}
+                />
+            )}
         </div>
     );
 };

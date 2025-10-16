@@ -694,8 +694,12 @@ const UserProfileOverview = ({ onClose, onNavigateOverlay }) => {
                   <button 
                     className="daily-rewards-btn"
                     onClick={() => {
-                      if (typeof onClose === 'function') onClose();
-                      navigate('/user/daily-rewards');
+                      if (window.innerWidth >= 769 && typeof onNavigateOverlay === 'function') {
+                        onNavigateOverlay('daily-rewards');
+                      } else {
+                        if (typeof onClose === 'function') onClose();
+                        navigate('/user/daily-rewards');
+                      }
                     }}
                     title="View your daily login calendar and claim rewards!"
                   >

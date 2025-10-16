@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI } from '../../services/apiClient';
+import ReCaptcha from '../common/ReCaptcha';
 import '../../styles/Auth.css';
 import '../../styles/account.css';
 
@@ -13,6 +14,8 @@ const SignupStep1Credentials = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [stepCompleted, setStepCompleted] = useState(false);
+  const [captchaValue, setCaptchaValue] = useState(null);
+  const captchaRef = useRef(null);
 
   useEffect(() => {
     const existingToken = localStorage.getItem('reg_temp_auth_token');
@@ -20,6 +23,19 @@ const SignupStep1Credentials = () => {
       navigate('/register/step2');
     }
   }, [navigate]);
+
+  // Check for referrer information and log it for debugging
+  useEffect(() => {
+    const referralCode = localStorage.getItem('referral_code');
+    const referrerInfo = localStorage.getItem('referrer_info');
+
+    if (referralCode) {
+      console.log('Referral code found in SignupStep1:', referralCode);
+    }
+    if (referrerInfo) {
+      console.log('Referrer info found in SignupStep1:', JSON.parse(referrerInfo));
+    }
+  }, []);
 
   const validate = () => {
     const newErrors = {};
@@ -41,6 +57,10 @@ const SignupStep1Credentials = () => {
     if (!termsAccepted) {
       newErrors.terms = 'You must accept the terms and conditions.';
     }
+    // CAPTCHA temporarily disabled - keeping code structure for future use
+    // if (!captchaValue) {
+    //   newErrors.captcha = 'Please complete the CAPTCHA verification.';
+    // }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -51,17 +71,26 @@ const SignupStep1Credentials = () => {
     if (validate()) {
       setIsSubmitting(true);
       try {
+        // Get referral code from localStorage if it exists
+        const referralCode = localStorage.getItem('referral_code');
+
         // This should call the backend endpoint that creates the user stub and sends the OTP.
         // We assume the backend returns a temporary token for the registration session.
         const response = await authAPI.initiateRegistrationStep1({
           email,
           password,
+          referral_code: referralCode,
           confirmPassword,
+          // CAPTCHA temporarily disabled - keeping code structure for future use
+          // captchaToken: captchaValue,
         });
 
         // Store email and temp token to be used in the next step (OTP verification)
         localStorage.setItem('reg_user_email', email);
         localStorage.setItem('reg_temp_auth_token', response.data.tempAuthToken);
+
+        // Clear referral code from localStorage after successful registration initiation
+        localStorage.removeItem('referral_code');
 
         // Registration successful, proceed to next step
         setStepCompleted(true);
@@ -73,10 +102,36 @@ const SignupStep1Credentials = () => {
           'Registration failed. Please try again.';
         // Removed toast error notification
         setErrors((prev) => ({ ...prev, server: errorMessage }));
+        // Reset CAPTCHA on error - temporarily disabled but keeping code structure
+        // if (captchaRef.current) {
+        //   captchaRef.current.reset();
+        //   setCaptchaValue(null);
+        // }
       } finally {
         setIsSubmitting(false);
       }
     }
+  };
+
+  // Handle CAPTCHA change - temporarily disabled but keeping code structure
+  const handleCaptchaChange = (value) => {
+    setCaptchaValue(value);
+    // Clear CAPTCHA error when user completes it
+    // if (value && errors.captcha) {
+    //   setErrors((prev) => ({ ...prev, captcha: null }));
+    // }
+  };
+
+  // Handle CAPTCHA expiration - temporarily disabled but keeping code structure
+  const handleCaptchaExpired = () => {
+    setCaptchaValue(null);
+    // setErrors((prev) => ({ ...prev, captcha: 'CAPTCHA has expired. Please complete it again.' }));
+  };
+
+  // Handle CAPTCHA error - temporarily disabled but keeping code structure
+  const handleCaptchaError = () => {
+    setCaptchaValue(null);
+    // setErrors((prev) => ({ ...prev, captcha: 'CAPTCHA error occurred. Please try again.' }));
   };
 
   return (
@@ -140,22 +195,71 @@ const SignupStep1Credentials = () => {
           <label htmlFor="termsAccepted" className="terms-label">
             I confirm I am 16 years of age or older and agree to the{' '}
             <a
-              href="/terms"
+              href="/legal#terms"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Terms
-            </a>{' '}and{' '}
+              Terms & Conditions
+            </a>
+            ,{' '}
             <a
-              href="/privacy"
+              href="/legal#privacy"
               target="_blank"
               rel="noopener noreferrer"
             >
               Privacy Policy
             </a>
+            ,{' '}
+            <a
+              href="/legal#cookies"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Cookie Policy
+            </a>
+            ,{' '}
+            <a
+              href="/legal#community"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Community Guidelines
+            </a>
+            ,{' '}
+            <a
+              href="/legal#eula"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              End User License Agreement (EULA)
+            </a>
+            , and{' '}
+            <a
+              href="/legal#rewards"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Reward Terms
+            </a>
           </label>
           {errors.terms && <p className="error-text">{errors.terms}</p>}
         </div>
+
+        {/* CAPTCHA temporarily disabled - keeping code structure for future use */}
+        {/*
+        <div className={`form-group ${errors.captcha ? 'captcha-error' : captchaValue ? 'captcha-success' : ''}`}>
+          <label htmlFor="captcha">Security Verification *</label>
+          <ReCaptcha
+            ref={captchaRef}
+            onChange={handleCaptchaChange}
+            onExpired={handleCaptchaExpired}
+            onError={handleCaptchaError}
+            theme="light"
+            size="normal"
+          />
+          {errors.captcha && <p className="error-text">{errors.captcha}</p>}
+        </div>
+        */}
 
         {errors.server && <p className="error-text">{errors.server}</p>}
 

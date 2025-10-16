@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { publicBusinessAPI, itemAPI, baseURL, discordAPI, questAPI, ideaAPI, uploadAPI } from '../../services/apiClient';
 import { toast } from 'react-hot-toast';
+import XPDisplay from '../common/XPDisplay';
 import './BrandDetailPage.css';
 import './CoCreatePage.css';
 import ScreenshotQuestInterface from '../quests/ScreenshotQuestInterface';
@@ -446,7 +447,9 @@ const SurveyCard = ({ survey, discordStatus }) => {
             <h3>{survey.title}</h3>
             <div className="survey-meta">
                 <span>⏱️ {estimatedTime} min</span>
-                <span style={{ fontWeight: 'bold', fontSize: '1.1em', color: '#ffc107' }}>✨ {xpReward} XP</span>
+                <span style={{ fontWeight: 'bold', fontSize: '1.1em' }}>
+                    <XPDisplay baseXP={xpReward} />
+                </span>
                 {requiresDiscord && (
                     <span style={{ display: 'flex', alignItems: 'center', gap: '4px', color: hasDiscordAccess ? '#5865F2' : '#999' }}>
                         <i className="ri-discord-line"></i> Discord
@@ -538,7 +541,11 @@ const QuestCard = ({ quest, isCompleted, isPending, onQuestComplete, onStartScre
             )}
             <h4>{quest.title}</h4>
             {quest.description && !quest.image_url && (<p style={{ fontSize: '0.85em', margin: '8px 0' }}>{quest.description}</p>)}
-            <div className="quest-reward"><span style={{ fontWeight: 'bold', fontSize: '1.2em', color: '#ffc107' }}>✨ {quest.xp_reward} XP</span></div>
+            <div className="quest-reward">
+                <span style={{ fontWeight: 'bold', fontSize: '1.2em' }}>
+                    <XPDisplay baseXP={quest.xp_reward} />
+                </span>
+            </div>
             <button className="quest-btn" onClick={getButtonAction()} disabled={questState === 'completed' || questState === 'pending'} style={{ backgroundColor: questState === 'completed' ? '#6c757d' : (questState === 'claimable' ? '#28a745' : (questState === 'pending' ? '#6c757d' : '')) }}>
                 {getButtonText()}
             </button>

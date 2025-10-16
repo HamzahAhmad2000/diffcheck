@@ -6,10 +6,12 @@ import SurveySettingsModal from './SurveySettingsModal';
 import QuestionEditorModal from './QuestionEditorModal';
 import AdvancedBranchEditor from './AdvancedBranchEditor';
 import QuestionBank from './QuestionBank';
+import AIUsageNotice from '../common/AIUsageNotice';
 import aiService from '../../services/aiService';
-import { aiAPI, surveyAPI } from '../../services/apiClient';
+import { aiAPI, surveyAPI, authAPI } from '../../services/apiClient';
 import toast from 'react-hot-toast';
 import '../../styles/CreateSurvey.css';
+import '../../styles/LegalComponents.css';
 
 const DESCRIPTION_WORD_LIMIT = 100;
 
@@ -91,6 +93,8 @@ const SurveyGenerator = () => {
   const [saveError, setSaveError] = useState(null);
   const [continuationChat, setContinuationChat] = useState([]);
   const [continuationInput, setContinuationInput] = useState('');
+  const [showAIPolicyModal, setShowAIPolicyModal] = useState(false);
+  const [hasSeenAIPolicy, setHasSeenAIPolicy] = useState(false);
   const [isChatLoading, setIsChatLoading] = useState(false);
   const [showQuestionBank, setShowQuestionBank] = useState(false);
   const [showQuestionTypeMenu, setShowQuestionTypeMenu] = useState(false);
@@ -149,6 +153,30 @@ const SurveyGenerator = () => {
       setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: 'smooth' }), 100);
     }
   }, [continuationChat]);
+
+  // Check AI policy acceptance on component mount
+  useEffect(() => {
+    const checkAIPolicyStatus = async () => {
+      try {
+        const response = await authAPI.getLegalStatus();
+        if (response.data) {
+          setHasSeenAIPolicy(response.data.has_seen_ai_policy);
+          if (!response.data.has_seen_ai_policy) {
+            setShowAIPolicyModal(true);
+          }
+        }
+      } catch (error) {
+        console.error('Error checking AI policy status:', error);
+      }
+    };
+
+    checkAIPolicyStatus();
+  }, []);
+
+  const handleAIPolicyAccepted = () => {
+    setShowAIPolicyModal(false);
+    setHasSeenAIPolicy(true);
+  };
 
   // Question type menu options
   const questionTypes = [
@@ -574,6 +602,11 @@ const SurveyGenerator = () => {
             <span>This survey was generated with AI. You can edit any question by clicking on it.</span>
           </div>
 
+          <AIUsageNotice
+            showModal={showAIPolicyModal}
+            onModalAccepted={handleAIPolicyAccepted}
+          />
+
           <div className="input-container">
             <label className="input-label">Survey Title (Visible to Participants)</label>
             <input
@@ -818,6 +851,13 @@ const SurveyGenerator = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* AI Policy Footer */}
+      <div className="survey-generator-footer">
+        <a href="/legal#ai" target="_blank" rel="noopener noreferrer" className="ai-policy-footer-link">
+          AI Use Policy
+        </a>
       </div>
     </div>
   );

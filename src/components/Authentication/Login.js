@@ -7,7 +7,7 @@ import eclipseerlogo from './eclipseer-logo.png';
 import '../static/css/account.css';
 import accountBg from '../static/assets/account_bg.png';
 import googleimage from '../static/assets/google_icon.png';
-import { authAPI } from 'services/apiClient';
+import { authAPI, seasonPassAPI, SeasonPassTierManager } from 'services/apiClient';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -107,6 +107,11 @@ const Login = () => {
 
       console.log('MFA Login successful:', data);
 
+      // Fetch Season Pass data for regular users
+      if (data.role !== 'super_admin' && data.role !== 'admin' && data.role !== 'business_admin') {
+        await fetchSeasonPassData();
+      }
+
       // --- Navigate based on role (Super admins ALWAYS go to admin dashboard) ---
       if (data.role === 'super_admin' || data.role === 'admin') {
         console.log('[LOGIN_DEBUG] Super admin detected - always navigating to admin dashboard');
@@ -159,6 +164,23 @@ const Login = () => {
     setMfaCode('');
     setUserEmail('');
     setError('');
+  };
+
+  // Helper function to fetch and store Season Pass data after login
+  const fetchSeasonPassData = async () => {
+    try {
+      console.log('[LOGIN_DEBUG] Fetching Season Pass data...');
+      const response = await seasonPassAPI.getState();
+      
+      // Update SeasonPassTierManager with the response
+      SeasonPassTierManager.updateFromAPIResponse(response);
+      
+      console.log('[LOGIN_DEBUG] Season Pass data loaded successfully');
+    } catch (error) {
+      console.error('[LOGIN_DEBUG] Error fetching Season Pass data:', error);
+      // Don't block login if Season Pass fetch fails
+      SeasonPassTierManager.clearTier();
+    }
   };
 
   const handleGoogleLogin = () => {
@@ -264,6 +286,11 @@ const Login = () => {
       console.log('[LOGIN_DEBUG] Stored role:', localStorage.getItem('userRole'));
 
       console.log('Login successful:', data);
+
+      // Fetch Season Pass data for regular users
+      if (data.role !== 'super_admin' && data.role !== 'admin' && data.role !== 'business_admin') {
+        await fetchSeasonPassData();
+      }
 
       // --- Navigate based on role (Super admins ALWAYS go to admin dashboard) ---
       console.log('[LOGIN_DEBUG] Determining navigation based on role:', data.role);
